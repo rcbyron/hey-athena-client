@@ -15,7 +15,7 @@ class GetIPTask(Task):
                 return True
         return False
     
-    def action(self):
+    def action(self, text):
         geo_ip_api.update()
         print('\n~ External IP:', geo_ip_api.get_ip(), '\n')
         

@@ -20,7 +20,7 @@ class AnswerTask(Task):
                 return True
         return False
     
-    def action(self):
+    def action(self, text):
         query = wolframalpha.Client(API_KEY).query(self.text)
         if len(query.pods) > 1:
             pod = query.pods[1]

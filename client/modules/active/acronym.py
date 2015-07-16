@@ -19,7 +19,7 @@ class AnswerTask(Task):
                 return True
         return False
     
-    def action(self):
+    def action(self, text):
         print('\n~ Top acronym results for '+self.acronym+': ')
         acronyms = json.loads(urllib.request.urlopen(self.URL+self.acronym).read().decode('utf-8'))
         if not any(acronyms):

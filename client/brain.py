@@ -8,7 +8,7 @@ if __name__ == '__main__':
     pass
 
 import client.modules.active as active_modules
-import pkgutil, re, sys, traceback
+import pkgutil, re
 
 def find_mods():
     """ Find modules """
@@ -52,7 +52,7 @@ def greet():
 def execute_tasks(mod):
     """ Executes a module's task queue """
     for task in mod.task_queue:
-        task.action()
+        task.action(text)
         if task.task_greedy:
             break
     return task.mod_greedy
@@ -82,10 +82,8 @@ while True:
 
     matched_mods = []
     for mod in modules:
-        try:
         """ Find matched tasks and add to module's task queue """
         mod.task_queue = []
-        print(mod.__name__)
         for task in mod.tasks:
             if task.match(text):
                 mod.task_queue.append(task)
@@ -95,9 +93,6 @@ while True:
         """ Add modules with matched tasks to list """
         if len(mod.task_queue):
             matched_mods.append(mod)
-        except Exception as e:
-            print('\n~ Error handling \''+mod.__name__+'\' '+str(e)+'\n')
-            print(traceback.tb_lineno(sys.exc_info()[2])
              
     if len(matched_mods) == 0:
         print('\n~ No modules matched.\n')

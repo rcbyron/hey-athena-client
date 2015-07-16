@@ -7,7 +7,7 @@ Created on Jun 1, 2015
 import urllib.request, json, datetime, re
 
 API_KEY = 'd647ca403a0ac94b'
-DAYS = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday',]
+DAYS = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
 URL_DATA_TYPES = {
     'conditions': '/conditions/q/',
     'forecast':   '/forecast/q/',
@@ -94,6 +94,7 @@ def get_day(offset):
 
 def today_num():
     """ Get the weekday number of today """
+    #load_forecast()
     return datetime.datetime.today().weekday()
 
 def replace_day_aliases(text):

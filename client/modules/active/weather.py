@@ -17,7 +17,8 @@ class CurrentDayTask(Task):
         text = weather_api.replace_day_aliases(text)
         
         """ Invalid if text contains a non-current day """
-        invalid_days = list(weather_api.DAYS).remove(weather_api.get_day(0))
+        invalid_days = list(weather_api.DAYS)
+        invalid_days.remove(weather_api.get_day(0))
         if any(day in text.lower() for day in invalid_days):
             return False
         
@@ -28,7 +29,7 @@ class CurrentDayTask(Task):
                 self.cases.append(i)
         return len(self.cases) > 0
     
-    def action(self):
+    def action(self, text):
         weather_api.load_conditions()
         """ Outputs the desired current weather conditions """
         print('\n~ Location:', weather_api.location(), '\n')
@@ -60,14 +61,13 @@ class ForecastTask(Task):
         """ See if it matches any weather input patterns """
         for p in self.patterns:
             if p.match(text):
-                self.find_periods(text)
                 return True
         return False
         
     def find_periods(self, text):
         """ Finds time periods to forecast
             Periods are half of a day in length """
-        self.matched_periods = []
+        matched_periods = []
         for day in weather_api.DAYS:
             if re.search('^.*\\b'+day+'\\b.*$', text, re.IGNORECASE):
                 day_num = weather_api.DAYS.index(day)
@@ -77,16 +77,17 @@ class ForecastTask(Task):
                 period = day_num*2
                 if re.search('^.*\\b'+day+'\\s+night\\b.*$', text, re.IGNORECASE):
                     period += 1
-                self.matched_periods.append(period)
+                matched_periods.append(period)
         """ If no matched periods, forecast today """
-        if len(self.matched_periods) <= 0:
-            self.matched_periods.append(0)
+        if len(matched_periods) <= 0:
+            matched_periods.append(0)
         self.matched_periods.sort()
     
-    def action(self):
+    def action(self, text):
         weather_api.load_forecast()
+        matched_periods = self.find_periods(text)
         print('')
-        for period in self.matched_periods.sort():
+        for period in matched_periods.sort():
             fc = weather_api.fc_day(period)
             if fc[1]:
                 print('~ '+fc[0]+': '+fc[1])
@@ -115,7 +116,7 @@ class UpdateLocationTask(Task):
                 return True
         return False
 
-    def action(self):
+    def action(self, text):
         """ Try to update location """
         if not weather_api.update_loc(self.zip_iata_city, self.state_country):
             print('\n~ Location not found using:')

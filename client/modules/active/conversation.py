@@ -4,10 +4,21 @@ Created on Jun 1, 2015
 @author: Connor
 '''
 from client.task import Task
-import random, urllib.request, json, html
+import re, random
 
 MOD_PRIORITY = 1
+
+""" Place the most specific regex keys first """
 RESPONSES = {
+    r'.*(\b)+joke(s)?(\b)+.*':
+        ['I don\'t like country music, but I don\'t mean to denigrate those who do. And for the people who like country music, denigrate means \'put down\'.',
+         'I want to die peacefully in my sleep, like my grandfather... Not screaming and yelling like the passengers in his car.',
+         'War does not determine who is right - only who is left.',
+         'I bought the world\'s worst thesaurus yesterday. Not only is it terrible, it\'s terrible.',
+         'I have an EpiPen. My friend gave it to me when he was dying, it seemed very important to him that I have it.',
+         'A termite walks into the bar and asks, "Is the bar tender here?"',
+         '"I\'m sorry" and "I apologize" mean the same thing... except when you\'re at a funeral.'],
+             
     r'.*(\b)+(hey|hi|hello|(w(h)?(a|o|u)t(\'s)?(\s)+up(\?)?|s+up))(\b)+.*':
         ['Hey there! I\'m just computing numbers and such. You?',
          'Oh hey, I\'m just hanging out right now.'],
@@ -15,33 +26,20 @@ RESPONSES = {
     r'.*(\b)+yo+(\b)+':
         ['Sup holmes.',
          'Ayyyyy hombre.',
-         'How\'s it goin\' ese???']
+         'How\'s it goin\' ese???'],
 }
 
 class ConversationTask(Task):
     def match(self, text):
         for p, responses in RESPONSES.items():
-            if p.match(text):
+            if re.search(p, text, re.IGNORECASE):
                 self.response = random.choice(responses)
                 return True
         return False
     
-    def action(self):
+    def action(self, text):
         print('\n~ '+self.response+'\n')
-        
-class JokeTask(Task):
-    URL = 'http://api.icndb.com/jokes/random'
-    
-    def match(self, text):
-        for p in self.patterns:
-            if p.match(text):
-                return True
-        return False
-    
-    def action(self):
-        joke_json = json.loads(urllib.request.urlopen(self.URL).read().decode('utf-8'))
-        print('\n~ '+html.unescape(joke_json['value']['joke'])+'\n')
 
 def init():
     global tasks
-    tasks = [ConversationTask(priority=1), JokeTask([r'.*(\b)+joke(s)?(\b)+.*'])]
+    tasks = [ConversationTask()]

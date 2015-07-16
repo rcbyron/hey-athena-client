@@ -28,6 +28,6 @@ class Task(object):
         return
     
     @abc.abstractmethod
-    def action(self):
-        """Check if the task input criteria is met."""
+    def action(self, text):
+        """Execute the task action."""
         return
