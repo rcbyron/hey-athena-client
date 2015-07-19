@@ -8,7 +8,7 @@ import urllib.request, json
 
 MOD_PRIORITY = 1
 
-class AnswerTask(Task):
+class AcronymTask(Task):
     URL = 'http://www.nactem.ac.uk/software/acromine/dictionary.py?sf='
     
     def match(self, text):
@@ -31,4 +31,4 @@ class AnswerTask(Task):
         
 def init():
     global tasks
-    tasks = [AnswerTask([r'.*(?:\b)+(\w+)\s(acronym\s)?(stand(s)?\sfor|mean|abbr(eviation)?)(?:\b)+.*'])]
+    tasks = [AcronymTask([r'.*(?:\b)+(\w+)\s(acronym\s)?(stand(s)?\sfor|mean|abbr(eviation)?)(?:\b)+.*'])]

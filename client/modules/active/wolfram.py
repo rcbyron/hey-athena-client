@@ -16,12 +16,11 @@ class AnswerTask(Task):
     def match(self, text):
         for p in self.patterns:
             if p.match(text):
-                self.text = text
                 return True
         return False
     
     def action(self, text):
-        query = wolframalpha.Client(API_KEY).query(self.text)
+        query = wolframalpha.Client(API_KEY).query(text)
         if len(query.pods) > 1:
             pod = query.pods[1]
             if pod.text:

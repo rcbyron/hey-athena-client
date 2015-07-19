@@ -2,9 +2,13 @@
 Created on Jun 1, 2015
 
 @author: Connor
+
+API Documentation:
+http://www.wunderground.com/weather/api/d/docs
+
 '''
 
-import urllib.request, json, datetime, re
+import urllib.request, json, time, re
 
 API_KEY = 'd647ca403a0ac94b'
 DAYS = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
@@ -13,21 +17,32 @@ URL_DATA_TYPES = {
     'forecast':   '/forecast/q/',
     'geolookup':  '/geolookup/q/'
 }
-        
+
+# Number of seconds to wait before a call will update the data
+UPDATE_CONDITIONS_INT = 120
+UPDATE_FORECAST_INT   = 120
+
+c_update_time  = -UPDATE_CONDITIONS_INT
+fc_update_time = -UPDATE_FORECAST_INT
+
 def get_json_data(data_type):
     """ Returns the desired JSON weather data """
     url = 'http://api.wunderground.com/api/'+API_KEY+URL_DATA_TYPES[data_type]+loc_extension
     return json.loads(urllib.request.urlopen(url).read().decode('utf-8'))
 
 def load_conditions():
-    """ Load current weather conditions in c_data """
-    global c_data
-    c_data = get_json_data('conditions')['current_observation']
+    global c_data, c_update_time
+    if time.time() - c_update_time > UPDATE_CONDITIONS_INT:
+        """ Load current weather conditions in c_data """
+        c_data = get_json_data('conditions')['current_observation']
+        c_update_time = time.time()
 
 def load_forecast():
-    """ Load 3-day forecast in fc_list """
-    global fc_list 
-    fc_list = get_json_data('forecast')['forecast']['txt_forecast']['forecastday']
+    global fc_list, fc_update_time
+    if time.time() - fc_update_time > UPDATE_FORECAST_INT:
+        """ Load 3-day forecast in fc_list """
+        fc_list = get_json_data('forecast')['forecast']['txt_forecast']['forecastday']
+        fc_update_time = time.time()
     
 def update_loc(new_zip_iata_city, new_state_country=''):
     """ Updates the location, if valid
@@ -42,15 +57,25 @@ def update_loc(new_zip_iata_city, new_state_country=''):
     location = urllib.request.urlopen(url).read().decode('utf-8')
     
     if 'location' in json.loads(location):
-        global loc_extension, zip_iata_city, state_country
+        global loc_extension, zip_iata_city, state_country, c_update_time, fc_update_time
         loc_extension = test_ext
         zip_iata_city = new_zip_iata_city
         state_country = new_state_country
+        
+        """ Force weather data to update """
+        c_update_time  = -UPDATE_CONDITIONS_INT
+        fc_update_time = -UPDATE_FORECAST_INT
+            
         return True
+    
     return False
 
 def location():
-    return c_data['display_location']['full']
+    if state_country:
+        return zip_iata_city.replace('_', ' ').title()+', '+state_country.replace('_', ' ').upper()
+    if len(zip_iata_city) is 3:
+        return zip_iata_city.upper()
+    return zip_iata_city.replace('_', ' ').title()
 
 def temperature():
     return c_data['temperature_string']
@@ -94,8 +119,8 @@ def get_day(offset):
 
 def today_num():
     """ Get the weekday number of today """
-    #load_forecast()
-    return datetime.datetime.today().weekday()
+    load_forecast()
+    return DAYS.index(fc_day(0)[0].lower().replace(' night', ''))
 
 def replace_day_aliases(text):
     """ Replaces day aliases with usable day names """

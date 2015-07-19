@@ -19,11 +19,11 @@ RESPONSES = {
          'A termite walks into the bar and asks, "Is the bar tender here?"',
          '"I\'m sorry" and "I apologize" mean the same thing... except when you\'re at a funeral.'],
              
-    r'.*(\b)+(hey|hi|hello|(w(h)?(a|o|u)t(\'s)?(\s)+up(\?)?|s+up))(\b)+.*':
+    r'.*(\b)+(hey|hi|hello|(w(h)?(a|o|u)t(\'s)?(\s)+up(\?)?|s+u+p+))(\b)+.*':
         ['Hey there! I\'m just computing numbers and such. You?',
          'Oh hey, I\'m just hanging out right now.'],
     
-    r'.*(\b)+yo+(\b)+':
+    r'.*(\b)+y+o+(\b)+':
         ['Sup holmes.',
          'Ayyyyy hombre.',
          'How\'s it goin\' ese???'],

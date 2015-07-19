@@ -8,7 +8,7 @@ if __name__ == '__main__':
     pass
 
 import client.modules.active as active_modules
-import pkgutil, re
+import pkgutil, re, traceback
 
 def find_mods():
     """ Find modules """
@@ -78,26 +78,29 @@ list_mods()
 greet()
 
 while True:
-    text = input('> ')
-
-    matched_mods = []
-    for mod in modules:
-        """ Find matched tasks and add to module's task queue """
-        mod.task_queue = []
-        for task in mod.tasks:
-            if task.match(text):
-                mod.task_queue.append(task)
-                if task.task_greedy:
-                    break
-                
-        """ Add modules with matched tasks to list """
-        if len(mod.task_queue):
-            matched_mods.append(mod)
-             
-    if len(matched_mods) == 0:
-        print('\n~ No modules matched.\n')
-    elif len(matched_mods) == 1:
-        """ Execute module's queued tasks """
-        execute_tasks(matched_mods[0])
-    elif len(matched_mods) > 1:
-        mod_select(matched_mods)
+    try:
+        text = input('> ')
+    
+        matched_mods = []
+        for mod in modules:
+            """ Find matched tasks and add to module's task queue """
+            mod.task_queue = []
+            for task in mod.tasks:
+                if task.match(text):
+                    mod.task_queue.append(task)
+                    if task.task_greedy:
+                        break
+                    
+            """ Add modules with matched tasks to list """
+            if len(mod.task_queue):
+                matched_mods.append(mod)
+                 
+        if len(matched_mods) == 0:
+            print('\n~ No modules matched.\n')
+        elif len(matched_mods) == 1:
+            """ Execute module's queued tasks """
+            execute_tasks(matched_mods[0])
+        elif len(matched_mods) > 1:
+            mod_select(matched_mods)
+    except:
+        print(traceback.format_exc())
