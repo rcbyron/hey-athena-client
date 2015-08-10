@@ -3,10 +3,11 @@ Created on Jun 5, 2015
 
 @author: Connor
 '''
-from client.task import Task
 from client.modules.api_library import geo_info_api
+from client.task import Task
 
-MOD_PRIORITY = 1
+
+MOD_PRIORITY = 2
 
 class GetIPInfoTask(Task):
     def match(self, text):

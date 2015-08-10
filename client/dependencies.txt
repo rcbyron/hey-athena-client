@@ -1,0 +1,10 @@
+### CORA Core Dependencies
+- Python 3
+
+### Module Dependencies
+
+## Active
+
+# Wolfram.py
+- wolframalpha
+

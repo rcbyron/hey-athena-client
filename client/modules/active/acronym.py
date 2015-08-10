@@ -6,7 +6,7 @@ Created on Jun 5, 2015
 from client.task import Task
 import urllib.request, json
 
-MOD_PRIORITY = 1
+MOD_PRIORITY = 2
 
 class AcronymTask(Task):
     URL = 'http://www.nactem.ac.uk/software/acromine/dictionary.py?sf='

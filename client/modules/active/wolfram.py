@@ -9,8 +9,14 @@ import wolframalpha
 API_KEY = '4QR84U-VY7T7AVA34'
 ERROR_MESSAGE = '\n~ Sorry, could you re-word the question?\n'
 
-MOD_PRIORITY = 0
+MOD_PRIORITY = 1
 tasks = []
+from gtts import gTTS
+import tempfile, os
+
+import pyglet
+pyglet.lib.load_library('avbin')
+pyglet.have_avbin=True
 
 class AnswerTask(Task):
     def match(self, text):
@@ -27,10 +33,31 @@ class AnswerTask(Task):
                 texts = pod.text
             else:
                 texts = ERROR_MESSAGE
+            tts = gTTS(text=texts.replace('|',''), lang='en')
+            
+            tmpfile = ''
+            with tempfile.NamedTemporaryFile(mode='w', suffix='.mp3', delete=False) as f:
+                tmpfile = f.name
+                tts.save(tmpfile)
+                #pyglet.options['audio'] = ('openal', 'directsound', 'silent')
+            
+                def exit_callback(dt):
+                    f.close()
+                    pyglet.app.exit()
+                    f.close()
+            
+                music = pyglet.media.load(tmpfile)
+                music.play()
+                pyglet.clock.schedule_once(exit_callback, music.duration)
+                pyglet.app.run()
+
+                f.close()
+            os.remove(tmpfile)
+
             print('\n~ '+texts.replace('|','')+'\n')
         else:
             print(ERROR_MESSAGE)
         
 def init():
     global tasks
-    tasks = [AnswerTask([r'.*\b(who|what|when|where|why|how)\b.*\?'])]
+    tasks = [AnswerTask([r'.*\b(who|what|when|where|why|how)\b.*'])]

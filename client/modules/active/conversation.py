@@ -3,10 +3,12 @@ Created on Jun 1, 2015
 
 @author: Connor
 '''
-from client.task import Task
 import re, random
 
-MOD_PRIORITY = 1
+from client.task import Task
+
+
+MOD_PRIORITY = 2
 
 """ Place the most specific regex keys first """
 RESPONSES = {

@@ -77,9 +77,20 @@ init_mods()
 list_mods()
 greet()
 
+import client.stt as stt
+import winsound, time
+stt.init()
 while True:
     try:
         text = input('> ')
+#         print("~ Passive listening... ")
+#         stt.listen_keyword()
+        winsound.Beep(900, 150)
+        time.sleep(0.01)
+        winsound.Beep(900, 150)
+#         print("\n~ Active listening... ")
+#         text = stt.active_listen()
+#         print("\n~ \""+text+"\"")
     
         matched_mods = []
         for mod in modules:

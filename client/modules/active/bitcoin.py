@@ -6,7 +6,7 @@ Created on Jul 19, 2015
 from client.task import Task
 from client.modules.api_library import bitcoin_api
 
-MOD_PRIORITY = 1
+MOD_PRIORITY = 2
 
 class GetValueTask(Task):
     URL = 'http://www.nactem.ac.uk/software/acromine/dictionary.py?sf='
