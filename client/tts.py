@@ -30,6 +30,7 @@ def speak(phrase):
         tts.write_to_fp(f)
     
     #print(temp_path, " --- ", temp_name)
+    pyglet.resource.path.clear()
     pyglet.resource.path.append(temp_path)
     #pyglet.resource.reindex()
     #print(pyglet.resource.path)
