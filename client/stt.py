@@ -8,6 +8,7 @@ from os import path
 from sphinxbase.sphinxbase import Config, Config_swigregister #@UnusedImport
 from pocketsphinx.pocketsphinx import Decoder
 import pyaudio, speech_recognition
+from client.tts import speak
 
 MODEL_DIR = "C:\\Workspace\\py\\CORA\\model"
 
@@ -48,7 +49,6 @@ def listen_keyword():
     decoder.end_utt()
     
 def active_listen():
-    p = pyaudio.PyAudio()
     r = speech_recognition.Recognizer()
     
     with speech_recognition.Microphone() as src:    # use the default microphone as the audio source
@@ -58,4 +58,6 @@ def active_listen():
     try:
         return r.recognize(audio)                   # recognize speech using Google Speech Recognition
     except LookupError:                             # speech is unintelligible
-        print("Could not understand audio.")
+        msg = "Sorry, I could not understand that."
+        speak(msg)
+        return msg
