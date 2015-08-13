@@ -9,7 +9,7 @@ from sphinxbase.sphinxbase import Config, Config_swigregister #@UnusedImport
 from pocketsphinx.pocketsphinx import Decoder
 import pyaudio, speech_recognition
 
-MODEL_DIR = "C:\\Workspace\\c-cpp\\pocketsphinx\\model"
+MODEL_DIR = "C:\\Workspace\\py\\CORA\\model"
 
 # Must be in the sphinx dict file
 WAKE_UP_WORD = "icarus"
