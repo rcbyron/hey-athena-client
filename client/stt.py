@@ -7,13 +7,9 @@ from os import path
 
 from sphinxbase.sphinxbase import Config, Config_swigregister #@UnusedImport
 from pocketsphinx.pocketsphinx import Decoder
-import pyaudio
+import pyaudio, speech_recognition
 
-# NOTE: this requires PyAudio because it uses the Microphone class
-import speech_recognition as sr
-
-MODELDIR = "C:\\Workspace\\c-cpp\\pocketsphinx\\model"
-DATADIR = "C:\\Workspace\\c-cpp\\pocketsphinx\\test\\data"
+MODEL_DIR = "C:\\Workspace\\c-cpp\\pocketsphinx\\model"
 
 # Must be in the sphinx dict file
 WAKE_UP_WORD = "icarus"
@@ -21,13 +17,13 @@ WAKE_UP_WORD = "icarus"
 def init():
     # Create a decoder with certain model
     config = Decoder.default_config()
-    config.set_string('-logfn', 'null')
-    config.set_string('-hmm', path.join(MODELDIR, 'en-us/en-us'))
-    config.set_string('-lm', path.join(MODELDIR, 'en-us/en-us.lm.dmp'))
-    config.set_string('-dict', path.join(MODELDIR, 'en-us/cmudict-en-us.dict'))
+    config.set_string('-logfn', 'null.log')
+    config.set_string('-hmm', path.join(MODEL_DIR, 'en-us/en-us'))
+    config.set_string('-lm', path.join(MODEL_DIR, 'en-us/en-us.lm.dmp'))
+    config.set_string('-dict', path.join(MODEL_DIR, 'en-us/cmudict-en-us.dict'))
     
+    # Decode streaming data
     global decoder, p
-    # Decode streaming data.
     decoder = Decoder(config)
     decoder.set_keyphrase("wakeup", WAKE_UP_WORD)
     decoder.set_search("wakeup")
@@ -45,7 +41,6 @@ def listen_keyword():
         decoder.process_raw(buf, False, False)
         if decoder.hyp() != None and decoder.hyp().hypstr == WAKE_UP_WORD:
             decoder.end_utt()
-            #print(decoder.hyp().hypstr)
             return
         else:
             continue
@@ -53,11 +48,11 @@ def listen_keyword():
     
 def active_listen():
     p = pyaudio.PyAudio()
-    r = sr.Recognizer()
+    r = speech_recognition.Recognizer()
     
-    with sr.Microphone() as source:                 # use the default microphone as the audio source
-        r.adjust_for_ambient_noise(source)          # listen for 1 second to calibrate the energy threshold for ambient noise levels
-        audio = r.listen(source)                    # listen for the first phrase and extract it into audio data
+    with speech_recognition.Microphone() as src:    # use the default microphone as the audio source
+        r.adjust_for_ambient_noise(src)             # listen for 1 second to calibrate the energy threshold for ambient noise levels
+        audio = r.listen(src)                       # listen for the first phrase and extract it into audio data
     
     try:
         return r.recognize(audio)                   # recognize speech using Google Speech Recognition

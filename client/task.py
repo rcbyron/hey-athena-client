@@ -4,6 +4,7 @@ Created on Jun 4, 2015
 @author: Connor
 '''
 
+from client.tts import speak
 import abc, re
 
 class Task(object):
@@ -21,6 +22,9 @@ class Task(object):
         self.priority = priority
         self.task_greedy = task_greedy
         self.mod_greedy = mod_greedy
+        
+    def speak(self, phrase):
+        speak(phrase)
         
     @abc.abstractmethod
     def match(self, text):

@@ -82,15 +82,15 @@ import winsound, time
 stt.init()
 while True:
     try:
-        text = input('> ')
-#         print("~ Passive listening... ")
-#         stt.listen_keyword()
+        #text = input('> ')
+        print("~ Passive listening... ")
+        stt.listen_keyword()
         winsound.Beep(900, 150)
         time.sleep(0.01)
         winsound.Beep(900, 150)
-#         print("\n~ Active listening... ")
-#         text = stt.active_listen()
-#         print("\n~ \""+text+"\"")
+        print("\n~ Active listening... ")
+        text = stt.active_listen()
+        print("\n~ \""+text+"\"")
     
         matched_mods = []
         for mod in modules:
@@ -113,5 +113,8 @@ while True:
             execute_tasks(matched_mods[0])
         elif len(matched_mods) > 1:
             mod_select(matched_mods)
+    except OSError:
+        print(traceback.format_exc())
+        break
     except:
         print(traceback.format_exc())

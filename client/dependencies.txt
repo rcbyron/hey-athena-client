@@ -1,5 +1,9 @@
 ### CORA Core Dependencies
 - Python 3
+- Pocketsphinx
+- Pyglet
+- gTTS
+- SpeechRecognition
 
 ### Module Dependencies
 
@@ -7,4 +11,3 @@
 
 # Wolfram.py
 - wolframalpha
-
