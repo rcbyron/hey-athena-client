@@ -2,6 +2,7 @@
 - Python 3
 - Pocketsphinx
 - Pyglet
+- PyAudio
 - gTTS
 - SpeechRecognition
 
