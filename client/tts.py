@@ -22,13 +22,7 @@ def init():
 def filter_phrase(phrase):
     return phrase[:MAX_CHAR]
 
-def speak(phrase):
-    tts = gTTS(text=filter_phrase(phrase), lang='en')
-      
-    with tempfile.NamedTemporaryFile(mode='wb', suffix='.mp3', delete=False) as f:
-        (temp_path, temp_name) = os.path.split(f.name)
-        tts.write_to_fp(f)
-    
+def play_mp3(temp_path, temp_name, remove_mp3=True):
     #print(temp_path, " --- ", temp_name)
     pyglet.resource.path.clear()
     pyglet.resource.path.append(temp_path)
@@ -44,4 +38,14 @@ def speak(phrase):
     pyglet.clock.schedule_once(exit_callback, sound.duration)
     pyglet.app.run()
     
-    os.remove(os.path.join(temp_path, temp_name))
+    if remove_mp3:
+        os.remove(os.path.join(temp_path, temp_name))
+    
+def speak(phrase):
+    tts = gTTS(text=filter_phrase(phrase), lang='en')
+      
+    with tempfile.NamedTemporaryFile(mode='wb', suffix='.mp3', delete=False) as f:
+        (temp_path, temp_name) = os.path.split(f.name)
+        tts.write_to_fp(f)
+    
+    play_mp3(temp_path, temp_name)

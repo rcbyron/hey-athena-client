@@ -1011,4 +1011,200 @@ INFO: dict2pid.c(196): Allocated 21336 bytes (20 KiB) for single-phone word trip
 INFO: ngram_model_arpa.c(77): No \data\ mark in LM file
 INFO: ngram_model_dmp.c(142): Will use memory-mapped I/O for LM file
 INFO: ngram_model_dmp.c(196): ngrams 1=19794, 2=1377200, 3=3178194
+INFO: ngram_model_dmp.c(242):    19794 = LM.unigrams(+traiINFO: cmd_ln.c(697): Parsing command line:
+\
+	-lowerf 130 \
+	-upperf 6800 \
+	-nfilt 25 \
+	-transform dct \
+	-lifter 22 \
+	-feat 1s_c_d_dd \
+	-svspec 0-12/13-25/26-38 \
+	-agc none \
+	-cmn current \
+	-varnorm no \
+	-model ptm \
+	-cmninit 40,3,-1 
+
+Current configuration:
+[NAME]			[DEFLT]		[VALUE]
+-agc			none		none
+-agcthresh		2.0		2.000000e+000
+-alpha			0.97		9.700000e-001
+-ceplen			13		13
+-cmn			current		current
+-cmninit		8.0		40,3,-1
+-dither			no		no
+-doublebw		no		no
+-feat			1s_c_d_dd	1s_c_d_dd
+-frate			100		100
+-input_endian		little		little
+-lda					
+-ldadim			0		0
+-lifter			0		22
+-logspec		no		no
+-lowerf			133.33334	1.300000e+002
+-ncep			13		13
+-nfft			512		512
+-nfilt			40		25
+-remove_dc		no		no
+-remove_noise		yes		yes
+-remove_silence		yes		yes
+-round_filters		yes		yes
+-samprate		16000		1.600000e+004
+-seed			-1		-1
+-smoothspec		no		no
+-svspec					0-12/13-25/26-38
+-transform		legacy		dct
+-unit_area		yes		yes
+-upperf			6855.4976	6.800000e+003
+-vad_postspeech		50		50
+-vad_prespeech		20		20
+-vad_startspeech	10		10
+-vad_threshold		2.0		2.000000e+000
+-varnorm		no		no
+-verbose		no		no
+-warp_params				
+-warp_type		inverse_linear	inverse_linear
+-wlen			0.025625	2.562500e-002
+
+INFO: acmod.c(252): Parsed model-specific feature parameters from C:\Workspace\py\CORA\model\en-us/en-us/feat.params
+INFO: feat.c(715): Initializing feature stream to type: '1s_c_d_dd', ceplen=13, CMN='current', VARNORM='no', AGC='none'
+INFO: cmn.c(143): mean[0]= 12.00, mean[1..12]= 0.0
+INFO: acmod.c(171): Using subvector specification 0-12/13-25/26-38
+INFO: mdef.c(518): Reading model definition: C:\Workspace\py\CORA\model\en-us/en-us/mdef
+INFO: mdef.c(531): Found byte-order mark BMDF, assuming this is a binary mdef file
+INFO: bin_mdef.c(336): Reading binary model definition: C:\Workspace\py\CORA\model\en-us/en-us/mdef
+INFO: bin_mdef.c(516): 42 CI-phone, 137053 CD-phone, 3 emitstate/phone, 126 CI-sen, 5126 Sen, 29324 Sen-Seq
+INFO: tmat.c(206): Reading HMM transition probability matrices: C:\Workspace\py\CORA\model\en-us/en-us/transition_matrices
+INFO: acmod.c(124): Attempting to use PTM computation module
+INFO: ms_gauden.c(198): Reading mixture gaussian parameter: C:\Workspace\py\CORA\model\en-us/en-us/means
+INFO: ms_gauden.c(292): 42 codebook, 3 feature, size: 
+INFO: ms_gauden.c(294):  128x13
+INFO: ms_gauden.c(294):  128x13
+INFO: ms_gauden.c(294):  128x13
+INFO: ms_gauden.c(198): Reading mixture gaussian parameter: C:\Workspace\py\CORA\model\en-us/en-us/variances
+INFO: ms_gauden.c(292): 42 codebook, 3 feature, size: 
+INFO: ms_gauden.c(294):  128x13
+INFO: ms_gauden.c(294):  128x13
+INFO: ms_gauden.c(294):  128x13
+INFO: ms_gauden.c(354): 222 variance values floored
+INFO: ptm_mgau.c(476): Loading senones from dump file C:\Workspace\py\CORA\model\en-us/en-us/sendump
+INFO: ptm_mgau.c(500): BEGIN FILE FORMAT DESCRIPTION
+INFO: ptm_mgau.c(563): Rows: 128, Columns: 5126
+INFO: ptm_mgau.c(595): Using memory-mapped I/O for senones
+INFO: ptm_mgau.c(835): Maximum top-N: 4
+INFO: phone_loop_search.c(114): State beam -225 Phone exit beam -225 Insertion penalty 0
+INFO: dict.c(320): Allocating 137526 * 20 bytes (2686 KiB) for word entries
+INFO: dict.c(333): Reading main dictionary: C:\Workspace\py\CORA\model\en-us/cmudict-en-us.dict
+INFO: dict.c(213): Allocated 1007 KiB for strings, 1662 KiB for phones
+INFO: dict.c(336): 133425 words read
+INFO: dict.c(358): Reading filler dictionary: C:\Workspace\py\CORA\model\en-us/en-us/noisedict
+INFO: dict.c(213): Allocated 0 KiB for strings, 0 KiB for phones
+INFO: dict.c(361): 5 words read
+INFO: dict2pid.c(396): Building PID tables for dictionary
+INFO: dict2pid.c(406): Allocating 42^3 * 2 bytes (144 KiB) for word-initial triphones
+INFO: dict2pid.c(132): Allocated 21336 bytes (20 KiB) for word-final triphones
+INFO: dict2pid.c(196): Allocated 21336 bytes (20 KiB) for single-phone word triphones
+INFO: ngram_model_arpa.c(77): No \data\ mark in LM file
+INFO: ngram_model_dmp.c(142): Will use memory-mapped I/O for LM file
+INFO: ngram_model_dmp.c(196): ngrams 1=19794, 2=1377200, 3=3178194
+INFO: ngram_model_dmp.c(242):    19794 = LM.unigrams(+traiINFO: cmd_ln.c(697): Parsing command line:
+\
+	-lowerf 130 \
+	-upperf 6800 \
+	-nfilt 25 \
+	-transform dct \
+	-lifter 22 \
+	-feat 1s_c_d_dd \
+	-svspec 0-12/13-25/26-38 \
+	-agc none \
+	-cmn current \
+	-varnorm no \
+	-model ptm \
+	-cmninit 40,3,-1 
+
+Current configuration:
+[NAME]			[DEFLT]		[VALUE]
+-agc			none		none
+-agcthresh		2.0		2.000000e+000
+-alpha			0.97		9.700000e-001
+-ceplen			13		13
+-cmn			current		current
+-cmninit		8.0		40,3,-1
+-dither			no		no
+-doublebw		no		no
+-feat			1s_c_d_dd	1s_c_d_dd
+-frate			100		100
+-input_endian		little		little
+-lda					
+-ldadim			0		0
+-lifter			0		22
+-logspec		no		no
+-lowerf			133.33334	1.300000e+002
+-ncep			13		13
+-nfft			512		512
+-nfilt			40		25
+-remove_dc		no		no
+-remove_noise		yes		yes
+-remove_silence		yes		yes
+-round_filters		yes		yes
+-samprate		16000		1.600000e+004
+-seed			-1		-1
+-smoothspec		no		no
+-svspec					0-12/13-25/26-38
+-transform		legacy		dct
+-unit_area		yes		yes
+-upperf			6855.4976	6.800000e+003
+-vad_postspeech		50		50
+-vad_prespeech		20		20
+-vad_startspeech	10		10
+-vad_threshold		2.0		2.000000e+000
+-varnorm		no		no
+-verbose		no		no
+-warp_params				
+-warp_type		inverse_linear	inverse_linear
+-wlen			0.025625	2.562500e-002
+
+INFO: acmod.c(252): Parsed model-specific feature parameters from C:\Workspace\py\CORA\model\en-us/en-us/feat.params
+INFO: feat.c(715): Initializing feature stream to type: '1s_c_d_dd', ceplen=13, CMN='current', VARNORM='no', AGC='none'
+INFO: cmn.c(143): mean[0]= 12.00, mean[1..12]= 0.0
+INFO: acmod.c(171): Using subvector specification 0-12/13-25/26-38
+INFO: mdef.c(518): Reading model definition: C:\Workspace\py\CORA\model\en-us/en-us/mdef
+INFO: mdef.c(531): Found byte-order mark BMDF, assuming this is a binary mdef file
+INFO: bin_mdef.c(336): Reading binary model definition: C:\Workspace\py\CORA\model\en-us/en-us/mdef
+INFO: bin_mdef.c(516): 42 CI-phone, 137053 CD-phone, 3 emitstate/phone, 126 CI-sen, 5126 Sen, 29324 Sen-Seq
+INFO: tmat.c(206): Reading HMM transition probability matrices: C:\Workspace\py\CORA\model\en-us/en-us/transition_matrices
+INFO: acmod.c(124): Attempting to use PTM computation module
+INFO: ms_gauden.c(198): Reading mixture gaussian parameter: C:\Workspace\py\CORA\model\en-us/en-us/means
+INFO: ms_gauden.c(292): 42 codebook, 3 feature, size: 
+INFO: ms_gauden.c(294):  128x13
+INFO: ms_gauden.c(294):  128x13
+INFO: ms_gauden.c(294):  128x13
+INFO: ms_gauden.c(198): Reading mixture gaussian parameter: C:\Workspace\py\CORA\model\en-us/en-us/variances
+INFO: ms_gauden.c(292): 42 codebook, 3 feature, size: 
+INFO: ms_gauden.c(294):  128x13
+INFO: ms_gauden.c(294):  128x13
+INFO: ms_gauden.c(294):  128x13
+INFO: ms_gauden.c(354): 222 variance values floored
+INFO: ptm_mgau.c(476): Loading senones from dump file C:\Workspace\py\CORA\model\en-us/en-us/sendump
+INFO: ptm_mgau.c(500): BEGIN FILE FORMAT DESCRIPTION
+INFO: ptm_mgau.c(563): Rows: 128, Columns: 5126
+INFO: ptm_mgau.c(595): Using memory-mapped I/O for senones
+INFO: ptm_mgau.c(835): Maximum top-N: 4
+INFO: phone_loop_search.c(114): State beam -225 Phone exit beam -225 Insertion penalty 0
+INFO: dict.c(320): Allocating 137526 * 20 bytes (2686 KiB) for word entries
+INFO: dict.c(333): Reading main dictionary: C:\Workspace\py\CORA\model\en-us/cmudict-en-us.dict
+INFO: dict.c(213): Allocated 1007 KiB for strings, 1662 KiB for phones
+INFO: dict.c(336): 133425 words read
+INFO: dict.c(358): Reading filler dictionary: C:\Workspace\py\CORA\model\en-us/en-us/noisedict
+INFO: dict.c(213): Allocated 0 KiB for strings, 0 KiB for phones
+INFO: dict.c(361): 5 words read
+INFO: dict2pid.c(396): Building PID tables for dictionary
+INFO: dict2pid.c(406): Allocating 42^3 * 2 bytes (144 KiB) for word-initial triphones
+INFO: dict2pid.c(132): Allocated 21336 bytes (20 KiB) for word-final triphones
+INFO: dict2pid.c(196): Allocated 21336 bytes (20 KiB) for single-phone word triphones
+INFO: ngram_model_arpa.c(77): No \data\ mark in LM file
+INFO: ngram_model_dmp.c(142): Will use memory-mapped I/O for LM file
+INFO: ngram_model_dmp.c(196): ngrams 1=19794, 2=1377200, 3=3178194
 INFO: ngram_model_dmp.c(242):    19794 = LM.unigrams(+trai
