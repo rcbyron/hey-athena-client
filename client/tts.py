@@ -26,7 +26,7 @@ def play_mp3(temp_path, temp_name, remove_mp3=True):
     #print(temp_path, " --- ", temp_name)
     pyglet.resource.path.clear()
     pyglet.resource.path.append(temp_path)
-    #pyglet.resource.reindex()
+    pyglet.resource.reindex()
     #print(pyglet.resource.path)
     
     sound = pyglet.resource.media(temp_name, streaming=False)
