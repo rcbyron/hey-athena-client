@@ -1,4 +1,4 @@
-### ICARUS Core Dependencies
+### ATHENA Core Dependencies
 - Python 3
 - Pocketsphinx
     - pip3 install pocketsphinx
