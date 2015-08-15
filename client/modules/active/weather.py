@@ -4,11 +4,11 @@ Created on Jun 1, 2015
 @author: Connor
 '''
 
-from client.task import Task
+from client.classes.module import Module
+from client.classes.task import ActiveTask
 from client.modules.api_library import weather_api
 import re
 
-MOD_PRIORITY = 2
 DEFAULT_ZIP_IATA_CITY = 'Plano'
 DEFAULT_STATE_COUNTRY = 'TX'
 
@@ -33,7 +33,7 @@ def restore_loc():
         set_loc(DEFAULT_ZIP_IATA_CITY, DEFAULT_STATE_COUNTRY)
         restore_flag = False
 
-class CurrentDayTask(Task):    
+class CurrentDayTask(ActiveTask):    
     def match(self, text):
         text = weather_api.replace_day_aliases(text)
         
@@ -77,7 +77,7 @@ class CurrentDayTask(Task):
         print('')
         restore_loc()
 
-class ForecastTask(Task):    
+class ForecastTask(ActiveTask):    
     def match(self, text):
         """ See if it matches any weather input patterns """
         for p in self.patterns:
@@ -122,7 +122,7 @@ class ForecastTask(Task):
         print('')
         restore_loc()
         
-class UpdateLocationTask(Task):
+class UpdateLocationTask(ActiveTask):
     ZIP_IATA_PATTERN = r'.*\b(in|at|near|around|close to)\s(\d{5}|[A-Z]{3})\b.*'
     CITY_PATTERN = r'.*\b(in|at|near|around|close to)\s([a-zA-Z_]+),?(\s([a-zA-Z_]+))?\b.*'
 
@@ -146,28 +146,32 @@ class UpdateLocationTask(Task):
     def action(self, text):
         """ Make task greedy if matched location in text but could not update """
         if not set_loc(self.zip_iata_city, self.state_country):
+            self.speak("Location not found.", print_phrase=False)
             self.task_greedy = True
         else:
             global restore_flag
             restore_flag = True
 
 
-def init():
-    """ If the default location is invalid, don't load the module """
-    if not weather_api.update_loc(DEFAULT_ZIP_IATA_CITY, DEFAULT_STATE_COUNTRY):
-        raise Exception
+class Weather(Module):
+
+    def __init__(self):
+        """ If the default location is invalid, don't load the module """
+        if not weather_api.update_loc(DEFAULT_ZIP_IATA_CITY, DEFAULT_STATE_COUNTRY):
+            raise Exception
+        
+        weather_input_patterns = [r'^.*\b(temp(erature)?|high(s)?|low(s)?|heat|hot(ter|test)?|(cold|cool)(er|est)?)\b.*$',
+                                  r'^.*\bhumid(ity)?\b.*$',
+                                  r'^.*\bwind(s|y|ier)?\b.*$',
+                                  r'^.*\b((u(\.)?v(\.)?|ultra\sviolet)(\sindex)?)\b.*$',
+                                  r'^.*\b((rain|snow)(ing|s|y|fall)?|precip(itation|itating)?)\b.*$',
+                                  r'^.*\b(visibility|fog(gy)?)\b.*$',
+                                  r'^.*\b(pressure)\b.*$',
+                                  r'^.*\b(weather|forecast(s)?|condition(s)?)\b.*$']
+        
     
-    weather_input_patterns = [r'^.*\b(temp(erature)?|high(s)?|low(s)?|heat|hot(ter|test)?|(cold|cool)(er|est)?)\b.*$',
-                              r'^.*\bhumid(ity)?\b.*$',
-                              r'^.*\bwind(s|y|ier)?\b.*$',
-                              r'^.*\b((u(\.)?v(\.)?|ultra\sviolet)(\sindex)?)\b.*$',
-                              r'^.*\b((rain|snow)(ing|s|y|fall)?|precip(itation|itating)?)\b.*$',
-                              r'^.*\b(visibility|fog(gy)?)\b.*$',
-                              r'^.*\b(pressure)\b.*$',
-                              r'^.*\b(weather|forecast(s)?|condition(s)?)\b.*$']
-    
-    global tasks
-    tasks = [UpdateLocationTask([UpdateLocationTask.ZIP_IATA_PATTERN,
-                                 UpdateLocationTask.CITY_PATTERN], priority=5),
-             CurrentDayTask(weather_input_patterns, priority=2),
-             ForecastTask(weather_input_patterns, priority=1)]
+        tasks = [UpdateLocationTask([UpdateLocationTask.ZIP_IATA_PATTERN,
+                                     UpdateLocationTask.CITY_PATTERN], priority=5),
+                 CurrentDayTask(weather_input_patterns, priority=2),
+                 ForecastTask(weather_input_patterns, priority=1)]
+        super().__init__(mod_name='weather', mod_tasks=tasks, mod_priority=2)

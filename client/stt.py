@@ -8,20 +8,21 @@ from os import path
 from sphinxbase.sphinxbase import Config, Config_swigregister #@UnusedImport
 from pocketsphinx.pocketsphinx import Decoder
 import pyaudio, speech_recognition
-from client.tts import speak
+import client.tts as tts
 
-MODEL_DIR = "C:\\Workspace\\py\\CORA\\model"
+MODEL_DIR = "C:\\Workspace\\py\\CORA\\models"
 
 # Must be in the sphinx dict file
-WAKE_UP_WORD = "icarus"
+WAKE_UP_WORD = "athena"
+ERROR_MESSAGE = "Sorry, I could not understand that."
 
 def init():
     # Create a decoder with certain model
     config = Decoder.default_config()
-    config.set_string('-logfn', 'null.log')
-    config.set_string('-hmm', path.join(MODEL_DIR, 'en-us/en-us'))
-    config.set_string('-lm', path.join(MODEL_DIR, 'en-us/en-us.lm.dmp'))
-    config.set_string('-dict', path.join(MODEL_DIR, 'en-us/cmudict-en-us.dict'))
+    config.set_string('-logfn', '..\logs\passive-listen.log')
+    config.set_string('-hmm', path.join(MODEL_DIR, 'en-us\en-us'))
+    config.set_string('-lm', path.join(MODEL_DIR, 'en-us\en-us.lm.dmp'))
+    config.set_string('-dict', path.join(MODEL_DIR, 'en-us\cmudict-en-us.dict'))
     
     # Decode streaming data
     global decoder, p
@@ -37,6 +38,7 @@ def listen_keyword():
     stream.start_stream()
     p.get_default_input_device_info()
     
+    print("~ Passive listening... ")
     decoder.start_utt()
     while True:
         buf = stream.read(1024)
@@ -50,14 +52,19 @@ def listen_keyword():
     
 def active_listen():
     r = speech_recognition.Recognizer()
-    
+
     with speech_recognition.Microphone() as src:    # use the default microphone as the audio source
         r.adjust_for_ambient_noise(src)             # listen for 1 second to calibrate the energy threshold for ambient noise levels
+        print("\n~ Active listening... ")
+        tts.play_mp3("double-beep.mp3")
         audio = r.listen(src)                       # listen for the first phrase and extract it into audio data
     
     try:
-        return r.recognize(audio)                   # recognize speech using Google Speech Recognition
+        msg = r.recognize(audio)                    # recognize speech using Google Speech Recognition
+        print("\n~ \""+msg+"\"")
     except LookupError:                             # speech is unintelligible
-        msg = "Sorry, I could not understand that."
-        speak(msg)
+        msg = ""
+        print("\n~ "+ERROR_MESSAGE+"\n")
+        tts.speak(ERROR_MESSAGE)
+    finally:
         return msg

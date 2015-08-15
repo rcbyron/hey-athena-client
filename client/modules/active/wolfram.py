@@ -3,16 +3,21 @@ Created on Jun 5, 2015
 
 @author: Connor
 '''
-from client.task import Task
+from client.classes.module import Module
+from client.classes.task import ActiveTask
 import wolframalpha
 
 API_KEY = '4QR84U-VY7T7AVA34'
-ERROR_MESSAGE = '\n~ Sorry, could you re-word the question?\n'
+ERROR_MESSAGE = 'Sorry, could you re-word the question?'
 
 MOD_PRIORITY = 1
 tasks = []
 
-class AnswerTask(Task):
+class AnswerTask(ActiveTask):
+    def __init__(self):
+        p_list = [r'.*\b(who|what|when|where|why|how|(can|are) you)\b.*']
+        super().__init__(patterns=p_list)
+    
     def match(self, text):
         for p in self.patterns:
             if p.match(text):
@@ -28,12 +33,13 @@ class AnswerTask(Task):
             else:
                 texts = ERROR_MESSAGE
 
-            msg = texts.replace('|','')
-            print('\n~ '+msg+'\n')
-            self.speak(msg)
+            self.speak(texts.replace('|',''))
         else:
-            print(ERROR_MESSAGE)
+            self.speak(ERROR_MESSAGE)
         
-def init():
-    global tasks
-    tasks = [AnswerTask([r'.*\b(who|what|when|where|why|how)\b.*'])]
+class Wolfram(Module):
+
+    def __init__(self):
+        tasks = [AnswerTask()]
+        super().__init__(mod_name='wolfram', mod_tasks=tasks, mod_priority=1)
+

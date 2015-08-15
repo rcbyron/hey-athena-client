@@ -3,13 +3,15 @@ Created on Aug 13, 2015
 
 @author: Connor
 '''
-from client.task import Task
+from client.classes.module import Module
+from client.classes.task import ActiveTask
+from client.tts import play_mp3
 
-MOD_PRIORITY = 2
-
-class GetValueTask(Task):
-    URL = 'http://www.nactem.ac.uk/software/acromine/dictionary.py?sf='
+class PlaySongTask(ActiveTask):
     
+    def __init__(self):
+        super().__init__(patterns=[r'.*(\b)+turn(\s)+up(\b)+.*'])
+         
     def match(self, text):
         for p in self.patterns:
             if p.match(text):
@@ -18,8 +20,11 @@ class GetValueTask(Task):
     
     def action(self, text):
         self.speak("Turning up...")
-        open(r"C:\Workspace\py\CORA\client\turnup.mp3")
+        play_mp3("turnup.mp3")
         
-def init():
-    global tasks
-    tasks = [GetValueTask([r'.*(\b)+turn(\s)+up(\b)+.*'])]
+        
+class Music(Module):
+
+    def __init__(self):
+        tasks = [PlaySongTask()]
+        super().__init__(mod_name='music', mod_tasks=tasks, mod_priority=2)

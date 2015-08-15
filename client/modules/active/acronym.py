@@ -3,13 +3,16 @@ Created on Jun 5, 2015
 
 @author: Connor
 '''
-from client.task import Task
+from client.classes.module import Module
+from client.classes.task import ActiveTask
 import urllib.request, json
 
-MOD_PRIORITY = 2
-
-class AcronymTask(Task):
+class AcronymTask(ActiveTask):
     URL = 'http://www.nactem.ac.uk/software/acromine/dictionary.py?sf='
+    
+    def __init__(self):
+        p_list = [r'.*(?:\b)+(\w+)\s(acronym\s)?(stand(s)?\sfor|mean|abbr(eviation)?)(?:\b)+.*']
+        super().__init__(patterns=p_list)
     
     def match(self, text):
         for p in self.patterns:
@@ -28,7 +31,11 @@ class AcronymTask(Task):
         for meaning in acronyms[0]['lfs'][:10]:
             print('~ '+meaning['lf'])
         print('')
+   
         
-def init():
-    global tasks
-    tasks = [AcronymTask([r'.*(?:\b)+(\w+)\s(acronym\s)?(stand(s)?\sfor|mean|abbr(eviation)?)(?:\b)+.*'])]
+class Acronym(Module):
+
+    def __init__(self):
+        tasks = [AcronymTask()]
+        super().__init__(mod_name='acronym', mod_tasks=tasks, mod_priority=2)
+
