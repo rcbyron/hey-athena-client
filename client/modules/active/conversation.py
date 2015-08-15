@@ -27,6 +27,9 @@ RESPONSES = {
         ['Sup holmes.',
          'Ayyyyy hombre.',
          'How\'s it goin\' ese???'],
+             
+        r'.*(\b)+sweet(\b)+':
+        ['Why thank you.'],
 }
 
 class ConversationTask(ActiveTask):
