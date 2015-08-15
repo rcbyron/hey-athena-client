@@ -10,7 +10,7 @@ from pocketsphinx.pocketsphinx import Decoder
 import pyaudio, speech_recognition
 import client.tts as tts
 
-MODEL_DIR = "C:\\Workspace\\py\\CORA\\models"
+MODEL_DIR = "..\models"
 
 # Must be in the sphinx dict file
 WAKE_UP_WORD = "athena"

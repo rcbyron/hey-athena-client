@@ -1,2 +1,2 @@
-# CORA
-Your personal robo-butler.
+# ATHENA VOICE
+Your personal robotic assistant.
