@@ -3,13 +3,16 @@ Created on Jun 5, 2015
 
 @author: Connor
 '''
+from client.classes.module import Module
+from client.classes.task import ActiveTask
 from client.modules.api_library import geo_info_api
-from client.task import Task
 
-
-MOD_PRIORITY = 2
-
-class GetIPInfoTask(Task):
+class GetIPInfoTask(ActiveTask):
+    
+    def __init__(self):
+        p_list = [r'.*(?:\b)+(ip|country|region|city|latitude|longitude|asn|isp|timezone)(?:\b)+.*']
+        super().__init__(patterns=p_list)
+    
     def match(self, text):
         for p in self.patterns:
             m = p.match(text)
@@ -27,7 +30,10 @@ class GetIPInfoTask(Task):
             
         print('\n~ '+title+':',  geo_info_api.get_data(self.query), '\n')
         
-def init():
-    global tasks
-    tasks = [GetIPInfoTask([r'.*(?:\b)+(ip|country|region|city|latitude|longitude|asn|isp|timezone)(?:\b)+.*'])]
+class GeoInfo(Module):
+
+    def __init__(self):
+        tasks = [GetIPInfoTask()]
+        super().__init__(mod_name='geo_info', mod_tasks=tasks, mod_priority=2)
+
     

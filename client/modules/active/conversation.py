@@ -3,12 +3,10 @@ Created on Jun 1, 2015
 
 @author: Connor
 '''
+
+from client.classes.module import Module
+from client.classes.task import ActiveTask
 import re, random
-
-from client.task import Task
-
-
-MOD_PRIORITY = 2
 
 """ Place the most specific regex keys first """
 RESPONSES = {
@@ -31,7 +29,8 @@ RESPONSES = {
          'How\'s it goin\' ese???'],
 }
 
-class ConversationTask(Task):
+class ConversationTask(ActiveTask):
+    
     def match(self, text):
         for p, responses in RESPONSES.items():
             if re.search(p, text, re.IGNORECASE):
@@ -40,8 +39,11 @@ class ConversationTask(Task):
         return False
     
     def action(self, text):
-        print('\n~ '+self.response+'\n')
+        self.speak(self.response)
 
-def init():
-    global tasks
-    tasks = [ConversationTask()]
+
+class Conversation(Module):
+    
+    def __init__(self):
+        tasks = [ConversationTask()]
+        super().__init__(mod_name='conversation', mod_tasks=tasks, mod_priority=2)

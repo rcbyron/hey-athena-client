@@ -3,44 +3,39 @@ Created on Jun 4, 2015
 
 @author: Connor
 '''
+import client.stt as stt
 
 if __name__ == '__main__':
     pass
 
-import client.modules.active as active_modules
+import client.tts as tts
 import pkgutil, re, traceback
+
+import client.modules.active as active_mods
+from inspect import isclass
 
 def find_mods():
     """ Find modules """
     global modules
     modules = []
-    print('~ Looking for modules in: '+str(active_modules.__path__).replace('\\\\', '\\')[1:-1])
-    for finder, name, _ in pkgutil.iter_modules(active_modules.__path__):
+    print('~ Looking for modules in: '+str(active_mods.__path__).replace('\\\\', '\\')[1:-1])
+    for finder, name, _ in pkgutil.iter_modules(active_mods.__path__):
         try:
             mod = finder.find_module(name).load_module(name)
-            modules.append(mod)
+            for member in dir(mod):
+                obj = getattr(mod, member)
+                if isclass(obj):
+                    for parent in obj.__bases__:
+                        if 'Module' is parent.__name__:
+                            modules.append(obj())
         except Exception as e:
             print('\n~ Error loading \''+name+'\' '+str(e))        
-    modules.sort(key=lambda mod: mod.MOD_PRIORITY if hasattr(mod, 'MOD_PRIORITY') else 0, reverse=True)
-
-def init_mods():
-    """ Initialize modules """
-    print('\n~ Initializing modules...')
-    for mod in modules:
-        try:
-            if not hasattr(mod, 'init'):
-                raise Exception('(missing \'init\' method)')
-            mod.init()
-            if not hasattr(mod, 'tasks'):
-                raise Exception('(missing \'tasks\' list)')
-        except Exception as e:
-            print('\n~ Error intializing \''+mod.__name__+'\' '+str(e))
-            modules.remove(mod)
+    modules.sort(key=lambda mod: mod.priority if hasattr(mod, 'priority') else 0, reverse=True)
 
 def list_mods():
     """ List module order """
     print('\n~ Prioritized Module Order: ', end='')
-    print(str([mod.__name__ for mod in modules])[1:-1]+'\n')
+    print(str([mod.name for mod in modules])[1:-1]+'\n')
 
 def greet():
     """ Greet the user """
@@ -53,19 +48,18 @@ def execute_tasks(mod):
     """ Executes a module's task queue """
     for task in mod.task_queue:
         task.action(text)
-        if task.task_greedy:
+        if task.greedy:
             break
-    return task.mod_greedy
 
 def mod_select(matched_mods):
     """ Prompt user to specify which module to use to respond """
     print('\n~ Which module would you like me to use to respond?')
-    print('~ Choices: '+str([mod.__name__ for mod in matched_mods])[1:-1]+'\n')
+    print('~ Choices: '+str([mod.name for mod in matched_mods])[1:-1]+'\n')
     mod_select = input('> ')
     
     found_mod = False
     for mod in matched_mods:
-        if re.search('^.*\\b'+mod.__name__+'\\b.*$',  mod_select, re.IGNORECASE):
+        if re.search('^.*\\b'+mod.name+'\\b.*$',  mod_select, re.IGNORECASE):
             found_mod = True
             if execute_tasks(mod):
                 break
@@ -73,25 +67,16 @@ def mod_select(matched_mods):
         print('\n~ No module name found.\n')
 
 find_mods()
-init_mods()
 list_mods()
 greet()
-
-import client.stt as stt
-import winsound, time
 stt.init()
+
 while True:
     try:
         #text = input('> ')
-        print("~ Passive listening... ")
         stt.listen_keyword()
-        winsound.Beep(900, 150)
-        time.sleep(0.01)
-        winsound.Beep(900, 150)
-        print("\n~ Active listening... ")
         text = stt.active_listen()
-        print("\n~ \""+text+"\"")
-    
+
         matched_mods = []
         for mod in modules:
             """ Find matched tasks and add to module's task queue """
@@ -99,7 +84,7 @@ while True:
             for task in mod.tasks:
                 if task.match(text):
                     mod.task_queue.append(task)
-                    if task.task_greedy:
+                    if task.greedy:
                         break
                     
             """ Add modules with matched tasks to list """
@@ -113,8 +98,12 @@ while True:
             execute_tasks(matched_mods[0])
         elif len(matched_mods) > 1:
             mod_select(matched_mods)
-    except OSError:
-        print(traceback.format_exc())
-        break
     except:
         print(traceback.format_exc())
+        tts.speak("Error occurred. Would you still like to continue?")
+        
+        response = input('> ')
+        #response = stt.active_listen()
+        
+        if "yes" not in response.lower():
+            break

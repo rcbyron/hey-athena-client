@@ -1,0 +1,12 @@
+AVbin 10 for pyglet
+===================
+
+Redistributable package for AVbin to use with pyglet (www.pyglet.org). Please respect the license in COPYING.LESSER.
+
+Usage
+-----
+In your installer or package include the avbin library for the specific platform and install it in the same location
+of your application executable or a `lib` directory directly underneath. Make sure your application enables loading
+libraries from the local directory::
+
+  pyglet.options['search_local_libs'] = True

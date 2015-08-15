@@ -3,13 +3,15 @@ Created on Jul 19, 2015
 
 @author: Connor
 '''
-from client.task import Task
+from client.classes.module import Module
+from client.classes.task import ActiveTask
 from client.modules.api_library import bitcoin_api
 
-MOD_PRIORITY = 2
-
-class GetValueTask(Task):
-    URL = 'http://www.nactem.ac.uk/software/acromine/dictionary.py?sf='
+class GetValueTask(ActiveTask):
+    
+    def __init__(self):
+        patterns = [r'.*(\b)+bitcoin(\b)+.*']
+        super().__init__(patterns)
     
     def match(self, text):
         for p in self.patterns:
@@ -22,7 +24,11 @@ class GetValueTask(Task):
         print('~ 24 Hour Average: $'    + str(bitcoin_api.get_data('24h_avg')))
         print('~ Last Price: $'         + str(bitcoin_api.get_data('last')))
         print('')
-        
-def init():
-    global tasks
-    tasks = [GetValueTask([r'.*(\b)+bitcoin(\b)+.*'])]
+        self.speak(str(bitcoin_api.get_data('last')), print_phrase=False)
+
+
+class Bitcoin(Module):
+
+    def __init__(self):
+        tasks = [GetValueTask()]
+        super().__init__(mod_name='bitcoin', mod_tasks=tasks, mod_priority=2)
