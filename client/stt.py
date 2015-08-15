@@ -9,17 +9,23 @@ from sphinxbase.sphinxbase import Config, Config_swigregister #@UnusedImport
 from pocketsphinx.pocketsphinx import Decoder
 import pyaudio, speech_recognition
 import client.tts as tts
+import os
 
 MODEL_DIR = "..\models"
+LOGS_DIR = "..\logs"
 
 # Must be in the sphinx dict file
 WAKE_UP_WORD = "athena"
 ERROR_MESSAGE = "Sorry, I could not understand that."
 
 def init():
+    # Be wary of an OSError due to a race condition
+    if not os.path.exists(LOGS_DIR):
+        os.makedirs(LOGS_DIR)
+    
     # Create a decoder with certain model
     config = Decoder.default_config()
-    config.set_string('-logfn', '..\logs\passive-listen.log')
+    config.set_string('-logfn', path.join(LOGS_DIR, 'passive-listen.log'))
     config.set_string('-hmm', path.join(MODEL_DIR, 'en-us\en-us'))
     config.set_string('-lm', path.join(MODEL_DIR, 'en-us\en-us.lm.dmp'))
     config.set_string('-dict', path.join(MODEL_DIR, 'en-us\cmudict-en-us.dict'))
