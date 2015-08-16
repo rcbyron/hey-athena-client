@@ -1,6 +1,17 @@
 # Athena Voice
 Your personal robotic assistant.
 
+## Usage Examples
+"Athena"
+*(double beep)*
+"Turn up"
+*(plays music)*
+
+"Athena"
+*(double beep)*
+"What is the price of bitcoin right now?"
+*(responds with the current bitcoin price)*
+
 ## Core Dependencies
 - Python 3
 - Pocketsphinx
