@@ -1,16 +1,7 @@
 # Athena Voice
 Your personal robotic assistant.
 
-## Windows Installation (Python 3.4)
-- Download unofficial PyAudio (cp34 = Python 3.4):
-    - http://www.lfd.uci.edu/~gohlke/pythonlibs/#pyaudio
-- Open command prompt and switch to the download directory:
-    - `cd (download directory)`
-    - `pip3 install PyAudio‑0.2.8‑cp34‑none‑win32.whl`
-    - `pip3 install pocketsphinx SpeechRecognition pyglet gTTS wolframalpha`
-- If all goes well, run `client/brain.py`, say "Athena", and ask her a question!
-
-## Athena Core Dependencies
+## Core Dependencies
 - Python 3
 - Pocketsphinx
     - Sphinxbase (packaged with pocketsphinx)
@@ -25,6 +16,15 @@ Your personal robotic assistant.
     - Unofficial Windows: http://www.lfd.uci.edu/~gohlke/pythonlibs/#pyaudio
 - gTTS
     - requests (packaged with gTTS)
+
+## Windows Installation (Python 3.4)
+- Download unofficial PyAudio (cp34 = Python 3.4):
+    - http://www.lfd.uci.edu/~gohlke/pythonlibs/#pyaudio
+- Open command prompt and switch to the download directory:
+    - `cd (download directory)`
+    - `pip3 install PyAudio‑0.2.8‑cp34‑none‑win32.whl`
+    - `pip3 install pocketsphinx SpeechRecognition pyglet gTTS wolframalpha`
+- If all goes well, run `client/brain.py`, say "Athena", and ask her a question!
 
 ## Active Modules
 Active modules contain a series of tasks. Each task parses user input (generally through regex) and, if it matches, responds accordingly.
