@@ -33,7 +33,7 @@ Active modules contain a series of tasks. Each task parses user input (generally
 ```python
 from client.classes.module import Module
 from client.classes.task import ActiveTask
-from client.tts import play_mp3`
+from client.tts import play_mp3
 
 class PlaySongTask(ActiveTask):
     def __init__(self):
