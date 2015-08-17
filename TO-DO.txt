@@ -1,0 +1,93 @@
+POSSIBLE NAME IDEAS:
+Athena
+Cassandra
+Clovis
+Icarus
+Christo
+Osias
+Webster
+Irona
+Marvin
+Calvin
+Cora
+Carson
+Tessa
+
+TASK LIST:
+- Give Athena emotions (scan input and evaluate to match emotion & bases it off of current emotion, then adjust's athena's emotion accordingly if being sympathetic?)
+- Give Athena: fundamental laws & conversation context (smart matching)
+- Cache queries/mp3 responses
+- Create a response probability matrix with cached query/response patterns
+- Consider making a smart module guesser based on a probability/threshold
+	- Save all queries w/ corresponding module and test if new text is a close match
+	- Factors: saved text match strength, relative # mod calls, mod priority
+	- Add ability to reselect mod if guess was incorrect
+- Design passive modules to run in background/on events (cronjob scheduler?)
+- Implement data/debug logging (look into using python's logging library)
+- Advertise ATHENA once released (perhaps on reddit/kickstarter and tech blogs like engadget)
+
+MODULE IDEAS:
+- Oauth API
+- Gmail (and other google modules)
+- Calender (regular)
+- Twitter
+- Facebook
+- Phone Texting (for multiple carriers)
+- Text-based Games (zork, etc.)
+- Movement (passive, active, API)
+
+ORGANIZATION NAME IDEAS:
+CORA Robotics
+Iron Electric
+Electric Dream
+World of Tech
+Techworld
+Modulectric
+Blue Dot
+
+Electric
+Electronic
+Technology
+Spectrum
+Spark
+Blue
+Red
+Power
+Arc
+Sprite
+Generator
+Zap
+Iron
+Positive
+Voltage
+Amperes
+Static
+Atomic
+Energy
+Core
+Kickback
+Ion
+Flow
+Wave
+Control
+Universe
+Galaxy
+World
+Dream
+Current
+Fuse
+Inductor
+Capacitor
+Hex
+Transient
+Change
+Bit
+Android
+Code
+Cell
+Chronic
+Micro
+Omni
+Bleeding Edge
+Borderline
+Threshold
