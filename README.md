@@ -39,7 +39,7 @@ Your personal robotic assistant.
     - `pip3 install PyAudio‑0.2.8‑cp34‑none‑win32.whl`
     - `pip3 install pocketsphinx SpeechRecognition pyglet gTTS wolframalpha`
 - Download the `athena-voice-client` repository and extract it
-- Add C:\path\to\athena-voice-client-master to your PYTHONPATH system or user environment variable
+- Add `C:\path\to\athena-voice-client-master` to your `PYTHONPATH` system or user environment variable
 - `cd athena-voice-client-master/client`
 - If all goes well, run `brain.py`, say "Athena", and ask her a question!
 
