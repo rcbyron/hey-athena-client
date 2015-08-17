@@ -1,3 +1,20 @@
+PITCH (raw/unfiltered):
+In the past, people would program computers to process some text-based input and output a result.
+There is a certain thrill for developers, that first time you make it say "hello world".
+There is a certain thrill in saying, "Hey, I made the computer do that!"
+However, within the past decade, we've been moving away from text-controlled systems and advancing toward voice-controlled systems.
+Now, programs like Siri, and Cortana are answering millions of questions every day, simply through user-spoken input.
+Finding out who the 32nd president of the U.S. was, is as simple as asking your phone that question.
+Despite the advanced capabilities of these programs, there are always more things that you wish it could do.
+There are always better responses that you wish it had.
+Enter Athena Voice.
+Athena Voice is a 100% open-source, voice-controlled assistant platform that allows users to process user input the way they decide.
+It is written uniformly in Python 3 and is very easy to understand.
+Adding modules to enhance Athena's functionality is as simple as dragging and dropping the python module file into the module directory.
+In the near future, this system can be implemented in your car or home by simply having a microphone, speaker, and processing unit.
+With Athena Voice, smart homes will become ubiquitous.
+A simple device with a microphone, speaker, and transmitter can be placed in each room to answer your questions wherever you go.
+
 POSSIBLE NAME IDEAS:
 Athena
 Cassandra
@@ -14,6 +31,11 @@ Carson
 Tessa
 
 TASK LIST:
+- Refine the pitch
+- Build a community
+    - Create a presentation video explaining our vision
+    - Create a better website that allows users to contribute easily
+    - Build a modules section that allows users to submit/browse for modules
 - Give Athena emotions (scan input and evaluate to match emotion & bases it off of current emotion, then adjust's athena's emotion accordingly if being sympathetic?)
 - Give Athena: fundamental laws & conversation context (smart matching)
 - Cache queries/mp3 responses
