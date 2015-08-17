@@ -29,13 +29,19 @@ Your personal robotic assistant.
     - requests (packaged with gTTS)
 
 ## Windows Installation (Python 3.4)
-- Download unofficial PyAudio (cp34 = Python 3.4):
+- Not yet tested on Python 64-bit
+- Users not using Python 3.4 and above will need to install `pip` command tool
+- Download unofficial PyAudio:
+    - For Python 3.4 users, download `PyAudio‑0.2.8‑cp34‑none‑win32.whl`  (tip: cp34 = Python 3.4)
     - http://www.lfd.uci.edu/~gohlke/pythonlibs/#pyaudio
 - Open command prompt and switch to the download directory:
     - `cd (download directory)`
     - `pip3 install PyAudio‑0.2.8‑cp34‑none‑win32.whl`
     - `pip3 install pocketsphinx SpeechRecognition pyglet gTTS wolframalpha`
-- If all goes well, run `client/brain.py`, say "Athena", and ask her a question!
+- Download the `athena-voice-client` repository and extract it
+- Add C:\path\to\athena-voice-client-master to your PYTHONPATH system or user environment variable
+- `cd athena-voice-client-master/client`
+- If all goes well, run `brain.py`, say "Athena", and ask her a question!
 
 ## Active Modules
 Active modules contain a series of tasks. Each task parses user input (generally through regex) and, if it matches, responds accordingly.
