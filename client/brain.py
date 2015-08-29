@@ -39,9 +39,16 @@ def list_mods():
 
 def greet():
     """ Greet the user """
-    print('  _      _     __      _    ')
-    print(' / `    / )    )_)    /_)   ')
-    print('(_.  o (_/  o / \  o / /  o ')
+    print('     _   _   _                      ')
+    print('    / \ | |_| |__   ___ _ __   __ _ ')
+    print('   / _ \| __| \'_ \ / _ \ \'_ \ / _` |')
+    print('  / ___ \ |_| | | |  __/ | | | (_| |')
+    print(' /_/   \_\__|_| |_|\___|_| |_|\__,_|')
+    print('      __     __    _                ')
+    print('      \ \   / /__ (_) ___ ___       ')
+    print('       \ \ / / _ \| |/ __/ _ \      ')
+    print('        \ V / (_) | | (_|  __/      ')
+    print('         \_/ \___/|_|\___\___|      ')
     print('\n~ Hello, what can I do for you today?\n')
 
 def execute_tasks(mod):
