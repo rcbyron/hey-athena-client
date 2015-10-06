@@ -66,7 +66,7 @@ def active_listen():
         audio = r.listen(src)                       # listen for the first phrase and extract it into audio data
     
     try:
-        msg = r.recognize(audio)                    # recognize speech using Google Speech Recognition
+        msg = r.recognize_google(audio)             # recognize speech using Google Speech Recognition
         print("\n~ \""+msg+"\"")
     except LookupError:                             # speech is unintelligible
         msg = ""
