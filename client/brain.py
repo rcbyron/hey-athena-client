@@ -58,20 +58,33 @@ def execute_tasks(mod):
         if task.greedy:
             break
 
+def get_most_important(matched_mods):
+    """ Return a list of modules with the highest priority """
+    max_priority = -1
+    max_mods = []
+    for mod in matched_mods:
+        if max_priority < mod.priority:
+            max_mods.clear()
+            max_priority = mod.priority
+        if max_priority <= mod.priority:
+            max_mods.append(mod)
+    return max_mods
+
 def mod_select(matched_mods):
+    matched_mods = get_most_important(matched_mods)
+    if len(matched_mods) == 1:
+        execute_tasks(matched_mods[0])
+        return
     """ Prompt user to specify which module to use to respond """
     print('\n~ Which module would you like me to use to respond?')
     print('~ Choices: '+str([mod.name for mod in matched_mods])[1:-1]+'\n')
     mod_select = input('> ')
     
-    found_mod = False
     for mod in matched_mods:
         if re.search('^.*\\b'+mod.name+'\\b.*$',  mod_select, re.IGNORECASE):
-            found_mod = True
-            if execute_tasks(mod):
-                break
-    if not found_mod:
-        print('\n~ No module name found.\n')
+            execute_tasks(mod)
+            return
+    print('\n~ No module name found.\n')
 
 find_mods()
 list_mods()
@@ -80,11 +93,11 @@ stt.init()
 
 while True:
     try:
-        #text = input('> ')
-        stt.listen_keyword()
-        text = stt.active_listen()
-        if not text:
-            continue
+        text = input('> ')
+        #stt.listen_keyword()
+        #text = stt.active_listen()
+        #if not text:
+        #    continue
 
         matched_mods = []
         for mod in modules:
@@ -110,7 +123,7 @@ while True:
     except:
         print(traceback.format_exc())
         tts.speak("Error occurred. Would you still like to continue?")
-        
+        print("\nError occurred. Would you still like to continue?")
         response = input('> ')
         #response = stt.active_listen()
         
