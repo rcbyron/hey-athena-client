@@ -123,7 +123,7 @@ while True:
     except:
         print(traceback.format_exc())
         tts.speak("Error occurred. Would you still like to continue?")
-        print("\nError occurred. Would you still like to continue?")
+        print("Error occurred. Would you still like to continue?\n")
         response = input('> ')
         #response = stt.active_listen()
         

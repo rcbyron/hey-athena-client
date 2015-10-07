@@ -5,7 +5,6 @@ Created on Jun 18, 2015
 
 API Documentation:
 http://www.telize.com/
-
 '''
 import urllib.request, json
 
