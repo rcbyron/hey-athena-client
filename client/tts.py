@@ -4,6 +4,7 @@ Created on Aug 12, 2015
 @author: Connor
 '''
 from gtts import gTTS
+from requests.exceptions import HTTPError
 import pyglet, tempfile, os
 
 """
@@ -15,6 +16,7 @@ LANGS = ['af', 'sq', 'ar', 'hy', 'ca', 'zh-CN', 'zh-TW', 'hr', 'cs',
 """
 
 MAX_CHAR = 140
+speaking = False
 
 def init():
     #pyglet.options['audio'] = ('openal', 'directsound', 'silent')
@@ -38,12 +40,25 @@ def play_mp3(file_name, file_path='../media'):
 def filter_phrase(phrase):
     return phrase[:MAX_CHAR]
 
-def speak(phrase):    
-    tts = gTTS(text=filter_phrase(phrase), lang='en')
-      
-    with tempfile.NamedTemporaryFile(mode='wb', suffix='.mp3', delete=False) as f:
-        (temp_path, temp_name) = os.path.split(f.name)
-        tts.write_to_fp(f)
-    
-    play_mp3(temp_name, temp_path)
-    os.remove(os.path.join(temp_path, temp_name))
+def speak(phrase):
+    print('SPOKEN:', phrase) # Use when gTTS is down
+    return
+    global speaking
+    if speaking:
+        print('Warning: Speak was called multiple times too quickly')
+        return
+    speaking = True
+    try:
+        tts = gTTS(text=filter_phrase(phrase), lang='en')
+        
+        with tempfile.NamedTemporaryFile(mode='wb', suffix='.mp3', delete=False) as f:
+            (temp_path, temp_name) = os.path.split(f.name)
+            tts.write_to_fp(f)
+        
+        play_mp3(temp_name, temp_path)
+        os.remove(os.path.join(temp_path, temp_name))
+        speaking = False
+    except HTTPError as e:
+        print('Google TTS not working:', e)
+    except Exception as e:
+        print('Unknown Google TTS issue:', e)

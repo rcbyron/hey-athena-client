@@ -120,6 +120,9 @@ while True:
             execute_tasks(matched_mods[0])
         elif len(matched_mods) > 1:
             mod_select(matched_mods)
+    except EOFError:
+        print('\n\n~ Shutting down.\n')
+        break
     except:
         print(traceback.format_exc())
         tts.speak("Error occurred. Would you still like to continue?")
@@ -129,3 +132,4 @@ while True:
         
         if "yes" not in response.lower():
             break
+print('~ Arrivederci.')

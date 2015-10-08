@@ -56,6 +56,7 @@ TASK LIST:
 - Advertise ATHENA once released (perhaps on reddit/kickstarter and tech blogs like engadget)
 
 MODULE IDEAS:
+- Consider making modules that you stay in until you type quit (e.g. zork or extensive conversation)
 - Oauth API
 - Canvas
 - Gmail (and other google modules)

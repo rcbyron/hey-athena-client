@@ -55,26 +55,33 @@ class CurrentDayTask(ActiveTask):
         self.api.load_forecast()
         """ Outputs the desired current weather conditions """
         print('\n~ Location: '+self.api.location()+'\n')
+        self.spoke_once = False
         if 0 in self.cases:
-            print('~ Temperature:',     self.api.temperature())
-            print('~ Feels Like:',      self.api.feels_like())
+            self.list_weather('Temperature',     self.api.temperature())
+            self.list_weather('Feels Like',      self.api.feels_like())
         if 1 in self.cases:
-            print('~ Humidity:',        self.api.humidity())
+            self.list_weather('Humidity',        self.api.humidity())
         if 2 in self.cases:
-            print('~ Wind Speed:',      self.api.wind_speed())
+            self.list_weather('Wind Speed',      self.api.wind_speed())
         if 3 in self.cases:
-            print('~ UV Index:',        self.api.uv_index())
+            self.list_weather('UV Index',        self.api.uv_index())
         if 4 in self.cases:
-            print('~ Precipitation:',   self.api.precip_today(), 'today,', end='')
-            print(self.api.precip_1_hr(), 'past hour')
+            self.list_weather('Precipitation',   self.api.precip_today())
+            self.list_weather('Past Hour',       self.api.precip_1_hr())
         if 5 in self.cases:
-            print('~ Visibility:',      self.api.visibility())
+            self.list_weather('Visibility',      self.api.visibility())
         if 6 in self.cases:
-            print('~ Pressure:',        self.api.pressure())
+            self.list_weather('Pressure',        self.api.pressure())
         if 7 in self.cases:
-            print('~ Conditions:',      self.api.fc_day(0)[1])
+            self.list_weather('Condition',       self.api.fc_day(0)[1])
         print('')
         self.api.restore_loc()
+        
+    def list_weather(self, output, value):
+        print('~ '+output+':', value)
+        if not self.spoke_once:
+            speak('The '+output.lower()+' in '+self.api.location()+' is '+value)
+            self.spoke_once = True
 
 class ForecastTask(ActiveTask):    
     def match(self, text):
