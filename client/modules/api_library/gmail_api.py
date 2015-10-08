@@ -12,6 +12,7 @@ https://google-api-client-libraries.appspot.com/documentation/gmail/v1/python/la
 import httplib2
 import os
 import oauth2client
+import argparse
 
 from oauth2client import client
 from oauth2client import tools
@@ -22,6 +23,7 @@ SCOPES = 'https://www.googleapis.com/auth/gmail.readonly'
 CLIENT_SECRET_FILE = './secrets/client_secrets.json'
 APPLICATION_NAME = 'Athena Voice Gmail API'
 MAX_EMAILS = 50
+
 def get_credentials():
     """Gets valid user credentials from storage.
 
@@ -43,11 +45,7 @@ def get_credentials():
         flow = client.flow_from_clientsecrets(CLIENT_SECRET_FILE, SCOPES)
         flow.user_agent = APPLICATION_NAME
         
-        try:
-            import argparse
-            flags = argparse.ArgumentParser(parents=[tools.argparser]).parse_args()
-        except ImportError:
-            flags = None
+        flags = argparse.ArgumentParser(parents=[tools.argparser]).parse_args()
         credentials = tools.run_flow(flow, store, flags)
         print('Storing credentials to ' + credential_path)
     return credentials
@@ -88,7 +86,8 @@ class GmailApi():
         batch = BatchHttpRequest()
         messages = self.unread_ids()
         self.subjects = []
-        for msg in messages:
-            batch.add(self.service.users().messages().get(userId='me', id=msg['id']), callback=self.subject_callback)
-        batch.execute()
+        if messages:
+            for msg in messages:
+                batch.add(self.service.users().messages().get(userId='me', id=msg['id']), callback=self.subject_callback)
+            batch.execute()
         return self.subjects

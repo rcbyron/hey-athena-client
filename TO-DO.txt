@@ -34,6 +34,10 @@ Carson
 Tessa
 
 TASK LIST:
+- Create bleeding edge vs. release build
+- Make weather module speak
+- Create test files
+- Consider making an Athena Light and Athena Full
 - Refine the pitch
 - Build a community
     - Create a presentation video explaining our vision

@@ -21,7 +21,7 @@ class Task(object):
 class ActiveTask(Task):
     __metaclass__ = abc.ABCMeta
     
-    def __init__(self, patterns=[], priority=0, greedy=True,
+    def __init__(self, patterns=[], priority=0, api=None, greedy=True,
                  regex_precompile=True, regex_ignore_case=True):
         if regex_precompile:
             if regex_ignore_case:
@@ -33,6 +33,9 @@ class ActiveTask(Task):
         
         # Tasks are matched/sorted with priority in modules
         self.priority = priority
+        
+        # Optional API object to use
+        self.api = api
         
         # If task is matched, stop module from matching the proceeding tasks
         self.greedy = greedy

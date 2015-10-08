@@ -8,11 +8,6 @@ from client.classes.task import ActiveTask
 from client.modules.api_library import gmail_api
 
 class GetUnreadMail(ActiveTask):
-    
-    def __init__(self):
-        patterns = [r'.*\b(mail)\b.*']
-        super().__init__(patterns)
-    
     def match(self, text):
         for p in self.patterns:
             if p.match(text):
@@ -20,11 +15,10 @@ class GetUnreadMail(ActiveTask):
         return False
     
     def action(self, text):
-        gmailapi = gmail_api.GmailApi()
-        subjects = gmailapi.unread_subjects()
         
-        if subjects is None:
-            self.speak('No important unread messages.')
+        subjects = self.api.unread_subjects()
+        if len(subjects) < 1:
+            self.speak('You have no important unread messages.')
             return
         elif len(subjects) is 1:
             self.speak('You have 1 unread message:')
@@ -36,11 +30,11 @@ class GetUnreadMail(ActiveTask):
             print('---- '+subject)
         print('')
         if 10 < len(subjects):
-            print('top 10 displayed)\n')
+            print('(top 10 displayed)\n')
 
 
 class Gmail(Module):
-
     def __init__(self):
-        tasks = [GetUnreadMail()]
-        super().__init__(mod_name='gmail', mod_tasks=tasks, mod_priority=2)
+        g_api = gmail_api.GmailApi()
+        tasks = [GetUnreadMail([r'.*\b(mail)\b.*'], api=g_api)]
+        super().__init__(mod_name='gmail', mod_tasks=tasks, mod_priority=2) 
