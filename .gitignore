@@ -1,4 +1,10 @@
 *.pyc
 *.log
+*.json
+*.jpg
+*.png
+*.gif
+.credentials
 .pydevproject
 .project
+*/setup.py
