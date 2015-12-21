@@ -15,7 +15,7 @@ MODEL_DIR = "..\models"
 LOGS_DIR = "..\logs"
 
 # Must be in the sphinx dict file
-WAKE_UP_WORD = "athena"
+WAKE_UP_WORD = "hey athena"
 ERROR_MESSAGE = "Sorry, I could not understand that."
 
 def init():
@@ -65,6 +65,7 @@ def active_listen():
         tts.play_mp3("double-beep.mp3")
         audio = r.listen(src)                       # listen for the first phrase and extract it into audio data
     
+    msg = ''
     try:
         msg = r.recognize_google(audio)             # recognize speech using Google Speech Recognition
         print("\n~ \""+msg+"\"")
