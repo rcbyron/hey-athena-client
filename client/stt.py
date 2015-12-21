@@ -15,7 +15,7 @@ MODEL_DIR = "..\models"
 LOGS_DIR = "..\logs"
 
 # Must be in the sphinx dict file
-WAKE_UP_WORD = "hey athena"
+WAKE_UP_WORD = "hi athena"
 ERROR_MESSAGE = "Sorry, I could not understand that."
 
 def init():
