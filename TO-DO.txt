@@ -1,22 +1,27 @@
 Get pumped up on Athena and start making flyers for a meeting (also research sponsors on Inc/Business Insider)
 
-PITCH (raw/unfiltered):
-Every developer, in an abstract sense, has the underlying goal to turn his/her computer into an assistant of some sort.
-In the past, people would program computers to process some text-based input and output a result.
-There is a thrill for developers, that first time you make it say "hello world".
-There is a thrill in saying, "Hey, I made the computer do that!"
-However, within the past decade, we've been moving away from text-based systems and advancing toward voice-based systems.
-Now, programs like Siri, and Cortana are turning "hello world" into human-like response of "hello world" (answering millions of questions every day).
-Finding out who won the 1973 SuperBowl is as simple as asking your phone that question.
-Despite the advanced capabilities of these programs, there are always more things that you wish it could do.
-There are always better responses that you wish it had.
-Enter Athena Voice.
-Athena Voice is a 100% open-source, voice-controlled assistant platform that allows users to process user input the way they decide.
-It is written uniformly in Python 3 and is very easy to understand.
-Adding modules to enhance Athena's functionality is as simple as browsing, downloading, and dragging and dropping the python module file into the module directory.
-In the near future, this system can be implemented in your car or home by simply having a microphone, speaker, and processing unit.
-With Athena Voice, smart homes will become ubiquitous.
-A simple device with a microphone, speaker, and transmitter can be placed in each room to answer your questions wherever you go.
+PITCH:
+- Voice Assistants are the future (e.g. Siri, Cortana, Echo)
+- 
+
+WAYS TO MONETIZE:
+- Donators
+- Angel Investors
+- Advertisements (used sparingly and only when effective)
+- Buying/selling premium modules
+- Hosting servers for cloud computing (rent them)
+- Parent company adopts us and funds us
+
+BARRIERS:
+- Compile/export/support multiple platforms
+- Configuring microphones/speakers for all platforms (PyAudio)
+- Making sure dependencies stay up to date and work (PyAudio, SpeechRecognition, gTTS, etc.)
+- Get accurate wake-up-word detection (and ensure minimal false triggers)
+- Ensure active listening stops when you finish talking
+- Acquire developers
+- Steal Jasper community
+- Build a simple website that lets people contribute to the client and add modules
+- Create simple documentation for all platforms
 
 POSSIBLE NAME IDEAS:
 Athena
@@ -34,10 +39,12 @@ Carson
 Tessa
 
 TASK LIST:
+- Make this product dead simple to install and upgrade
+- Get designers to design a website
 - Create bleeding edge vs. release build
 - Make weather module speak
 - Create test files
-- Consider making an Athena Light and Athena Full
+- Consider making an Athena Light, Athena Full, and Athena Distributed
 - Refine the pitch
 - Build a community
     - Create a presentation video explaining our vision

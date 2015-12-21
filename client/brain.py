@@ -93,11 +93,11 @@ stt.init()
 
 while True:
     try:
-        text = input('> ')
-        #stt.listen_keyword()
-        #text = stt.active_listen()
-        #if not text:
-        #    continue
+        #text = input('> ')
+        stt.listen_keyword()
+        text = stt.active_listen()
+        if not text:
+            continue
 
         matched_mods = []
         for mod in modules:
