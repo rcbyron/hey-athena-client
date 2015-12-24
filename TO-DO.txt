@@ -39,6 +39,7 @@ Carson
 Tessa
 
 TASK LIST:
+- Figure out a way to be different from Amazon Alexa
 - Make this product dead simple to install and upgrade
 - Get designers to design a website
 - Create bleeding edge vs. release build
