@@ -36,6 +36,20 @@ def play_mp3(file_name, file_path='../media'):
         
     pyglet.clock.schedule_once(exit_callback, sound.duration)
     pyglet.app.run()
+    
+def play_mp3a(file_name, file_path):
+    pyglet.resource.path.clear()
+    pyglet.resource.path.append(file_path)
+    pyglet.resource.reindex()
+    
+    sound = pyglet.resource.media(file_name, streaming=False)
+    sound.play()
+    
+    def exit_callback(dt):
+        pyglet.app.exit()
+        
+    pyglet.clock.schedule_once(exit_callback, sound.duration)
+    pyglet.app.run()
 
 def filter_phrase(phrase):
     return phrase[:MAX_CHAR]
