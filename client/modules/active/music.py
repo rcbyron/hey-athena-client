@@ -5,7 +5,7 @@ Created on Aug 13, 2015
 '''
 from client.classes.module import Module
 from client.classes.task import ActiveTask
-from client.tts import play_mp3, play_mp3a
+from client.tts import play_mp3
 
 class PlaySongTask(ActiveTask):
     
@@ -24,7 +24,7 @@ class PlaySongTask(ActiveTask):
         if response == 'Y':
             path = input('Please specify your music path: ')
             song = input('What song do you want to be played?: ')
-            play_mp3a(song,path)
+            play_mp3(song,path)
         else:
             play_mp3("limbo.mp3")
         
