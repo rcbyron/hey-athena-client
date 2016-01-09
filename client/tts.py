@@ -18,6 +18,11 @@ LANGS = ['af', 'sq', 'ar', 'hy', 'ca', 'zh-CN', 'zh-TW', 'hr', 'cs',
 MAX_CHAR = 140
 speaking = False
 
+USE_TTS = True
+def disable_tts():
+    global USE_TTS
+    USE_TTS = False
+
 def init():
     #pyglet.options['audio'] = ('openal', 'directsound', 'silent')
     pyglet.lib.load_library('avbin')
@@ -41,8 +46,9 @@ def filter_phrase(phrase):
     return phrase[:MAX_CHAR]
 
 def speak(phrase):
-    print('SPOKEN:', phrase) # Use when gTTS is down
-    return
+    if not USE_TTS:
+        print('SPOKEN:', phrase)
+        return
     global speaking
     if speaking:
         print('Warning: Speak was called multiple times too quickly')
