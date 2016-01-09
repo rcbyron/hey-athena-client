@@ -1,0 +1,51 @@
+** Users need to know that this ain't a virus. And that their data is secure.
+** Don't forget to include Google Analytics code
+
+Home page:
+- Should look similar to https://jasperproject.github.io/ 
+  (but definitely should try to be different)
+- Banner/overview video still needed
+- For first-time users, it might be nice to have
+  the site look like one of these themes:
+    - http://html5up.net/uploads/demos/photon/
+    - http://html5up.net/uploads/demos/helios/
+    - http://html5up.net/
+
+Download page:
+- Probably could have a side bar to navigate the sections
+- Compiled binaries for Mac, Windows, Linux, x64, x86, etc.
+- Uncompiled project source code package
+- Recommended builds and Development builds
+- Link to installation documentation
+	
+Documentation page:
+- Should have a side bar to quickly navigate through documentation pages
+- Structure should look similar to:
+	- API Documentation
+    - Getting Started:
+	    - Overview
+		- Installation
+	- Tutorials:
+	    - Making your first module
+		- Submitting your first module
+		- Module tips/tricks
+	- Troubleshooting/FAQs
+	- Module Ideas
+	
+Modules page:
+- Should have a side bar with a search bar and filters/categories
+- Display tons of modules, ideally with infinite scrolling (not pagination)
+- Include an obvious way to submit your own modules
+
+Module page:
+- ** For now, modules are just .py files but will eventually be pre-compiled
+- Displays the selected module
+- Modules at least need: name, version, description, author
+- Could also have: photo/icon, comments/ratings by other users, etc.
+
+Contribute page:
+- Includes the 4 simple ways to contribute:
+    - Help improve the Athena Voice software (submit pull requests)
+	- Contribute your own modules
+	- Donate to help provide funding to build Athena Voice (ensure donations will really help productivity)
+	- Promote Athena Voice (this one's easy haha. Help mention us to your geeky tech friends)
