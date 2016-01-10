@@ -5,7 +5,7 @@ Created on Aug 6, 2015
 '''
 from os import path
 
-from sphinxbase.sphinxbase import Config, Config_swigregister #@UnusedImport
+from sphinxbase.sphinxbase import Config, Config_swigregister
 from pocketsphinx.pocketsphinx import Decoder
 import pyaudio, speech_recognition
 import client.tts as tts
@@ -14,7 +14,8 @@ import os
 MODEL_DIR = "..\models"
 LOGS_DIR = "..\logs"
 
-# Must be in the sphinx dict file
+# Word(s) must be in the sphinx dict file
+# Change to "hey athena" if background noise triggering occurs
 WAKE_UP_WORD = "athena"
 ERROR_MESSAGE = "Sorry, I could not understand that."
 

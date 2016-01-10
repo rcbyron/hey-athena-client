@@ -17,7 +17,8 @@ RESPONSES = {
          'I bought the world\'s worst thesaurus yesterday. Not only is it terrible, it\'s terrible.',
          'I have an EpiPen. My friend gave it to me when he was dying, it seemed very important to him that I have it.',
          'A termite walks into the bar and asks, "Is the bar tender here?"',
-         '"I\'m sorry" and "I apologize" mean the same thing... except when you\'re at a funeral.'],
+         '"I\'m sorry" and "I apologize" mean the same thing... except when you\'re at a funeral.',
+         'Joke? Try looking in a mirror.'],
              
     r'.*(\b)+(hey|hi|hello|(w(h)?(a|o|u)t(\'s)?(\s)+up(\?)?|s+u+p+))(\b)+.*':
         ['Hey there! I\'m just computing numbers and such. You?',
@@ -28,8 +29,14 @@ RESPONSES = {
          'Ayyyyy hombre.',
          'How\'s it goin\' ese???'],
              
-        r'.*(\b)+sweet(\b)+':
-        ['Why thank you.'],
+    r'.*(\b)+sweet(\b)+':
+        ['Sweet? Sweet indeed.'],
+        
+    r'.*(\b)+cool(\b)+':
+        ['Cool? Cool indeed.'],
+    
+    r'.*(\b)+movie(s)?(\b)+':
+        ['I\'m currently working on a "movies" module. Maybe you could help me?'],
 }
 
 class ConversationTask(ActiveTask):

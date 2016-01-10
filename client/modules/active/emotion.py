@@ -18,7 +18,7 @@ EMOTIONS = {
     3: 0.4,  # ADMIRATION
 }
 RESPONSES = {
-    0: ["Self destructing in 3... 2... 1... Psych."],
+    0: ["Self destructing in 3... 2... 1... (kidding... calm down)"],
     1: ["I'll answer that when I please.", "I don't feel like answering that right now."],
     2: ["I'll answer that, but first let me say, today is a great day."],
     3: ["By the way, have I told you that you're the coolest person I've met?"],

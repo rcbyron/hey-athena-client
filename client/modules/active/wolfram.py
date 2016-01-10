@@ -15,7 +15,7 @@ tasks = []
 
 class AnswerTask(ActiveTask):
     def __init__(self):
-        p_list = [r'.*\b(who|what|when|where|why|how|(can|are) you)\b.*']
+        p_list = [r'.*\b((who|what|when|where|why|how)(\'s)?|(can|are) you)\b.*']
         super().__init__(patterns=p_list)
     
     def match(self, text):

@@ -6,6 +6,7 @@ Created on Aug 12, 2015
 from gtts import gTTS
 from requests.exceptions import HTTPError
 import pyglet, tempfile, os
+import client.settings as settings
 
 """
 LANGS = ['af', 'sq', 'ar', 'hy', 'ca', 'zh-CN', 'zh-TW', 'hr', 'cs',
@@ -17,11 +18,6 @@ LANGS = ['af', 'sq', 'ar', 'hy', 'ca', 'zh-CN', 'zh-TW', 'hr', 'cs',
 
 MAX_CHAR = 140
 speaking = False
-
-USE_TTS = True
-def disable_tts():
-    global USE_TTS
-    USE_TTS = False
 
 def init():
     #pyglet.options['audio'] = ('openal', 'directsound', 'silent')
@@ -46,7 +42,7 @@ def filter_phrase(phrase):
     return phrase[:MAX_CHAR]
 
 def speak(phrase):
-    if not USE_TTS:
+    if not settings.USE_TTS:
         print('SPOKEN:', phrase)
         return
     global speaking
