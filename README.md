@@ -37,7 +37,7 @@ Your personal robotic assistant.
 - Open command prompt and switch to the download directory:
     - `cd (download directory)`
     - `pip3 install PyAudio‑0.2.8‑cp34‑none‑win32.whl`
-    - `pip3 install pocketsphinx SpeechRecognition pyglet gTTS wolframalpha`
+    - `pip3 install pocketsphinx SpeechRecognition pyglet gTTS pyyaml wolframalpha`
 - Download the `athena-voice-client` repository and extract it
 - Add `C:\path\to\athena-voice-client-master` to your `PYTHONPATH` system or user environment variable
     - One easy way to do this is to import the project into Eclipse (PyDev) and have it add the project to PYTHONPATH
