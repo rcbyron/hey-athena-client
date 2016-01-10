@@ -9,17 +9,12 @@ if __name__ == '__main__':
 
 import pkgutil, re, traceback
 
+import client.settings as settings
 import client.stt as stt
 import client.tts as tts
 import client.modules.active as active_mods
 
 from inspect import isclass
-
-# Set these to False while debugging
-USE_STT = False
-USE_TTS = False
-if not USE_TTS:
-    tts.disable_tts()
 
 def find_mods():
     """ Find modules """
@@ -125,7 +120,7 @@ def match_mods(text):
 def run():
     while True:
         try:
-            if USE_STT:
+            if settings.USE_STT:
                 stt.listen_keyword()
                 text = stt.active_listen()
             else:
@@ -143,7 +138,7 @@ def run():
                 execute_mods(mods, text)
                 
         except EOFError:
-            print('\n\n~ Shutting down.\n')
+            print('\n\n~ Shutting down...\n')
             break
         except:
             print(traceback.format_exc())
