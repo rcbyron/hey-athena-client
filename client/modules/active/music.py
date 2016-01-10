@@ -25,17 +25,17 @@ class PlaySongTask(ActiveTask):
         self.speak("Turning up...")
         response = input('Do you want to specify a directory? Y/N: ')
         if response == 'Y':
-            dir = input('What is your music directory: ')
+            music_dir = input('What is your music directory: ')
             shuffle = input('Do you want a specific song? Y/N: ')
             if shuffle == 'Y':
                 song = input('What song do you want to be played?: ')
-                play_mp3(song, dir) 
+                play_mp3(song, music_dir) 
             else:
-                songs = [f for f in listdir(dir) if isfile(join(dir, f))]
+                songs = [f for f in listdir(music_dir) if isfile(join(music_dir, f))]
                 while 1:
                     song = random.choice(songs)
                     while song.endswith(".mp3"):
-                        play_mp3(song,dir)
+                        play_mp3(song, music_dir)
                         song = random.choice(songs)
         else:
             play_mp3("limbo.mp3")
