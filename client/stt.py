@@ -9,10 +9,8 @@ from sphinxbase.sphinxbase import Config, Config_swigregister
 from pocketsphinx.pocketsphinx import Decoder
 import pyaudio, speech_recognition
 import client.tts as tts
+import client.settings as settings
 import os
-
-MODEL_DIR = "..\models"
-LOGS_DIR = "..\logs"
 
 # Word(s) must be in the sphinx dict file
 # Change to "hey athena" if background noise triggering occurs
@@ -21,15 +19,15 @@ ERROR_MESSAGE = "Sorry, I could not understand that."
 
 def init():
     # Be wary of an OSError due to a race condition
-    if not os.path.exists(LOGS_DIR):
-        os.makedirs(LOGS_DIR)
+    if not os.path.exists(settings.LOGS_DIR):
+        os.makedirs(settings.LOGS_DIR)
     
     # Create a decoder with certain model
     config = Decoder.default_config()
-    config.set_string('-logfn', path.join(LOGS_DIR, 'passive-listen.log'))
-    config.set_string('-hmm', path.join(MODEL_DIR, 'en-us\en-us'))
-    config.set_string('-lm', path.join(MODEL_DIR, 'en-us\en-us.lm.dmp'))
-    config.set_string('-dict', path.join(MODEL_DIR, 'en-us\cmudict-en-us.dict'))
+    config.set_string('-logfn', path.join(settings.LOGS_DIR, 'passive-listen.log'))
+    config.set_string('-hmm', path.join(settings.MODEL_DIR, 'en-us\en-us'))
+    config.set_string('-lm', path.join(settings.MODEL_DIR, 'en-us\en-us.lm.dmp'))
+    config.set_string('-dict', path.join(settings.MODEL_DIR, 'en-us\cmudict-en-us.dict'))
     
     # Decode streaming data
     global decoder, p

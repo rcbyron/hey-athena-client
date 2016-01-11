@@ -35,6 +35,7 @@ Carson
 Tessa
 
 TASK LIST:
+- Lower master volume when wake-up-word detected
 - Figure out a way to be different from Amazon Alexa
 - Make this product dead simple to install and upgrade
 - Get designers to design a website

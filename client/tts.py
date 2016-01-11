@@ -24,7 +24,7 @@ def init():
     pyglet.lib.load_library('avbin')
     pyglet.have_avbin=True
     
-def play_mp3(file_name, file_path='../media'):
+def play_mp3(file_name, file_path=settings.MEDIA_DIR):
     pyglet.resource.path.clear()
     pyglet.resource.path.append(file_path)
     pyglet.resource.reindex()

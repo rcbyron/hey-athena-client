@@ -5,8 +5,12 @@ Created on Jan 9, 2016
 '''
 import os, yaml
 
-BASE_DIR = ".."
-USERS_DIR = os.path.join(BASE_DIR, "users")
+CLIENT_DIR = os.path.dirname(os.path.abspath(__file__))
+BASE_DIR = os.path.dirname(CLIENT_DIR)
+MODEL_DIR = os.path.join(BASE_DIR, "models")
+LOGS_DIR = os.path.join(BASE_DIR, "logs")
+MEDIA_DIR = os.path.join(BASE_DIR, "media")
+USERS_DIR = os.path.join(CLIENT_DIR, "users")
 
 # Set these to False while debugging
 USE_STT = True
