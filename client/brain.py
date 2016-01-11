@@ -77,12 +77,12 @@ def build_mod_order(mods):
         else:
             normal_mods.append(mod)
             
-    greedy_mod = greedy_mods[0]
-    if 1 < len(greedy_mods):
+    if 0 < len(greedy_mods):
+        normal_mods.append(greedy_mods[0])
+    elif 1 < len(greedy_mods):
         if 0 < len(normal_mods):
             print("\n~ Matched mods (non-greedy): "+str([mod.name for mod in normal_mods])[1:-1]+'\n')
-        greedy_mod = mod_select(greedy_mods)
-    normal_mods.append(greedy_mod)
+        normal_mods.append(mod_select(greedy_mods))
     return normal_mods
     
 def execute_mods(mods, text):

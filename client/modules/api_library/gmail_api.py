@@ -52,9 +52,11 @@ def get_credentials():
 
 class GmailApi():
     def __init__(self):
-        self.credentials = get_credentials()
-        http = self.credentials.authorize(httplib2.Http())
-        self.service = discovery.build('gmail', 'v1', http=http)
+        # Credentials required
+        pass
+        #self.credentials = get_credentials()
+        #http = self.credentials.authorize(httplib2.Http())
+        #self.service = discovery.build('gmail', 'v1', http=http)
 
     def bulk_fetch(self, service, search_primary):
         params = 'is:unread '
