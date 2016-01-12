@@ -10,7 +10,7 @@ from client.modules.api_library import geo_info_api
 class GetIPInfoTask(ActiveTask):
     
     def __init__(self):
-        p_list = [r'.*(?:\b)+(ip|country|region|city|latitude|longitude|asn|isp|timezone)(?:\b)+.*']
+        p_list = [r'.*\b(ip|country|region|city|latitude|longitude|asn|isp|timezone)\b.*']
         super().__init__(patterns=p_list)
     
     def match(self, text):

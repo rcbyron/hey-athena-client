@@ -10,7 +10,7 @@ from client.modules.api_library import bitcoin_api
 class GetValueTask(ActiveTask):
     
     def __init__(self):
-        patterns = [r'.*(\b)+bitcoin(\b)+.*']
+        patterns = [r'.*\b(bitcoin)\b.*']
         super().__init__(patterns)
     
     def match(self, text):

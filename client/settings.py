@@ -16,6 +16,9 @@ USERS_DIR = os.path.join(CLIENT_DIR, "users")
 USE_STT = True
 USE_TTS = False
 
+# Obtained from Wunderground
+WEATHER_API_KEY = 'd647ca403a0ac94b'
+
 def load_user():
     with open(os.path.join(USERS_DIR, 'conzor.yml'), 'r') as f:
         doc = yaml.load(f)

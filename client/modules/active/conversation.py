@@ -10,7 +10,7 @@ import re, random
 
 """ Place the most specific regex keys first """
 RESPONSES = {
-    r'.*(\b)+joke(s)?(\b)+.*':
+    r'.*\b(joke(s)?)\b.*':
         ['I don\'t like country music, but I don\'t mean to denigrate those who do. And for the people who like country music, denigrate means \'put down\'.',
          'I want to die peacefully in my sleep, like my grandfather... Not screaming and yelling like the passengers in his car.',
          'War does not determine who is right - only who is left.',
@@ -20,23 +20,22 @@ RESPONSES = {
          '"I\'m sorry" and "I apologize" mean the same thing... except when you\'re at a funeral.',
          'Joke? Try looking in a mirror.'],
              
-    r'.*(\b)+(hey|hi|hello|(w(h)?(a|o|u)t(\'s)?(\s)+up(\?)?|s+u+p+))(\b)+.*':
+    r'.*\b(hey|hi|hello|(w(h)?(a|o|u)t(\'s)?(\s)+up(\?)?|s+u+p+))\b.*':
         ['Hey there! I\'m just computing numbers and such. You?',
-         'Oh hey, I\'m just hanging out right now.'],
+         'Oh hey, I\'m just hanging out right now.',
+         'Oh hey, I\'m just trying to solve p=np',
+         'Hey, how\'s it goin\' yo?'],
     
-    r'.*(\b)+y+o+(\b)+':
+    r'.*\b(y+o+)\b.*':
         ['Sup holmes.',
          'Ayyyyy hombre.',
          'How\'s it goin\' ese???'],
              
-    r'.*(\b)+sweet(\b)+':
-        ['Sweet? Sweet indeed.'],
-        
-    r'.*(\b)+cool(\b)+':
-        ['Cool? Cool indeed.'],
+    r'.*\b(sweet|cool)\b.*':
+        ['Cool? Sweet? indeed.'],
     
-    r'.*(\b)+movie(s)?(\b)+':
-        ['I\'m currently working on a "movies" module. Maybe you could help me?'],
+    r'.*\b(movie(s)?)\b.*':
+        ['My master hasn\'t created a "movies" module for me yet. Maybe you could help me?'],
 }
 
 class ConversationTask(ActiveTask):

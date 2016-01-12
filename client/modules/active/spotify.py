@@ -10,7 +10,7 @@ from client.modules.api_library import spotify_api
 class PlaySongTask(ActiveTask):
     
     def __init__(self, s_api):
-        super().__init__(patterns=[r'.*(?:\b)+play\s(.+)'], api=s_api)
+        super().__init__(patterns=[r'.*\b(play\s(.+))\b.*'], api=s_api)
          
     def match(self, text):
         for p in self.patterns:
@@ -27,7 +27,8 @@ class PlaySongTask(ActiveTask):
 class PauseSongTask(ActiveTask):
     
     def __init__(self, s_api):
-        super().__init__(patterns=[r'.*(?:\b)+(play|(un)?pause|stop|start)\ssong.*'], priority=1, api=s_api)
+        p_list = [r'.*\b(play|(un)?pause|stop|start)(\sth(e|is))?\ssong\b.*']
+        super().__init__(patterns=p_list, priority=1, api=s_api)
          
     def match(self, text):
         return self.patterns[0].match(text) is not None
@@ -39,7 +40,7 @@ class PauseSongTask(ActiveTask):
 class NextSongTask(ActiveTask):
     
     def __init__(self, s_api):
-        super().__init__(patterns=[r'.*(?:\b)+(next)\ssong.*'], priority=1, api=s_api)
+        super().__init__(patterns=[r'.*\b(next)\ssong\b.*'], priority=1, api=s_api)
          
     def match(self, text):
         return self.patterns[0].match(text) is not None

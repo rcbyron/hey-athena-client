@@ -9,8 +9,8 @@ http://www.wunderground.com/weather/api/d/docs
 '''
 
 import urllib.request, json, time, re
+import client.settings as settings
 
-API_KEY = 'd647ca403a0ac94b'
 DAYS = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
 BASE_URL = 'http://api.wunderground.com/api/'
 URL_DATA_TYPES = {
@@ -34,9 +34,13 @@ class WeatherApi():
         if not self.update_loc(DEFAULT_ZIP_IATA_CITY, DEFAULT_STATE_COUNTRY):
             raise Exception
         
-    def get_json_data(self, data_type):
+    def get_json_data(self, data_type, loc_extension=None):
         """ Returns the desired JSON weather data """
-        url = BASE_URL+API_KEY+URL_DATA_TYPES[data_type]+self.loc_extension
+        url = BASE_URL+settings.WEATHER_API_KEY+URL_DATA_TYPES[data_type]
+        if not loc_extension:
+            url += self.loc_extension
+        else:
+            url += loc_extension
         return json.loads(urllib.request.urlopen(url).read().decode('utf-8'))
 
     def load_conditions(self):
@@ -60,10 +64,9 @@ class WeatherApi():
         test_ext = new_zip_iata_city+'.json'
         if new_state_country:
             test_ext = new_state_country+'/'+test_ext
-        url = BASE_URL+API_KEY+URL_DATA_TYPES['geolookup']+test_ext
-        location = urllib.request.urlopen(url).read().decode('utf-8')
         
-        if 'location' in json.loads(location):
+        loc_data = self.get_json_data('geolookup', test_ext)
+        if 'location' in loc_data:
             self.loc_extension = test_ext
             self.zip_iata_city = new_zip_iata_city
             self.state_country = new_state_country
