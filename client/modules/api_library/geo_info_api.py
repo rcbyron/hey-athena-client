@@ -10,11 +10,8 @@ import urllib.request, json
 
 URL = 'http://www.telize.com/geoip'
 
-response = {}
-
 def update_data():
-    global response
-    response = json.loads(urllib.request.urlopen(URL).read().decode('utf-8'))
+    return json.loads(urllib.request.urlopen(URL).read().decode('utf-8'))
     
 def get_data(key):
     """
@@ -37,9 +34,7 @@ def get_data(key):
         - timezone (Time Zone)
     """
 
-    global response
-    if not response:
-        update_data()
+    response = update_data()
     if key not in response:
         return None
     return response[key]

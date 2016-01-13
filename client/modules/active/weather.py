@@ -155,9 +155,17 @@ class UpdateLocationTask(ActiveTask):
 
 class Weather(Module):
     def __init__(self):
-        w_api = weather_api.WeatherApi()
+        w_api = None
+        mod_enabled = True
+        try:
+            w_api = weather_api.WeatherApi()
+        except:
+            mod_enabled = False
+            print('~ Please properly configure the weather API')
+            return
+        
         tasks = [UpdateLocationTask(patterns=[ZIP_IATA_PATTERN,CITY_PATTERN],
                                     priority=5, api=w_api, greedy=False),
                  CurrentDayTask(WEATHER_INPUT_PATTERNS, priority=2, api=w_api),
                  ForecastTask(WEATHER_INPUT_PATTERNS, priority=1, api=w_api)]
-        super().__init__(mod_name='weather', mod_tasks=tasks, mod_priority=2)
+        super().__init__(mod_name='weather', mod_tasks=tasks, mod_priority=2, enabled=mod_enabled)

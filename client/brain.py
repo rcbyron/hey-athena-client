@@ -31,6 +31,7 @@ def find_mods():
                         if 'Module' is parent.__name__:
                             modules.append(obj())
         except Exception as e:
+            print(traceback.format_exc())
             print('\n~ Error loading \''+name+'\' '+str(e))        
     modules.sort(key=lambda mod: mod.priority, reverse=True)
 
@@ -151,8 +152,11 @@ def run():
                 break
     print('~ Arrivederci.')
 
+settings.load_user()
 find_mods()
 list_mods()
 greet()
 stt.init()
+if 'full-name' in settings.user_info and settings.user_info['full-name']:
+    print('~ Welcome '+settings.user_info['full-name']+"!")
 run()

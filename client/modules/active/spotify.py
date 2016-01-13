@@ -10,7 +10,7 @@ from client.modules.api_library import spotify_api
 class PlaySongTask(ActiveTask):
     
     def __init__(self, s_api):
-        super().__init__(patterns=[r'.*\b(play\s(.+))\b.*'], api=s_api)
+        super().__init__(patterns=[r'.*\bplay\s(.+)\b.*'], api=s_api)
          
     def match(self, text):
         for p in self.patterns:

@@ -8,6 +8,7 @@ https://bitcoinaverage.com/api
 
 '''
 import urllib.request, json
+import client.config as cfg
 
 """
 Currency Codes: AUD, BRL, CAD, CHF, CNY, EUR, GBP, IDR,
@@ -17,11 +18,15 @@ ILS, MXN, NOK, NZD, PLN, RON, RUB, SEK, SGD, USD, ZAR
 CURRENCY_CODE = 'USD'
 URL = 'https://api.bitcoinaverage.com/ticker/'+CURRENCY_CODE+'/'
 
-response = {}
+def config_generator():
+    bitcoin_info = {}
+    c_code = cfg.safe_input("Currency Code: ")
+    if c_code:
+        bitcoin_info['currency-code'] = c_code
+    return bitcoin_info
 
 def update_data():
-    global response
-    response = json.loads(urllib.request.urlopen(URL).read().decode('utf-8'))
+    return json.loads(urllib.request.urlopen(URL).read().decode('utf-8'))
 
 def get_data(key):
     """
@@ -33,9 +38,7 @@ def get_data(key):
         - total_vol: total trading volume across all exchanges in last 24 hours
     """
     
-    global response
-    if not response:
-        update_data()
+    response = update_data()
     if key not in response:
         return None
     return response[key]

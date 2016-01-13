@@ -3,12 +3,9 @@ Created on Jan 10, 2016
 
 @author: Connor
 '''
-'''
-Created on Jan 10, 2016
-
-@author: Connor
-'''
 import traceback
+import client.config as cfg
+import client.settings as settings
 
 from selenium import webdriver
 from selenium.webdriver.support.wait import WebDriverWait
@@ -16,18 +13,28 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 
-USERNAME = 'americanjuice'
 BASE_URL = 'https://play.spotify.com/browse'
+
+def config_generator():
+    spotify_info = {}
+    spotify_info['username'] = cfg.safe_input("Spotify Username: ")
+    spotify_info['password'] = cfg.safe_input("Spotify Password: ")
+    return spotify_info
 
 class SpotifyApi():
     
     def __init__(self):
         self.frame = None
         self.driver = None
-        self.password = None
+        if "spotify_api" in settings.user_info:
+            self.username = settings.user_info['spotify_api']['username']
+            self.password = settings.user_info['spotify_api']['password']
+        else:
+            print('~ Please add spotify configuration to your user.')
     
     def login(self):
-        if not self.password:
+        if not self.password or not self.username:
+            self.username = input("Password: ")
             self.password = input("Password: ")
         self.driver = webdriver.Firefox()
         self.driver.get(BASE_URL)
@@ -35,7 +42,7 @@ class SpotifyApi():
         self.driver.find_element_by_id('has-account').click()
     
         self.driver.find_element_by_id('login-usr').clear()
-        self.driver.find_element_by_id('login-usr').send_keys(USERNAME)
+        self.driver.find_element_by_id('login-usr').send_keys(self.username)
     
         self.driver.find_element_by_id('login-pass').clear()
         self.driver.find_element_by_id('login-pass').send_keys(self.password)
