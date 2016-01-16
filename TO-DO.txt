@@ -33,6 +33,7 @@ Calvin
 Cora
 Carson
 Tessa
+Joel
 
 TASK LIST:
 - Figure out a way to be different from Amazon Alexa
