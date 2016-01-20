@@ -15,7 +15,7 @@ from selenium.webdriver.support import expected_conditions as EC
 
 BASE_URL = 'https://play.spotify.com/browse'
 
-def config_generator():
+def config():
     spotify_info = {}
     spotify_info['username'] = cfg.safe_input("Spotify Username: ")
     spotify_info['password'] = cfg.safe_input("Spotify Password: ")
@@ -26,9 +26,9 @@ class SpotifyApi():
     def __init__(self):
         self.frame = None
         self.driver = None
-        if "spotify_api" in settings.user_info:
-            self.username = settings.user_info['spotify_api']['username']
-            self.password = settings.user_info['spotify_api']['password']
+        if __name__ in settings.inst.user:
+            self.username = settings.inst.user[__name__]['username']
+            self.password = settings.inst.user[__name__]['password']
         else:
             print('~ Please add spotify configuration to your user.')
     

@@ -9,6 +9,7 @@ http://www.wunderground.com/weather/api/d/docs
 '''
 
 import urllib.request, json, time, re
+
 import client.settings as settings
 import client.config as cfg
 
@@ -20,10 +21,10 @@ URL_DATA_TYPES = {
     'geolookup':  '/geolookup/q/'
 }
 
-def config_generator():
+def config():
     weather_info = {}
-    weather_info['zip-iata-city'] = cfg.safe_input("Default Zip Code or City or Airport Code: ")
-    weather_info['state-country'] = cfg.safe_input("Default State or Country (optional): ")
+    weather_info['zip-iata-city'] = cfg.safe_input("Default Zip Code or City or Airport Code: ", require=True)
+    weather_info['state-country'] = cfg.safe_input("Default State or Country: ")
     return weather_info
 
 # Number of seconds to wait before a call will update the data
@@ -36,16 +37,17 @@ class WeatherApi():
         self.fc_update_time = -UPDATE_FORECAST_INT
         self.restore_flag = False
         
-        if not 'weather_api' in settings.user_info:
+        if not 'weather_api' in settings.inst.user or 'wunderground' not in settings.inst.keys:
             raise Exception
-        self.default_zip_iata_city = settings.user_info['weather_api']['zip-iata-city']
-        self.default_state_country = settings.user_info['weather_api']['state-country']
+        self.default_zip_iata_city = settings.inst.user['weather_api']['zip-iata-city']
+        self.default_state_country = settings.inst.user['weather_api']['state-country']
+        self.key = settings.inst.keys['wunderground']
         if not self.update_loc(self.default_zip_iata_city, self.default_state_country):
             raise Exception
     
     def get_json_data(self, data_type, loc_extension=None):
         """ Returns the desired JSON weather data """
-        url = BASE_URL+settings.WEATHER_API_KEY+URL_DATA_TYPES[data_type]
+        url = BASE_URL+self.key+URL_DATA_TYPES[data_type]
         if not loc_extension:
             url += self.loc_extension
         else:

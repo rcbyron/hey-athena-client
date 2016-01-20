@@ -7,37 +7,57 @@ import os, yaml
 
 CLIENT_DIR = os.path.dirname(os.path.abspath(__file__))
 BASE_DIR = os.path.dirname(CLIENT_DIR)
-MODEL_DIR = os.path.join(BASE_DIR, "models")
-LOGS_DIR = os.path.join(BASE_DIR, "logs")
-MEDIA_DIR = os.path.join(BASE_DIR, "media")
-USERS_DIR = os.path.join(BASE_DIR, "users")
+KEYS_DIR = os.path.join(CLIENT_DIR, '.credentials')
+MODEL_DIR = os.path.join(BASE_DIR, 'models')
+LOGS_DIR = os.path.join(BASE_DIR, 'logs')
+MEDIA_DIR = os.path.join(BASE_DIR, 'media')
+USERS_DIR = os.path.join(BASE_DIR, 'users')
 
 # Set these to False while debugging
-USE_STT = True
+USE_STT = False
 USE_TTS = False
 
-# Obtained from Wunderground
-WEATHER_API_KEY = 'd647ca403a0ac94b'
+inst = None
+def init():
+    global inst
+    inst = Settings()
 
-user_info = None
-
-def load_user():
-    global user_info
+def find_users():
     users = []
     for file in os.listdir(USERS_DIR):
-        if file.endswith(".yml"):
+        if file.endswith('.yml'):
             with open(os.path.join(USERS_DIR, file)) as f:
-                user_info = yaml.load(f)
-                users.append(user_info['username'])
-    print("~ Users: ", str(users)[1:-1])
-    
-    valid_user = False
-    while not valid_user:
-        user = input("\n~ Username: ")
-        if user not in users:
-            print("\n~ Please enter a valid username")
-            continue
-        with open(os.path.join(USERS_DIR, user+'.yml'), 'r') as f:
-            user_info = yaml.load(f)
-            print("\n~ Logged in as: "+user_info['username'])
-            break
+                user = yaml.load(f)
+                users.append(user['user_api']['username'])
+    return users
+
+class Settings():
+    def __init__(self):
+        self.login()
+        self.load_keys()
+        
+    def check_users(self):
+        self.users = find_users()
+        if not self.users:
+            print('~ No users found. Please create a new user.\n')
+            import client.config as cfg
+            cfg.generate()
+
+    def login(self):
+        self.check_users()
+        print('~ Users: ', str(self.users)[1:-1])
+        valid_user = False
+        while not valid_user:
+            username = input('\n~ Username: ')
+            if username not in self.users:
+                print('\n~ Please enter a valid username')
+                continue
+            with open(os.path.join(USERS_DIR, username+'.yml'), 'r') as f:
+                self.user = yaml.load(f)
+                print('\n~ Logged in as: '+self.user['user_api']['username'])
+                break
+        
+    def load_keys(self):
+        self.keys = None
+        with open(os.path.join(KEYS_DIR, 'keys.yml'), 'r') as f:
+            self.keys = yaml.load(f)

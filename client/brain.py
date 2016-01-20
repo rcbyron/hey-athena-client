@@ -152,11 +152,11 @@ def run():
                 break
     print('~ Arrivederci.')
 
-settings.load_user()
+settings.init()
 find_mods()
 list_mods()
 greet()
 stt.init()
-if 'full-name' in settings.user_info and settings.user_info['full-name']:
-    print('~ Welcome '+settings.user_info['full-name']+"!")
+if 'full-name' in settings.inst.user and settings.inst.user['full-name']:
+    print('~ Welcome '+settings.inst.user['full-name']+"!")
 run()

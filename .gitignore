@@ -4,6 +4,7 @@
 *.jpg
 *.png
 *.gif
+*.yml
 .credentials
 .pydevproject
 .project
