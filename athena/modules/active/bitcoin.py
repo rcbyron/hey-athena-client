@@ -3,9 +3,16 @@ Created on Jul 19, 2015
 
 @author: Connor
 '''
-from client.classes.module import Module
-from client.classes.task import ActiveTask
-from client.modules.api_library import bitcoin_api
+from athena.classes.module import Module
+from athena.classes.task import ActiveTask
+from athena.modules.api_library import bitcoin_api
+
+MOD_PARAMS = {
+    'name': 'bitcoin',
+    'priority': 2,
+    'greedy': True,
+    'enabled': True,
+}
 
 class GetValueTask(ActiveTask):
     
@@ -24,11 +31,10 @@ class GetValueTask(ActiveTask):
         print('~ 24 Hour Average: $'    + str(bitcoin_api.get_data('24h_avg')))
         print('~ Last Price: $'         + str(bitcoin_api.get_data('last')))
         print('')
-        self.speak(str(bitcoin_api.get_data('last')), print_phrase=False)
+        self.speak(str(bitcoin_api.get_data('last')), show_text=False)
 
 
 class Bitcoin(Module):
-
+    
     def __init__(self):
-        tasks = [GetValueTask()]
-        super().__init__(mod_name='bitcoin', mod_tasks=tasks, mod_priority=2)
+        super().__init__(MOD_PARAMS, [GetValueTask()])

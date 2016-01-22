@@ -7,7 +7,7 @@ API Documentation:
 https://developers.google.com/gmail/api/
 
 PyDoc:
-https://google-api-client-libraries.appspot.com/documentation/gmail/v1/python/latest/
+https://google-api-athena-libraries.appspot.com/documentation/gmail/v1/python/latest/
 '''
 import httplib2
 import os

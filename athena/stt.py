@@ -8,8 +8,8 @@ from os import path
 from sphinxbase.sphinxbase import Config, Config_swigregister
 from pocketsphinx.pocketsphinx import Decoder
 import pyaudio, speech_recognition
-import client.tts as tts
-import client.settings as settings
+import athena.tts as tts
+import athena.settings as settings
 import os
 
 # Word(s) must be in the sphinx dict file

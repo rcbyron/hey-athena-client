@@ -3,9 +3,16 @@ Created on Jan 10, 2016
 
 @author: Connor
 '''
-from client.classes.module import Module
-from client.classes.task import ActiveTask
-from client.modules.api_library import spotify_api
+from athena.classes.module import Module
+from athena.classes.task import ActiveTask
+from athena.modules.api_library import spotify_api
+
+MOD_PARAMS = {
+    'name': 'spotify',
+    'priority': 2,
+    'greedy': True,
+    'enabled': True,
+}
 
 class PlaySongTask(ActiveTask):
     
@@ -54,4 +61,4 @@ class Music(Module):
     def __init__(self):
         s_api = spotify_api.SpotifyApi()
         tasks = [PlaySongTask(s_api), PauseSongTask(s_api), NextSongTask(s_api)]
-        super().__init__(mod_name='spotify', mod_tasks=tasks, mod_priority=2)
+        super().__init__(MOD_PARAMS, tasks)

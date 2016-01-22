@@ -3,12 +3,21 @@ Created on Aug 13, 2015
 
 @author: Connor
 '''
+import random
+
 from os import listdir
 from os.path import isfile, join
-import random
-from client.classes.module import Module
-from client.classes.task import ActiveTask
-from client.tts import play_mp3
+
+from athena.classes.module import Module
+from athena.classes.task import ActiveTask
+from athena.tts import play_mp3
+
+MOD_PARAMS = {
+    'name': 'music',
+    'priority': 2,
+    'greedy': True,
+    'enabled': True,
+}
 
 class PlaySongTask(ActiveTask):
     
@@ -22,7 +31,7 @@ class PlaySongTask(ActiveTask):
         return False
     
     def action(self, text):
-        self.speak("Turning up...")
+        self.speak('Turning up...')
         response = input('Do you want to specify a directory? Y/N: ')
         if response == 'Y':
             music_dir = input('What is your music directory: ')
@@ -34,15 +43,15 @@ class PlaySongTask(ActiveTask):
                 songs = [f for f in listdir(music_dir) if isfile(join(music_dir, f))]
                 while 1:
                     song = random.choice(songs)
-                    while song.endswith(".mp3"):
+                    while song.endswith('.mp3'):
                         play_mp3(song, music_dir)
                         song = random.choice(songs)
         else:
-            play_mp3("limbo.mp3")
+            play_mp3('limbo.mp3')
         
         
 class Music(Module):
 
     def __init__(self):
         tasks = [PlaySongTask()]
-        super().__init__(mod_name='music', mod_tasks=tasks, mod_priority=2)
+        super().__init__(MOD_PARAMS, tasks)

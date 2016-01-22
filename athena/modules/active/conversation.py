@@ -3,10 +3,17 @@ Created on Jun 1, 2015
 
 @author: Connor
 '''
-
-from client.classes.module import Module
-from client.classes.task import ActiveTask
 import re, random
+
+from athena.classes.module import Module
+from athena.classes.task import ActiveTask
+
+MOD_PARAMS = {
+    'name': 'conversation',
+    'priority': 2,
+    'greedy': True,
+    'enabled': True,
+}
 
 """ Place the most specific regex keys first """
 RESPONSES = {
@@ -55,4 +62,4 @@ class Conversation(Module):
     
     def __init__(self):
         tasks = [ConversationTask()]
-        super().__init__(mod_name='conversation', mod_tasks=tasks, mod_priority=2)
+        super().__init__(MOD_PARAMS, tasks)

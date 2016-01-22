@@ -3,10 +3,19 @@ Created on Jan 9, 2016
 
 @author: Connor
 '''
-from client.classes.module import Module
-from client.classes.task import ActiveTask
-import client.tts as tts
 import random as r
+
+import athena.tts as tts
+
+from athena.classes.module import Module
+from athena.classes.task import ActiveTask
+
+MOD_PARAMS = {
+    'name': 'emotion',
+    'priority': 2,
+    'greedy': True,
+    'enabled': True,
+}
 
 EMOTION_CHANCE = 0.5
 
@@ -17,6 +26,7 @@ EMOTIONS = {
     2: 0.35, # OPTIMISM
     3: 0.4,  # ADMIRATION
 }
+
 RESPONSES = {
     0: ["Self destructing in 3... 2... 1... (kidding... calm down)"],
     1: ["I'll answer that when I please.", "I don't feel like answering that right now."],
@@ -42,6 +52,6 @@ class Emotion(Module):
 
     def __init__(self):
         tasks = [BuildEmotionTask()]
-        super().__init__(mod_name='emotion', mod_tasks=tasks, mod_priority=2, mod_greedy=False)
+        super().__init__(MOD_PARAMS, tasks)
 
     

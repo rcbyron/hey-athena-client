@@ -3,9 +3,16 @@ Created on Jun 5, 2015
 
 @author: Connor
 '''
-from client.classes.module import Module
-from client.classes.task import ActiveTask
-from client.modules.api_library import geo_info_api
+from athena.classes.module import Module
+from athena.classes.task import ActiveTask
+from athena.modules.api_library import geo_info_api
+
+MOD_PARAMS = {
+    'name': 'geo_info',
+    'priority': 2,
+    'greedy': True,
+    'enabled': True,
+}
 
 class GetIPInfoTask(ActiveTask):
     
@@ -34,6 +41,6 @@ class GeoInfo(Module):
 
     def __init__(self):
         tasks = [GetIPInfoTask()]
-        super().__init__(mod_name='geo_info', mod_tasks=tasks, mod_priority=2)
+        super().__init__(MOD_PARAMS, tasks)
 
     

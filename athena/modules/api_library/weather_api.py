@@ -10,8 +10,8 @@ http://www.wunderground.com/weather/api/d/docs
 
 import urllib.request, json, time, re
 
-import client.settings as settings
-import client.config as cfg
+import athena.settings as settings
+import athena.config as cfg
 
 DAYS = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
 BASE_URL = 'http://api.wunderground.com/api/'
@@ -23,8 +23,10 @@ URL_DATA_TYPES = {
 
 def config():
     weather_info = {}
-    weather_info['zip-iata-city'] = cfg.safe_input("Default Zip Code or City or Airport Code: ", require=True)
-    weather_info['state-country'] = cfg.safe_input("Default State or Country: ")
+    prompt1 = 'Default Zip Code or City or Airport Code: '
+    prompt2 = 'Default State or Country: '
+    weather_info['zip-iata-city'] = cfg.safe_input(prompt1, require=True)
+    weather_info['state-country'] = cfg.safe_input(prompt2)
     return weather_info
 
 # Number of seconds to wait before a call will update the data

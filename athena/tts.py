@@ -6,7 +6,7 @@ Created on Aug 12, 2015
 from gtts import gTTS
 from requests.exceptions import HTTPError
 import pyglet, tempfile, os
-import client.settings as settings
+import athena.settings as settings
 
 """
 LANGS = ['af', 'sq', 'ar', 'hy', 'ca', 'zh-CN', 'zh-TW', 'hr', 'cs',

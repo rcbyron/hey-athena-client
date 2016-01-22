@@ -6,8 +6,8 @@ Created on Jan 12, 2016
 
 import pkgutil, os, traceback, yaml
 
-import client.modules.api_library as api_library
-import client.settings as settings
+import athena.modules.api_library as api_library
+import athena.settings as settings
 
 def safe_input(prompt, require=False):
     answer = ''

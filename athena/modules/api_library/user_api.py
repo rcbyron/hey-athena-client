@@ -3,7 +3,7 @@ Created on Jan 12, 2016
 
 @author: Connor
 '''
-import client.config as cfg
+import athena.config as cfg
 
 def config():
     user_info = {}

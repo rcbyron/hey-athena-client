@@ -3,17 +3,23 @@ Created on Jun 5, 2015
 
 @author: Connor
 '''
-from client.classes.module import Module
-from client.classes.task import ActiveTask
 import wolframalpha
+
+from athena.classes.module import Module
+from athena.classes.task import ActiveTask
+
+MOD_PARAMS = {
+    'name': 'wolfram',
+    'priority': 1,
+    'greedy': True,
+    'enabled': True,
+}
 
 API_KEY = '4QR84U-VY7T7AVA34'
 ERROR_MESSAGE = 'Sorry, could you re-word the question?'
 
-MOD_PRIORITY = 1
-tasks = []
-
 class AnswerTask(ActiveTask):
+    
     def __init__(self):
         p_list = [r'.*\b((who|what|when|where|why|how)(\'s)?|(can|are) you)\b.*']
         super().__init__(patterns=p_list)
@@ -41,5 +47,5 @@ class Wolfram(Module):
 
     def __init__(self):
         tasks = [AnswerTask()]
-        super().__init__(mod_name='wolfram', mod_tasks=tasks, mod_priority=1)
+        super().__init__(MOD_PARAMS, tasks)
 

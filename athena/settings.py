@@ -40,7 +40,7 @@ class Settings():
         self.users = find_users()
         if not self.users:
             print('~ No users found. Please create a new user.\n')
-            import client.config as cfg
+            import athena.config as cfg
             cfg.generate()
 
     def login(self):

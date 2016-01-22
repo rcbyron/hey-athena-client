@@ -9,10 +9,10 @@ if __name__ == '__main__':
 
 import pkgutil, re, traceback
 
-import client.settings as settings
-import client.stt as stt
-import client.tts as tts
-import client.modules.active as active_mods
+import athena.settings as settings
+import athena.stt as stt
+import athena.tts as tts
+import athena.modules.active as active_mods
 
 from inspect import isclass
 
@@ -82,7 +82,7 @@ def build_mod_order(mods):
         normal_mods.append(greedy_mods[0])
     elif 1 < len(greedy_mods):
         if 0 < len(normal_mods):
-            print("\n~ Matched mods (non-greedy): "+str([mod.name for mod in normal_mods])[1:-1]+'\n')
+            print('\n~ Matched mods (non-greedy): '+str([mod.name for mod in normal_mods])[1:-1]+'\n')
         normal_mods.append(mod_select(greedy_mods))
     return normal_mods
     
@@ -118,7 +118,7 @@ def match_mods(text):
             matched_mods.append(mod)
     return matched_mods
 
-def run():
+def main():
     while True:
         try:
             if settings.USE_STT:
@@ -127,7 +127,7 @@ def run():
             else:
                 text = input('> ')
             if not text:
-                print("\n~ No text input received.\n")
+                print('\n~ No text input received.\n')
                 continue
     
             matched_mods = match_mods(text)
@@ -143,20 +143,22 @@ def run():
             break
         except:
             print(traceback.format_exc())
-            tts.speak("Error occurred. Would you still like to continue?")
-            print("Error occurred. Would you still like to continue?\n")
+            tts.speak('Error occurred. Would you still like to continue?')
+            print('Error occurred. Would you still like to continue?\n')
             response = input('> ')
             #response = stt.active_listen()
             
-            if "yes" not in response.lower():
+            if 'yes' not in response.lower():
                 break
     print('~ Arrivederci.')
 
-settings.init()
-find_mods()
-list_mods()
-greet()
-stt.init()
-if 'full-name' in settings.inst.user and settings.inst.user['full-name']:
-    print('~ Welcome '+settings.inst.user['full-name']+"!")
-run()
+def start():
+    settings.init()
+    find_mods()
+    list_mods()
+    greet()
+    stt.init()
+    if 'full-name' in settings.inst.user and settings.inst.user['full-name']:
+        print('~ Welcome '+settings.inst.user['full-name']+'!')
+    main()
+start()

@@ -3,12 +3,19 @@ Created on Jun 1, 2015
 
 @author: Connor
 '''
-
 import re
-from client.classes.module import Module
-from client.classes.task import ActiveTask
-from client.modules.api_library import weather_api
-from client.tts import speak
+
+from athena.classes.module import Module
+from athena.classes.task import ActiveTask
+from athena.modules.api_library import weather_api
+from athena.tts import speak
+
+MOD_PARAMS = {
+    'name': 'weather',
+    'priority': 2,
+    'greedy': True,
+    'enabled': True,
+}
 
 ZIP_IATA_PATTERN = r'.*\b(in|at|near|around|close to)\s(\d{5}|[A-Z]{3})\b.*'
 CITY_PATTERN = r'.*\b(in|at|near|around|close to)\s([a-zA-Z_]+),?(\s([a-zA-Z_]+))?\b.*'
@@ -35,6 +42,7 @@ def set_loc(api, zip_iata_city, state_country=None):
     return True
 
 class CurrentDayTask(ActiveTask):
+    
     def match(self, text):
         text = self.api.replace_day_aliases(text)
         
@@ -83,7 +91,8 @@ class CurrentDayTask(ActiveTask):
             speak('The '+output.lower()+' in '+self.api.location()+' is '+value)
             self.spoke_once = True
 
-class ForecastTask(ActiveTask):    
+class ForecastTask(ActiveTask): 
+       
     def match(self, text):
         """ See if it matches any weather input patterns """
         for p in self.patterns:
@@ -129,6 +138,7 @@ class ForecastTask(ActiveTask):
         self.api.restore_loc()
         
 class UpdateLocationTask(ActiveTask):
+    
     def match(self, text):
         """ Look for a weather location """
         self.task_greedy = False
@@ -154,6 +164,7 @@ class UpdateLocationTask(ActiveTask):
             self.api.restore_flag = True
 
 class Weather(Module):
+    
     def __init__(self):
         w_api = None
         mod_enabled = True
@@ -168,4 +179,4 @@ class Weather(Module):
                                     priority=5, api=w_api, greedy=False),
                  CurrentDayTask(WEATHER_INPUT_PATTERNS, priority=2, api=w_api),
                  ForecastTask(WEATHER_INPUT_PATTERNS, priority=1, api=w_api)]
-        super().__init__(mod_name='weather', mod_tasks=tasks, mod_priority=2, enabled=mod_enabled)
+        super().__init__(MOD_PARAMS, tasks)
