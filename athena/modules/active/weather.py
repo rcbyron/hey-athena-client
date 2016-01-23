@@ -145,7 +145,7 @@ class UpdateLocationTask(ActiveTask):
 
     def action(self, text):
         """ Make task greedy if matched location in text but could not update """
-        if not self.api.set_loc(self.api, self.zip_iata_city, self.state_country):
+        if not self.api.try_set_loc(self.zip_iata_city, self.state_country):
             self.task_greedy = True
         else:
             self.api.restore_flag = True
