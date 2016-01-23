@@ -39,7 +39,7 @@ Your personal robotic assistant.
     - `cd (download directory)`
     - `pip3 install PyAudio‑0.2.8‑cp34‑none‑win32.whl`
 - `pip3 install AthenaVoice`
-- If all goes well, open the Python shell and run `>>> import athena` then `>>> athena.run()`
+- If all goes well, open the Python shell and run `>>> import athena.brain`
 
 ## Windows Installation (Python 3.4)
 - Currently, pocketsphinx does not seem to install on python 3.5
