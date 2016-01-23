@@ -19,6 +19,7 @@
 - gTTS
     - pip3 install gTTS
     - requests (packaged with gTTS)
+- PyYAML
 
 ### Module Dependencies
 
@@ -27,3 +28,7 @@
 # Wolfram.py
 - wolframalpha
     - pip3 install wolframalpha
+    
+# Spotify.py
+- selenium
+    - pip3 install selenium

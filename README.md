@@ -27,6 +27,7 @@ Your personal robotic assistant.
     - Unofficial Windows: http://www.lfd.uci.edu/~gohlke/pythonlibs/#pyaudio
 - gTTS
     - requests (packaged with gTTS)
+- PyYAML
 
 ## Windows Installation (Python 3.4)
 - Currently, pocketsphinx does not seem to install on python 3.5
