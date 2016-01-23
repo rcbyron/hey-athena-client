@@ -11,8 +11,6 @@ from athena.classes.task import ActiveTask
 MOD_PARAMS = {
     'name': 'wolfram',
     'priority': 1,
-    'greedy': True,
-    'enabled': True,
 }
 
 API_KEY = '4QR84U-VY7T7AVA34'
@@ -21,7 +19,7 @@ ERROR_MESSAGE = 'Sorry, could you re-word the question?'
 class AnswerTask(ActiveTask):
     
     def __init__(self):
-        p_list = [r'.*\b((who|what|when|where|why|how)(\'s)?|(can|are) you)\b.*']
+        p_list = [r'.*\b((who|what|when|where|why|how)(\'s)?|(can|are))\b.*']
         super().__init__(patterns=p_list)
     
     def match(self, text):
@@ -42,6 +40,7 @@ class AnswerTask(ActiveTask):
             self.speak(texts.replace('|',''))
         else:
             self.speak(ERROR_MESSAGE)
+        
         
 class Wolfram(Module):
 

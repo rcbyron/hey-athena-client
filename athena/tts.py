@@ -3,10 +3,11 @@ Created on Aug 12, 2015
 
 @author: Connor
 '''
-from gtts import gTTS
-from requests.exceptions import HTTPError
 import pyglet, tempfile, os
 import athena.settings as settings
+
+from requests.exceptions import HTTPError
+from gtts import gTTS
 
 """
 LANGS = ['af', 'sq', 'ar', 'hy', 'ca', 'zh-CN', 'zh-TW', 'hr', 'cs',

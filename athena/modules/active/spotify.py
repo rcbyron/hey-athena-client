@@ -10,8 +10,6 @@ from athena.modules.api_library import spotify_api
 MOD_PARAMS = {
     'name': 'spotify',
     'priority': 2,
-    'greedy': True,
-    'enabled': True,
 }
 
 class PlaySongTask(ActiveTask):
@@ -20,16 +18,16 @@ class PlaySongTask(ActiveTask):
         super().__init__(patterns=[r'.*\bplay\s(.+)\b.*'], api=s_api)
          
     def match(self, text):
-        for p in self.patterns:
-            m = p.match(text)
-            if m is not None:
-                self.song = m.group(1)
-                return True
+        m = self.patterns[0].match(text)
+        if m is not None:
+            self.song = m.group(1)
+            return True
         return False
     
     def action(self, text):
-        self.speak("Attempting to play song...")
+        self.speak('Attempting to play song...')
         self.api.search(self.song)
+        
         
 class PauseSongTask(ActiveTask):
     
@@ -41,8 +39,9 @@ class PauseSongTask(ActiveTask):
         return self.patterns[0].match(text) is not None
 
     def action(self, text):
-        self.speak("Toggling song...")
+        self.speak('Toggling song...')
         self.api.play_pause_track()
+        
         
 class NextSongTask(ActiveTask):
     
@@ -53,8 +52,9 @@ class NextSongTask(ActiveTask):
         return self.patterns[0].match(text) is not None
 
     def action(self, text):
-        self.speak("Next song...")
+        self.speak('Next song...')
         self.api.next_track()
+        
         
 class Music(Module):
 

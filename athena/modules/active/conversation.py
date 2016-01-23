@@ -11,8 +11,6 @@ from athena.classes.task import ActiveTask
 MOD_PARAMS = {
     'name': 'conversation',
     'priority': 2,
-    'greedy': True,
-    'enabled': True,
 }
 
 """ Place the most specific regex keys first """

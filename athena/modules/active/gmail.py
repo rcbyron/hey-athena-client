@@ -10,11 +10,12 @@ from athena.modules.api_library import gmail_api
 MOD_PARAMS = {
     'name': 'gmail',
     'priority': 2,
-    'greedy': True,
-    'enabled': True,
 }
 
 class GetUnreadMail(ActiveTask):
+    
+    def __init__(self, g_api):
+        super().__init__(patterns=[r'.*\b(mail)\b.*'], api=g_api)
     
     def match(self, text):
         for p in self.patterns:
@@ -44,5 +45,5 @@ class Gmail(Module):
     
     def __init__(self):
         g_api = gmail_api.GmailApi()
-        tasks = [GetUnreadMail([r'.*\b(mail)\b.*'], api=g_api)]
-        super().__init__(MOD_PARAMS, tasks) 
+        tasks = [GetUnreadMail(g_api)]
+        super().__init__(MOD_PARAMS, tasks)

@@ -5,7 +5,6 @@ Created on Jun 18, 2015
 
 API Documentation:
 https://qrng.anu.edu.au/API/api-demo.php
-
 '''
 import urllib.request, json
 

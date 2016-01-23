@@ -9,10 +9,10 @@ https://bitcoinaverage.com/api
 '''
 import urllib.request, json
 
-"""
+'''
 CURRENCY_CODES = ['AUD', 'BRL', 'CAD', 'CHF', 'CNY', 'EUR', 'GBP', 'IDR',
 'ILS', 'MXN', 'NOK', 'NZD', 'PLN', 'RON', 'RUB', 'SEK', 'SGD', 'USD', 'ZAR']
-"""
+'''
 
 CURRENCY_CODE = 'USD'
 URL = 'https://api.bitcoinaverage.com/ticker/'+CURRENCY_CODE+'/'

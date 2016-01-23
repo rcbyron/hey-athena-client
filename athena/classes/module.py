@@ -13,10 +13,15 @@ class Module(object):
         self.priority = mod_params['priority']
         
         """ Greedy mods stop future mods from being matched """
-        self.greedy = mod_params['greedy']
+        self.greedy = True
+        if 'greedy' in mod_params:
+            self.greedy = mod_params['greedy']
         
         """ True if the mod is enabled """
-        self.enabled = mod_params['enabled']
+        self.enabled = True
+        if 'enabled' in mod_params:
+            self.enabled = mod_params['enabled']
 
         """ Tasks find input text patterns and perform an action """
         self.tasks = mod_tasks
+        self.tasks.sort(key=lambda task: task.priority, reverse=True)

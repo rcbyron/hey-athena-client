@@ -5,16 +5,13 @@ Created on Jan 9, 2016
 '''
 import random as r
 
-import athena.tts as tts
-
 from athena.classes.module import Module
 from athena.classes.task import ActiveTask
 
 MOD_PARAMS = {
     'name': 'emotion',
-    'priority': 2,
-    'greedy': True,
-    'enabled': True,
+    'priority': 3,
+    'greedy': False,
 }
 
 EMOTION_CHANCE = 0.5
@@ -45,8 +42,9 @@ class BuildEmotionTask(ActiveTask):
         for k, v in EMOTIONS.items():
             chance += v
             if (rand < chance):
-                tts.speak(r.choice(RESPONSES[k]))
+                self.speak(r.choice(RESPONSES[k]))
                 break
+        
         
 class Emotion(Module):
 

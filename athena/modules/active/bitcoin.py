@@ -10,15 +10,12 @@ from athena.modules.api_library import bitcoin_api
 MOD_PARAMS = {
     'name': 'bitcoin',
     'priority': 2,
-    'greedy': True,
-    'enabled': True,
 }
 
 class GetValueTask(ActiveTask):
     
     def __init__(self):
-        patterns = [r'.*\b(bitcoin)\b.*']
-        super().__init__(patterns)
+        super().__init__(patterns=[r'.*\b(bitcoin)\b.*'])
     
     def match(self, text):
         for p in self.patterns:
@@ -31,10 +28,11 @@ class GetValueTask(ActiveTask):
         print('~ 24 Hour Average: $'    + str(bitcoin_api.get_data('24h_avg')))
         print('~ Last Price: $'         + str(bitcoin_api.get_data('last')))
         print('')
-        self.speak(str(bitcoin_api.get_data('last')), show_text=False)
+        self.speak(str(bitcoin_api.get_data('last')))
 
 
 class Bitcoin(Module):
     
     def __init__(self):
-        super().__init__(MOD_PARAMS, [GetValueTask()])
+        tasks = [GetValueTask()]
+        super().__init__(MOD_PARAMS, tasks)

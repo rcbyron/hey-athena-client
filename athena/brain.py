@@ -3,7 +3,6 @@ Created on Jun 4, 2015
 
 @author: Connor
 '''
-
 if __name__ == '__main__':
     pass
 
@@ -52,7 +51,10 @@ def greet():
     print('       \ \ / / _ \| |/ __/ _ \      ')
     print('        \ V / (_) | | (_|  __/      ')
     print('         \_/ \___/|_|\___\___|      ')
-    print('\n~ Hello, what can I do for you today?\n')
+    if settings.inst.user['user_api']['full-name']:
+        print('\n~ Welcome '+settings.inst.user['user_api']['full-name']+'!\n')
+    else:
+        print('\n~ Hello, what can I do for you today?\n')
 
 def execute_tasks(mod, text):
     """ Executes a module's task queue """
@@ -61,12 +63,17 @@ def execute_tasks(mod, text):
         if task.greedy:
             break
 
-def build_mod_order(mods):
+def execute_mods(mods, text):
     """ Executes a module's task queue """
+    if len(mods) <= 0:
+        print('\n~ No modules matched.\n')
+        return
+    
     mods.sort(key=lambda mod: mod.priority, reverse=True)
+    
     normal_mods = []
-    greedy_flag = False
     greedy_mods = []
+    greedy_flag = False
     priority = 0
     for mod in mods:
         if greedy_flag and mod.priority < priority:
@@ -77,17 +84,14 @@ def build_mod_order(mods):
             priority = mod.priority
         else:
             normal_mods.append(mod)
-            
-    if 0 < len(greedy_mods):
+
+    if len(greedy_mods) is 1:
         normal_mods.append(greedy_mods[0])
-    elif 1 < len(greedy_mods):
+    elif len(greedy_mods) > 1:
         if 0 < len(normal_mods):
             print('\n~ Matched mods (non-greedy): '+str([mod.name for mod in normal_mods])[1:-1]+'\n')
         normal_mods.append(mod_select(greedy_mods))
-    return normal_mods
-    
-def execute_mods(mods, text):
-    for mod in mods:
+    for mod in normal_mods:
         execute_tasks(mod, text)
         
 def mod_select(mods):
@@ -131,12 +135,7 @@ def main():
                 continue
     
             matched_mods = match_mods(text)
-                     
-            if len(matched_mods) == 0:
-                print('\n~ No modules matched.\n')
-            else:
-                mods = build_mod_order(matched_mods)
-                execute_mods(mods, text)
+            execute_mods(matched_mods, text)
                 
         except EOFError:
             print('\n\n~ Shutting down...\n')
@@ -147,7 +146,6 @@ def main():
             print('Error occurred. Would you still like to continue?\n')
             response = input('> ')
             #response = stt.active_listen()
-            
             if 'yes' not in response.lower():
                 break
     print('~ Arrivederci.')
@@ -158,7 +156,5 @@ def start():
     list_mods()
     greet()
     stt.init()
-    if 'full-name' in settings.inst.user and settings.inst.user['full-name']:
-        print('~ Welcome '+settings.inst.user['full-name']+'!')
     main()
 start()

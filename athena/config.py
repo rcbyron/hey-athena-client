@@ -3,7 +3,6 @@ Created on Jan 12, 2016
 
 @author: Connor
 '''
-
 import pkgutil, os, traceback, yaml
 
 import athena.modules.api_library as api_library

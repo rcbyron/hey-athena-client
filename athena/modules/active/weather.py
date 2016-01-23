@@ -8,13 +8,10 @@ import re
 from athena.classes.module import Module
 from athena.classes.task import ActiveTask
 from athena.modules.api_library import weather_api
-from athena.tts import speak
 
 MOD_PARAMS = {
     'name': 'weather',
     'priority': 2,
-    'greedy': True,
-    'enabled': True,
 }
 
 ZIP_IATA_PATTERN = r'.*\b(in|at|near|around|close to)\s(\d{5}|[A-Z]{3})\b.*'
@@ -28,18 +25,6 @@ WEATHER_INPUT_PATTERNS = [r'^.*\b(temp(erature)?|high(s)?|low(s)?|heat|hot(ter|t
                           r'^.*\b(pressure)\b.*$',
                           r'^.*\b(weather|forecast(s)?|condition(s)?)\b.*$']
 
-def set_loc(api, zip_iata_city, state_country=None):
-    if not api.update_loc(zip_iata_city, state_country):
-        print('\n~ Location not found using:')
-        if state_country:
-            print('~ City:', zip_iata_city)
-            print('~ State/Country:', state_country+'\n')
-        else:
-            print('~ Zip/Airport Code:', zip_iata_city+'\n')
-        print('~ TIP: use underscores for spaces within names (e.g. "new_york_city")\n')
-        speak('Location not found.')
-        return False
-    return True
 
 class CurrentDayTask(ActiveTask):
     
@@ -51,6 +36,7 @@ class CurrentDayTask(ActiveTask):
         invalid_days.remove(self.api.get_day(0))
         if any(day in text.lower() for day in invalid_days):
             return False
+        
         """ Find matched weather information cases (e.g. - temperature, humidity) """
         self.cases = set()
         for i, p in enumerate(self.patterns):
@@ -61,6 +47,7 @@ class CurrentDayTask(ActiveTask):
     def action(self, text):
         self.api.load_conditions()
         self.api.load_forecast()
+        
         """ Outputs the desired current weather conditions """
         print('\n~ Location: '+self.api.location()+'\n')
         self.spoke_once = False
@@ -88,7 +75,7 @@ class CurrentDayTask(ActiveTask):
     def list_weather(self, output, value):
         print('~ '+output+':', value)
         if not self.spoke_once:
-            speak('The '+output.lower()+' in '+self.api.location()+' is '+value)
+            self.speak('The '+output.lower()+' in '+self.api.location()+' is '+value)
             self.spoke_once = True
 
 class ForecastTask(ActiveTask): 
@@ -105,16 +92,16 @@ class ForecastTask(ActiveTask):
             Periods are half of a day in length """
         matched_periods = set()
         for day in weather_api.DAYS:
-            if re.search('^.*\\btonight\\b.*$', text, re.IGNORECASE):
+            if re.search(r'^.*\btonight\b.*$', text, re.IGNORECASE):
                 if 'Night' not in self.api.fc_day(0)[0]:
                     matched_periods.add(1)
-            if re.search('^.*\\b'+day+'\\b.*$', text, re.IGNORECASE):
+            if re.search(r'^.*\b'+day+r'\b.*$', text, re.IGNORECASE):
                 day_num = weather_api.DAYS.index(day)
                 if day_num < self.api.today_num():
                     day_num += 7
                 day_num -= self.api.today_num()
                 period = day_num*2
-                if re.search('^.*\\b'+day+'\\s+night\\b.*$', text, re.IGNORECASE):
+                if re.search(r'^.*\b'+day+r'\s+night\b.*$', text, re.IGNORECASE):
                     period += 1
                 matched_periods.add(period)
         """ If no matched periods, forecast today """
@@ -158,7 +145,7 @@ class UpdateLocationTask(ActiveTask):
 
     def action(self, text):
         """ Make task greedy if matched location in text but could not update """
-        if not set_loc(self.api, self.zip_iata_city, self.state_country):
+        if not self.api.set_loc(self.api, self.zip_iata_city, self.state_country):
             self.task_greedy = True
         else:
             self.api.restore_flag = True

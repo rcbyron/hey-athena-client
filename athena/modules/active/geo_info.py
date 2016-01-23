@@ -10,15 +10,13 @@ from athena.modules.api_library import geo_info_api
 MOD_PARAMS = {
     'name': 'geo_info',
     'priority': 2,
-    'greedy': True,
-    'enabled': True,
 }
 
 class GetIPInfoTask(ActiveTask):
     
     def __init__(self):
-        p_list = [r'.*\b(ip|country|region|city|latitude|longitude|asn|isp|timezone)\b.*']
-        super().__init__(patterns=p_list)
+        patterns = [r'.*\b(ip|country|region|city|latitude|longitude|asn|isp|timezone)\b.*']
+        super().__init__(patterns)
     
     def match(self, text):
         for p in self.patterns:
@@ -35,7 +33,8 @@ class GetIPInfoTask(ActiveTask):
         if len(title) <= 3:
             title = title.upper()
             
-        print('\n~ '+title+':',  geo_info_api.get_data(self.query), '\n')
+        print('\n~ '+title+': '+str(geo_info_api.get_data(self.query))+'\n')
+        
         
 class GeoInfo(Module):
 

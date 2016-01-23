@@ -5,13 +5,13 @@ Created on Jun 1, 2015
 
 API Documentation:
 http://www.wunderground.com/weather/api/d/docs
-
 '''
 
 import urllib.request, json, time, re
 
 import athena.settings as settings
 import athena.config as cfg
+import athena.tts as tts
 
 DAYS = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
 BASE_URL = 'http://api.wunderground.com/api/'
@@ -67,6 +67,19 @@ class WeatherApi():
             """ Load 3-day forecast in fc_list """
             self.fc_list = self.get_json_data('forecast')['forecast']['txt_forecast']['forecastday']
             self.fc_update_time = time.time()
+    
+    def try_set_loc(self, zip_iata_city, state_country=None):
+        if not self.update_loc(zip_iata_city, state_country):
+            print('\n~ Location not found using:')
+            if state_country:
+                print('~ City:', zip_iata_city)
+                print('~ State/Country:', state_country+'\n')
+            else:
+                print('~ Zip/Airport Code:', zip_iata_city+'\n')
+            print('~ TIP: use underscores for spaces within names (e.g. "new_york_city")\n')
+            tts.speak('Location not found.')
+            return False
+        return True
     
     def update_loc(self, new_zip_iata_city, new_state_country=''):
         """ Updates the location, if valid
