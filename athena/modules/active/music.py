@@ -15,8 +15,6 @@ from athena.tts import play_mp3
 MOD_PARAMS = {
     'name': 'music',
     'priority': 2,
-    'greedy': True,
-    'enabled': True,
 }
 
 class PlaySongTask(ActiveTask):

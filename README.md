@@ -29,6 +29,18 @@ Your personal robotic assistant.
     - requests (packaged with gTTS)
 - PyYAML
 
+## Upcoming installation (in progress)
+- Currently, pocketsphinx does not seem to install on python 3.5
+- Users not using Python 3.4 and above might need to install `pip` command tool
+- Download unofficial PyAudio:
+    - For Python 3.4 users, download `PyAudio‑0.2.8‑cp34‑none‑win32.whl`  (tip: cp34 = Python 3.4)
+    - http://www.lfd.uci.edu/~gohlke/pythonlibs/#pyaudio
+- Open command prompt and switch to the download directory:
+    - `cd (download directory)`
+    - `pip3 install PyAudio‑0.2.8‑cp34‑none‑win32.whl`
+- `pip3 install AthenaVoice`
+- If all goes well, open the Python shell and run `>>> import athena` then `>>> athena.run()`
+
 ## Windows Installation (Python 3.4)
 - Currently, pocketsphinx does not seem to install on python 3.5
 - Users not using Python 3.4 and above might need to install `pip` command tool
@@ -46,39 +58,51 @@ Your personal robotic assistant.
 - If all goes well, run `brain.py`, say "Athena", and ask her a question!
 
 ## Active Modules
-Active modules contain a series of tasks. Each task parses user input (generally through regex) and, if it matches, responds accordingly.
+An active module is simply a collection of tasks. Tasks look for patterns in user text input (generally through "regular expressions"). If a pattern is matched, the task executes its action.
 
 ### Active Module Example
 ```python
-from client.classes.module import Module
-from client.classes.task import ActiveTask
-from client.tts import play_mp3
+from athena.classes.module import Module
+from athena.classes.task import ActiveTask
+from athena.modules.api_library import bitcoin_api
 
-class PlaySongTask(ActiveTask):
+MOD_PARAMS = {
+    'name': 'bitcoin', # Module name is required
+    'priority': 2,     # Modules with higher priority match/execute first
+}
+
+class GetValueTask(ActiveTask):
+    
     def __init__(self):
-        # Give regex input patterns to the task
-        # This line is not required, but is generally helpful
-        super().__init__(patterns=[r'.*(\b)+turn(\s)up(\b)+.*'])
-         
+        # Give regex patterns to match text input
+        super().__init__(patterns=[r'.*\b(bitcoin)\b.*'])
+    
     def match(self, text):
-        # Use the given input patterns to match STT (text) input
+    	 # See if the patterns match the text
         for p in self.patterns:
             if p.match(text):
                 return True
         return False
     
     def action(self, text):
-        # Turn up
-        self.speak("Turning up...")
-        play_mp3("turnup.mp3") # Searches "/media" folder if no path given
-        
-class Music(Module):
+    	 # If a pattern matches, list the bitcoin price
+        print('')
+        print('~ 24 Hour Average: $'    + str(bitcoin_api.get_data('24h_avg')))
+        print('~ Last Price: $'         + str(bitcoin_api.get_data('last')))
+        print('')
+        self.speak(str(bitcoin_api.get_data('last')))
+
+
+class Bitcoin(Module):
+    
     def __init__(self):
-        # Add tasks and basic info to the module
-        tasks = [PlaySongTask()]
-        super().__init__(mod_name='music', mod_tasks=tasks, mod_priority=2)
+        tasks = [GetValueTask()]
+        super().__init__(MOD_PARAMS, tasks)
 ```
 
 ## Passive Modules
-(not yet implemented)
-Passive modules will be scheduled tasks run in the background. Future versions may have event triggers for modules as well.
+(not implemented yet)
+
+- Passive modules will be scheduled tasks run in the background.
+- Useful for notifications (e.g. - Twitter, Facebook, GMail updates).
+- Future versions may have event triggers for modules as well.
