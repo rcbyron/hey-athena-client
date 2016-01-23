@@ -112,3 +112,7 @@ class Bitcoin(Module):
 **Error:** "no module named athena"
 
 **Fix:** Make sure the athena project directory is in your PYTHONPATH
+
+**Error:** "AVbin is required to decode compressed media"
+
+**Fix:** Pyglet needs the avbin.dll file to be installed. On Windows, sometimes the file is wrongfully placed in System32 instead of SysWOW64.
