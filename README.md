@@ -106,3 +106,8 @@ class Bitcoin(Module):
 - Passive modules will be scheduled tasks run in the background.
 - Useful for notifications (e.g. - Twitter, Facebook, GMail updates).
 - Future versions may have event triggers for modules as well.
+
+## Common Errors
+
+**Error:** "no module named athena"
+**Fix:** Make sure the athena project directory is in your PYTHONPATH
