@@ -10,7 +10,9 @@ class Module(object):
         self.name = mod_params['name']
         
         """ Modules match and execute in prioritized order """
-        self.priority = mod_params['priority']
+        self.priority = 0
+        if 'priority' in mod_params:
+            self.priority = mod_params['priority']
         
         """ Greedy mods stop future mods from being matched """
         self.greedy = True
