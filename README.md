@@ -110,4 +110,5 @@ class Bitcoin(Module):
 ## Common Errors
 
 **Error:** "no module named athena"
+
 **Fix:** Make sure the athena project directory is in your PYTHONPATH
