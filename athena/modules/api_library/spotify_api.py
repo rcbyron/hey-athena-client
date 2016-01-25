@@ -27,15 +27,15 @@ class SpotifyApi():
     def __init__(self):
         self.frame = None
         self.driver = None
-        if __name__ in settings.inst.user:
-            self.username = settings.inst.user[__name__]['username']
-            self.password = settings.inst.user[__name__]['password']
+        if 'spotify_api' in settings.inst.user:
+            self.username = settings.inst.user['spotify_api']['username']
+            self.password = settings.inst.user['spotify_api']['password']
         else:
             print('~ Please add spotify configuration to your user.')
     
     def login(self):
         if not self.password or not self.username:
-            self.username = input('Password: ')
+            self.username = input('Username: ')
             self.password = input('Password: ')
         self.driver = webdriver.Firefox()
         self.driver.get(BASE_URL)

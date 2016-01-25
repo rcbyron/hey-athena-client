@@ -20,6 +20,7 @@ URL_DATA_TYPES = {
     'forecast':   '/forecast/q/',
     'geolookup':  '/geolookup/q/'
 }
+API_KEY = 'd647ca403a0ac94b'
 
 def config():
     weather_info = {}
@@ -39,11 +40,11 @@ class WeatherApi():
         self.fc_update_time = -UPDATE_FORECAST_INT
         self.restore_flag = False
         
-        if not 'weather_api' in settings.inst.user or 'wunderground' not in settings.inst.keys:
+        if not 'weather_api' in settings.inst.user:
             raise Exception
         self.default_zip_iata_city = settings.inst.user['weather_api']['zip-iata-city']
         self.default_state_country = settings.inst.user['weather_api']['state-country']
-        self.key = settings.inst.keys['wunderground']
+        self.key = API_KEY
         if not self.update_loc(self.default_zip_iata_city, self.default_state_country):
             raise Exception
     

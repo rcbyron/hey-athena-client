@@ -5,17 +5,25 @@ Created on Jan 9, 2016
 '''
 import os, yaml
 
+def ensure_dir(d):
+    if not os.path.exists(d):
+        os.mkdir(d)
+
 CLIENT_DIR = os.path.dirname(os.path.abspath(__file__))
 BASE_DIR = os.path.dirname(CLIENT_DIR)
 KEYS_DIR = os.path.join(CLIENT_DIR, '.credentials')
-MODEL_DIR = os.path.join(BASE_DIR, 'models')
-LOGS_DIR = os.path.join(BASE_DIR, 'logs')
-MEDIA_DIR = os.path.join(BASE_DIR, 'media')
-USERS_DIR = os.path.join(BASE_DIR, 'users')
+MODEL_DIR = os.path.join(CLIENT_DIR, 'models')
+LOGS_DIR = os.path.join(CLIENT_DIR, 'logs')
+MEDIA_DIR = os.path.join(CLIENT_DIR, 'media')
+USERS_DIR = os.path.join(CLIENT_DIR, 'users')
+
+DIRS = [KEYS_DIR, MODEL_DIR, LOGS_DIR, MEDIA_DIR, USERS_DIR]
+for folder in DIRS:
+    ensure_dir(folder)
 
 # Set these to False while debugging
-USE_STT = False
-USE_TTS = False
+USE_STT = True
+USE_TTS = True
 
 inst = None
 def init():
@@ -34,7 +42,7 @@ def find_users():
 class Settings():
     def __init__(self):
         self.login()
-        self.load_keys()
+        #self.load_keys()
         
     def check_users(self):
         self.users = find_users()
@@ -42,6 +50,7 @@ class Settings():
             print('~ No users found. Please create a new user.\n')
             import athena.config as cfg
             cfg.generate()
+            self.users = find_users()
 
     def login(self):
         self.check_users()

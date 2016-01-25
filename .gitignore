@@ -1,5 +1,6 @@
 *.json
 *.yml
+users/*.yml
 .credentials
 .pydevproject
 .project

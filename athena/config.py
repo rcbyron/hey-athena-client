@@ -56,4 +56,4 @@ def generate():
     print('~ Writing to:', file_loc)
     with open(file_loc, 'w') as f:
         yaml.dump(config_info, f, default_flow_style=False)
-    print('~ Success! Feel free to boot me up now.')
+    print('~ Success! You can now log in with this user.\n')

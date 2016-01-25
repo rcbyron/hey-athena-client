@@ -51,8 +51,8 @@ def greet():
     print('       \ \ / / _ \| |/ __/ _ \      ')
     print('        \ V / (_) | | (_|  __/      ')
     print('         \_/ \___/|_|\___\___|      ')
-    if settings.inst.user['user_api']['full-name']:
-        print('\n~ Welcome '+settings.inst.user['user_api']['full-name']+'!\n')
+    if settings.inst.user['user_api']['nickname']:
+        print('\n~ Hey there, '+settings.inst.user['user_api']['nickname']+'!\n')
     else:
         print('\n~ Hello, what can I do for you today?\n')
 
