@@ -19,6 +19,18 @@ BARRIERS:
 - Build a simple website that lets people contribute to the client and add modules
 - Create simple documentation for all platforms
 
+BETTER THAN ALEXA:
+- Better input matching (using regex and the "match" function instead of hardcoding)
+- Very intuitive Python design (as opposed to ugly Java/Lambda Function)
+- Way less learning curve (design a module in minutes)
+- Potential to run offline
+- Free module (skill) hosting
+- Cheaper hardware (cross-platform)
+- Not a RESTful API, 100% open-source to the user, all heavy-lifting done on client
+- No credit card, no bullshit
+- Rohan could help us with security
+- Marcos could help us with AI
+
 POSSIBLE NAME IDEAS:
 Athena
 Cassandra
