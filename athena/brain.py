@@ -157,4 +157,3 @@ def start():
     greet()
     stt.init()
     main()
-start()
