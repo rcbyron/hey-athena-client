@@ -30,7 +30,7 @@ def play_mp3(file_name, file_path=settings.MEDIA_DIR):
     pyglet.resource.path.append(file_path)
     pyglet.resource.reindex()
     
-    sound = pyglet.resource.media(file_name, streaming=False)
+    sound = pyglet.resource.media(file_name, streaming=True)
     sound.play()
     
     def exit_callback(dt):
