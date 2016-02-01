@@ -1,11 +1,10 @@
 Athena Voice - Your personal voice assistant.
 
 * Requires a decent microphone
+* Must install PyAudio separately
+* Must install AVbin.dll separately
 * Tested on Python 3.4
 
-###################################
-# MUST INSTALL PyAudio SEPARATELY #
-###################################
 
 Usage Examples:
 >>> import athena.brain

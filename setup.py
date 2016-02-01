@@ -25,7 +25,7 @@ setup(
     # Versions should comply with PEP440.  For a discussion on single-sourcing
     # the version across setup.py and the project code, see
     # https://packaging.python.org/en/latest/single_source_version.html
-    version='1.0.0a12',
+    version='1.0.0b1',
 
     description='Your personal voice assistant',
     long_description=long_description,
@@ -74,14 +74,13 @@ setup(
     # requirements files see:
     # https://packaging.python.org/en/latest/requirements.html
     install_requires=['pocketsphinx', 'SpeechRecognition', 'gTTS',
-                      'pyglet', 'pyyaml', 'wolframalpha'],
+                      'pyglet', 'pyyaml', 'wolframalpha', 'selenium'],
 
     # List additional groups of dependencies here (e.g. development
     # dependencies). You can install these using the following syntax,
     # for example:
     # $ pip install -e .[dev,test]
     extras_require={
-        'spotify': ['selenium'],
         #'test': [''],
         #'dev': [''],
     },
