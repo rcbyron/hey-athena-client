@@ -14,7 +14,7 @@ MOD_PARAMS = {
     'greedy': False,
 }
 
-EMOTION_CHANCE = 0.3
+EMOTION_CHANCE = 0.2
 
 # Relative emotion weights (should add to 1)
 EMOTIONS = {

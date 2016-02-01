@@ -28,6 +28,7 @@ def init():
     config.set_string('-hmm', os.path.join(settings.MODEL_DIR, 'en-us\en-us'))
     config.set_string('-lm', os.path.join(settings.MODEL_DIR, 'en-us\en-us.lm.dmp'))
     config.set_string('-dict', os.path.join(settings.MODEL_DIR, 'en-us\cmudict-en-us.dict'))
+    config.set_string('-kws_threshold', '1e-50')
     
     # Decode streaming data
     global decoder, p

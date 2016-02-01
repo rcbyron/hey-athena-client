@@ -3,17 +3,12 @@ Created on Jun 4, 2015
 
 @author: Connor
 '''
-if __name__ == '__main__':
-    pass
-
-import pkgutil, re, traceback
+import inspect, pkgutil, re, traceback
 
 import athena.settings as settings
 import athena.stt as stt
 import athena.tts as tts
 import athena.modules.active as active_mods
-
-from inspect import isclass
 
 def find_mods():
     """ Find modules """
@@ -25,7 +20,7 @@ def find_mods():
             mod = finder.find_module(name).load_module(name)
             for member in dir(mod):
                 obj = getattr(mod, member)
-                if isclass(obj):
+                if inspect.isclass(obj):
                     for parent in obj.__bases__:
                         if 'Module' is parent.__name__:
                             modules.append(obj())

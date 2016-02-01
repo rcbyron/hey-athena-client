@@ -18,26 +18,26 @@ def test_case(case):
     try:
         print('~ Checking dependency:', dep[case])
         if case is 0:
-            import pyaudio
+            import pyaudio  # @UnusedImport
         elif case is 1:
-            from sphinxbase.sphinxbase import Config, Config_swigregister
-            from pocketsphinx.pocketsphinx import Decoder
+            from sphinxbase.sphinxbase import Config, Config_swigregister  # @UnusedImport
+            from pocketsphinx.pocketsphinx import Decoder  # @UnusedImport
         elif case is 2:
-            import speech_recognition
+            import speech_recognition  # @UnusedImport
         elif case is 3:
-            from requests.exceptions import HTTPError
-            from gtts import gTTS
+            from requests.exceptions import HTTPError  # @UnusedImport
+            from gtts import gTTS  # @UnusedImport
         elif case is 4:
-            import pyglet
+            import pyglet  # @UnusedImport
         elif case is 5:
-            import yaml
+            import yaml  # @UnusedImport
         elif case is 6:
-            import wolframalpha
+            import wolframalpha  # @UnusedImport
         elif case is 7:
-            import athena
-            import athena.brain
+            import athena  # @UnusedImport
+            import athena.brain  # @UnusedImport
         print('~ Import successful.')
-    except Exception as e:
+    except:
         print(traceback.format_exc())
         print('~ Import failed!')
         passed = False
