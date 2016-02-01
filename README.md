@@ -1,6 +1,11 @@
 # Athena Voice
 Your personal robotic assistant.
 
+Athena Voice allows you to easily add commands by creating simple modules.
+(see the Active Module Example below)
+
+This framework aims to do everything that Siri, Cortana, Echo, and Jasper can do. And more.
+
 ## Usage Examples
 "Athena"
 *(double beep)*
@@ -11,6 +16,16 @@ Your personal robotic assistant.
 *(double beep)*
 "What is the price of bitcoin right now?"
 *(responds with the current bitcoin price)*
+
+## How can I make my own robo-butler?
+- Download and install Athena Voice using the directions below
+- Write your own modules so Athena can respond to different commands
+
+## How can I help?
+- Write modules and contribute them by submitting a pull request to this repository
+- Find errors and post issues
+- If you modify the framework software, submit a pull request
+- Give feedback and help us build a community!
 
 ## Core Dependencies
 - Python 3
@@ -28,29 +43,25 @@ Your personal robotic assistant.
 - gTTS
     - requests (packaged with gTTS)
 - PyYAML
+- Selenium
+
+## Install PyAudio
+- Users not using Python 3.4 and above might need to install `pip` command tool
+- Download unofficial PyAudio:
+    - For Python 3.4 users, download `PyAudio‑0.2.8‑cp34‑none‑win32.whl`  (tip: cp34 = Python 3.4)
+    - http://www.lfd.uci.edu/~gohlke/pythonlibs/#pyaudio
+- Open command prompt and switch to the download directory:
+    - `cd (download directory)`
+    - `pip3 install PyAudio‑0.2.8‑cp34‑none‑win32.whl`
 
 ## Upcoming installation (in progress)
-- Currently, pocketsphinx does not seem to install on python 3.5
-- Users not using Python 3.4 and above might need to install `pip` command tool
-- Download unofficial PyAudio:
-    - For Python 3.4 users, download `PyAudio‑0.2.8‑cp34‑none‑win32.whl`  (tip: cp34 = Python 3.4)
-    - http://www.lfd.uci.edu/~gohlke/pythonlibs/#pyaudio
-- Open command prompt and switch to the download directory:
-    - `cd (download directory)`
-    - `pip3 install PyAudio‑0.2.8‑cp34‑none‑win32.whl`
+- Install PyAudio using directions above
 - `pip3 install AthenaVoice`
-- If all goes well, open the Python shell and run `>>> import athena.brain`
+- If all goes well, open the Python shell and run `>>> import athena.brain as brain` `>>> brain.start()`
 
-## Windows Installation (Python 3.4)
-- Currently, pocketsphinx does not seem to install on python 3.5
-- Users not using Python 3.4 and above might need to install `pip` command tool
-- Download unofficial PyAudio:
-    - For Python 3.4 users, download `PyAudio‑0.2.8‑cp34‑none‑win32.whl`  (tip: cp34 = Python 3.4)
-    - http://www.lfd.uci.edu/~gohlke/pythonlibs/#pyaudio
-- Open command prompt and switch to the download directory:
-    - `cd (download directory)`
-    - `pip3 install PyAudio‑0.2.8‑cp34‑none‑win32.whl`
-    - `pip3 install pocketsphinx SpeechRecognition pyglet gTTS pyyaml wolframalpha`
+## Normal Installation (Python 3.4)
+- Install Pyaudio using directions above
+- `pip3 install pocketsphinx SpeechRecognition pyglet gTTS pyyaml wolframalpha selenium`
 - Download the `athena-voice-client` repository and extract it
 - Add `C:\path\to\athena-voice-client-master` to your `PYTHONPATH` system or user environment variable
     - One easy way to do this is to import the project into Eclipse (PyDev) and have it add the project to PYTHONPATH
@@ -110,9 +121,7 @@ class Bitcoin(Module):
 ## Common Errors
 
 **Error:** "no module named athena"
-
 **Fix:** Make sure the athena project directory is in your PYTHONPATH
 
 **Error:** "AVbin is required to decode compressed media"
-
 **Fix:** Pyglet needs the avbin.dll file to be installed. On Windows, sometimes the file is wrongfully placed in System32 instead of SysWOW64.
