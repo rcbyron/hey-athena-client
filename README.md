@@ -111,6 +111,22 @@ class Bitcoin(Module):
         super().__init__(MOD_PARAMS, tasks)
 ```
 
+### Module Ideas
+- Context module (remembers location and important stuff)
+- IFTTT
+- Play music based on mood (and weather)
+- Oauth API
+- Canvas
+- Gmail (and other google modules)
+- Calender (regular)
+- Twitter (automate sending tweets)
+- Facebook
+- Phone Texting (for multiple carriers)
+- Text-based Games (zork, etc.)
+- Movement (passive, active, API)
+
+If you create a module, submit a pull request! We'd love to add it too.
+
 ## Passive Modules
 (not implemented yet)
 
