@@ -66,7 +66,7 @@ This framework aims to do everything that Siri, Cortana, Echo, and Jasper can do
 - Add `C:\path\to\athena-voice-client-master` to your `PYTHONPATH` system or user environment variable
     - One easy way to do this is to import the project into Eclipse (PyDev) and have it add the project to PYTHONPATH
 - `cd athena-voice-client-master\client`
-- If all goes well, run `brain.py`, say "Athena", and ask her a question!
+- If all goes well, run `__main__.py`, create a user, say "Athena", and ask her a question!
 
 ## Active Modules
 An active module is simply a collection of tasks. Tasks look for patterns in user text input (generally through "regular expressions"). If a pattern is matched, the task executes its action.
@@ -121,7 +121,9 @@ class Bitcoin(Module):
 ## Common Errors
 
 **Error:** "no module named athena"
+
 **Fix:** Make sure the athena project directory is in your PYTHONPATH
 
 **Error:** "AVbin is required to decode compressed media"
+
 **Fix:** Pyglet needs the avbin.dll file to be installed. On Windows, sometimes the file is wrongfully placed in System32 instead of SysWOW64.
