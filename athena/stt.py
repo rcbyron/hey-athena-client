@@ -14,7 +14,7 @@ from pocketsphinx.pocketsphinx import Decoder
     Word(s) must be in the sphinx dict file
     Change to 'hey athena' if background noise triggering occurs
 """
-WAKE_UP_WORD = 'riley'
+WAKE_UP_WORD = 'athena'
 ERROR_MESSAGE = 'Sorry, I could not understand that.'
 
 def init():
