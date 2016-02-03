@@ -19,7 +19,7 @@ ERROR_MESSAGE = 'Sorry, could you re-word the question?'
 class AnswerTask(ActiveTask):
     
     def __init__(self):
-        p_list = [r'.*\b((who|what|when|where|why|how)(\'s)?|(can|are))\b.*']
+        p_list = [r'.*\b((who|what|when|where|why|how)(\')?(s)?|(can|are))\b.*']
         super().__init__(patterns=p_list)
     
     def match(self, text):
