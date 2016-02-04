@@ -6,6 +6,8 @@ Athena Voice allows you to easily add commands by creating simple modules.
 
 This framework aims to do everything that Siri, Cortana, Echo, and Jasper can do. And more.
 
+Website (under development): http://heyathena.com
+
 ## Usage Examples
 "Athena"
 *(double beep)*
