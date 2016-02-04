@@ -1,26 +1,22 @@
-# Athena Voice
-Your personal robotic assistant.
+# Hey Athena
+Your personal voice assistant.
 
-Athena Voice allows you to easily add commands by creating simple modules.
-(see the Active Module Example below)
-
-This framework aims to do everything that Siri, Cortana, Echo, and Jasper can do. And more.
+"Hey Athena" is a 100% open-source, cross-platform, modular voice assistant framework. It aims to do everything that Siri, Cortana, and Echo can do -- and more. 
 
 Website (under development): http://heyathena.com
 
-## Usage Examples
-"Athena"
-*(double beep)*
-"Turn up"
-*(plays music)*
+## Usage Examples: 
+- "Athena *(double beep)* what's the weather like in DFW?" 
+- "Athena *(double beep)* what is the capital of Tanzania?"
+- "Athena *(double beep)* turn up *plays music*" 
+- "Athena *(double beep)* open facebook.com" 
 
-"Athena"
-*(double beep)*
-"What is the price of bitcoin right now?"
-*(responds with the current bitcoin price)*
+Our modular templates make it easy to add new "skills" to Athena. Write a simple Python "skill" module to control your house with your voice. Write a module to post a tweet with your voice. 
+
+Don't like the name "Athena"? Change it to anything you want, like "Swagger Bot" or "Home Slice".
 
 ## How can I make my own robo-butler?
-- Download and install Athena Voice using the directions below
+- Download and install Hey Athena using the directions below
 - Write your own modules so Athena can respond to different commands
 
 ## How can I help?
