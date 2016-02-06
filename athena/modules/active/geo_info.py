@@ -15,8 +15,10 @@ MOD_PARAMS = {
 class GetIPInfoTask(ActiveTask):
     
     def __init__(self):
-        patterns = [r'.*\b(ip|country|region|city|latitude|longitude|asn|isp|timezone)\b.*']
+        patterns = [r'.*\b(ip|country|region|city|latitude|longitude|isp|internet service provider|timezone|time|where (am I|are we)|location)\b.*']
         super().__init__(patterns)
+        
+        geo_info_api.update_data()
     
     def match(self, text):
         for p in self.patterns:
@@ -27,12 +29,14 @@ class GetIPInfoTask(ActiveTask):
         return False
     
     def action(self, text):
-        geo_info_api.update_data()
+        if 'time' in self.query:
+            print('\n~ The time is '+geo_info_api.time()+'\n')
+            return
         
         title = self.query.title()
         if len(title) <= 3:
             title = title.upper()
-            
+
         print('\n~ '+title+': '+str(geo_info_api.get_data(self.query))+'\n')
         
         

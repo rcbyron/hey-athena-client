@@ -129,7 +129,6 @@ def main():
     
             matched_mods = match_mods(text)
             execute_mods(matched_mods, text)
-                
         except EOFError:
             print('\n\n~ Shutting down...\n')
             break

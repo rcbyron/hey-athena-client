@@ -30,41 +30,49 @@ def init():
     global inst
     inst = Settings()
 
-def find_users():
-    users = []
-    for file in os.listdir(USERS_DIR):
-        if file.endswith('.yml'):
-            with open(os.path.join(USERS_DIR, file)) as f:
-                user = yaml.load(f)
-                users.append(user['user_api']['username'])
-    return users
-
 class Settings():
     def __init__(self):
         self.login()
         #self.load_keys()
         
-    def check_users(self):
-        self.users = find_users()
+    def find_users(self):
+        """ Returns a list of available user strings """
+        self.users = []
+        for file in os.listdir(USERS_DIR):
+            if file.endswith('.yml'):
+                with open(os.path.join(USERS_DIR, file)) as f:
+                    user = yaml.load(f)
+                    self.users.append(user['user_api']['username'])
+        return self.users
+        
+    def verify_users(self):
+        """ Verify that at least 1 user exists """
+        self.find_users()
         if not self.users:
             print('~ No users found. Please create a new user.\n')
             import athena.config as cfg
             cfg.generate()
-            self.users = find_users()
+            self.find_users()
 
+    def load_user(self, username):
+        with open(os.path.join(USERS_DIR, username+'.yml'), 'r') as f:
+            self.user = yaml.load(f)
+            print('\n~ Logged in as: '+self.user['user_api']['username'])
+            
     def login(self):
-        self.check_users()
+        self.verify_users()
+        if len(self.users) == 1:
+            self.load_user(self.users[0])
+            return
+        
         print('~ Users: ', str(self.users)[1:-1])
-        valid_user = False
-        while not valid_user:
+        username = ''
+        while username not in self.users:
             username = input('\n~ Username: ')
             if username not in self.users:
                 print('\n~ Please enter a valid username')
                 continue
-            with open(os.path.join(USERS_DIR, username+'.yml'), 'r') as f:
-                self.user = yaml.load(f)
-                print('\n~ Logged in as: '+self.user['user_api']['username'])
-                break
+        self.load_user(username)
         
     def load_keys(self):
         self.keys = None

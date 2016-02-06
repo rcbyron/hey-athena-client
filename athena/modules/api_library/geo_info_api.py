@@ -8,33 +8,52 @@ http://www.telize.com/
 '''
 import urllib.request, json
 
-URL = 'http://www.telize.com/geoip'
+from time import strftime
+
+URL = 'http://ip-api.com/json'
+ALIASES = {
+    'ip':           'query',
+    'latitude':     'lat',
+    'longitude':    'lon',
+}
+response = None
 
 def update_data():
-    return json.loads(urllib.request.urlopen(URL).read().decode('utf-8'))
+    global response
+    response = json.loads(urllib.request.urlopen(URL).read().decode('utf-8'))
+
+def location():
+    loc = get_data('city')+', '+get_data('regionName')
+    return loc.title()
+
+def time():
+    return strftime('%I:%M %p').lstrip('0')
     
 def get_data(key):
     """
-        Keys:
-        - ip (Visitor IP address, or IP address specified as parameter)
-        - country_code (Two-letter ISO 3166-1 alpha-2 country code)
-        - country_code3 (Three-letter ISO 3166-1 alpha-3 country code)
-        - country (Name of the country)
-        - region_code (Two-letter ISO-3166-2 state / region code)
-        - region (Name of the region)
-        - city (Name of the city)
-        - postal_code (Postal code / Zip code)
-        - continent_code (Two-letter continent code)
-        - latitude (Latitude)
-        - longitude (Longitude)
-        - dma_code (DMA Code)
-        - area_code (Area Code)
-        - asn (Autonomous System Number)
-        - isp (Internet service provider)
-        - timezone (Time Zone)
+    {
+        'status': 'success',
+        'country': 'COUNTRY',
+        'countryCode': 'COUNTRY CODE',
+        'region': 'REGION CODE',
+        'regionName': 'REGION NAME',
+        'city': 'CITY',
+        'zip': 'ZIP CODE',
+        'lat': LATITUDE,
+        'lon': LONGITUDE,
+        'timezone': 'TIME ZONE',
+        'isp': 'ISP NAME',
+        'org': 'ORGANIZATION NAME',
+        'as': 'AS NUMBER / NAME',
+        'query': 'IP ADDRESS USED FOR QUERY'
+    }
     """
-
-    response = update_data()
+    if key in ALIASES:
+        key = ALIASES[key]
+        
+    if 'where' in key.lower() or 'location' in key.lower():
+        return location()
+    
     if key not in response:
         return None
     return response[key]

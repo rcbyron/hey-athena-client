@@ -7,7 +7,7 @@ import os, pyaudio, speech_recognition
 import athena.tts as tts
 import athena.settings as settings
 
-from sphinxbase.sphinxbase import Config, Config_swigregister
+from sphinxbase.sphinxbase import Config, Config_swigregister  # @UnusedImport
 from pocketsphinx.pocketsphinx import Decoder
 
 """
@@ -26,16 +26,15 @@ def init():
     config = Decoder.default_config()
     config.set_string('-logfn', os.path.join(settings.LOGS_DIR, 'passive-listen.log'))
     config.set_string('-hmm', os.path.join(settings.MODEL_DIR, 'en-us\en-us'))
-    config.set_string('-lm', os.path.join(settings.MODEL_DIR, 'en-us\en-us.lm.dmp'))
+    config.set_string('-lm', os.path.join(settings.MODEL_DIR, 'en-us\en-us.lm.bin'))
     config.set_string('-dict', os.path.join(settings.MODEL_DIR, 'en-us\cmudict-en-us.dict'))
-    config.set_string('-kws_threshold', '1e-50')
+    #config.set_string('-kws_threshold', '1e-50')
     
     # Decode streaming data
     global decoder, p
     decoder = Decoder(config)
     decoder.set_keyphrase('wakeup', WAKE_UP_WORD)
     decoder.set_search('wakeup')
-    
     p = pyaudio.PyAudio()
 
 def listen_keyword():
@@ -44,7 +43,7 @@ def listen_keyword():
     stream.start_stream()
     p.get_default_input_device_info()
     
-    print('~ Passive listening... ')
+    print('~ Waiting to be woken up... ')
     decoder.start_utt()
     while True:
         buf = stream.read(1024)
