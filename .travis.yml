@@ -1,0 +1,13 @@
+language: python
+python:
+  - "3.2"
+  - "3.3"
+  - "3.4"
+  - "3.5"
+  - "3.5-dev"
+  - "nightly"
+install:
+  - python setup.py install
+script:
+  - cd athena/tests
+  - python dependencies_test.py
