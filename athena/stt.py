@@ -10,30 +10,18 @@ import athena.settings as settings
 from sphinxbase.sphinxbase import Config, Config_swigregister  # @UnusedImport
 from pocketsphinx.pocketsphinx import Decoder
 
-"""
-    Word(s) must be in the sphinx dict file
-    Change to 'hey athena' if background noise triggering occurs
-"""
-WAKE_UP_WORD = 'athena'
-ERROR_MESSAGE = 'Sorry, I could not understand that.'
-
 def init():
-    # Be wary of an OSError due to a race condition
-    if not os.path.exists(settings.LOGS_DIR):
-        os.makedirs(settings.LOGS_DIR)
-    
     # Create a decoder with certain model
     config = Decoder.default_config()
     config.set_string('-logfn', os.path.join(settings.LOGS_DIR, 'passive-listen.log'))
     config.set_string('-hmm', os.path.join(settings.MODEL_DIR, 'en-us\en-us'))
     config.set_string('-lm', os.path.join(settings.MODEL_DIR, 'en-us\en-us.lm.bin'))
     config.set_string('-dict', os.path.join(settings.MODEL_DIR, 'en-us\cmudict-en-us.dict'))
-    #config.set_string('-kws_threshold', '1e-50')
     
     # Decode streaming data
     global decoder, p
     decoder = Decoder(config)
-    decoder.set_keyphrase('wakeup', WAKE_UP_WORD)
+    decoder.set_keyphrase('wakeup', settings.WAKE_UP_WORD)
     decoder.set_search('wakeup')
     p = pyaudio.PyAudio()
 
@@ -48,7 +36,7 @@ def listen_keyword():
     while True:
         buf = stream.read(1024)
         decoder.process_raw(buf, False, False)
-        if decoder.hyp() != None and decoder.hyp().hypstr == WAKE_UP_WORD:
+        if decoder.hyp() and decoder.hyp().hypstr == settings.WAKE_UP_WORD:
             decoder.end_utt()
             return
         else:
@@ -70,7 +58,7 @@ def active_listen():
         print('\n~ \''+msg+'\'')
     except LookupError:                             # speech is unintelligible
         msg = ''
-        print('\n~ '+ERROR_MESSAGE+'\n')
-        tts.speak(ERROR_MESSAGE)
+        print('\n~ '+settings.ERROR_MESSAGE+'\n')
+        tts.speak(settings.ERROR_MESSAGE)
     finally:
         return msg

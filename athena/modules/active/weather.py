@@ -73,7 +73,7 @@ class CurrentDayTask(ActiveTask):
         self.api.restore_loc()
         
     def list_weather(self, output, value):
-        print('~ '+output+':', value)
+        #print('~ '+output+':', value)
         if not self.spoke_once:
             self.speak('The '+output.lower()+' in '+self.api.location()+' is '+value)
             self.spoke_once = True

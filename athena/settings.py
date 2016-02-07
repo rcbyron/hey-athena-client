@@ -25,6 +25,13 @@ for folder in DIRS:
 USE_STT = True
 USE_TTS = True
 
+"""
+    Word(s) must be in the sphinx dict file
+    Change to 'hey athena' if background noise triggering occurs
+"""
+WAKE_UP_WORD = 'athena'
+ERROR_MESSAGE = 'Sorry, I could not understand that.'
+
 inst = None
 def init():
     global inst
