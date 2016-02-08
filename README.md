@@ -1,4 +1,4 @@
-# Hey Athena
+# Hey Athena ![https://travis-ci.org/hey-athena/hey-athena-client.svg?branch=connor-branch](https://travis-ci.org/hey-athena/hey-athena-client.svg?branch=connor-branch)
 Your personal voice assistant.
 
 "Hey Athena" is a 100% open-source, cross-platform, modular voice assistant framework. It aims to do everything that Siri, Cortana, and Echo can do -- and more. 
@@ -6,16 +6,17 @@ Your personal voice assistant.
 Website (under development): http://heyathena.com
 
 ## Usage Examples: 
+- "Athena *(double beep)* tweet What's good Twitter homies?" (IFTTT key required)
 - "Athena *(double beep)* what's the weather like in DFW?" 
 - "Athena *(double beep)* what is the capital of Tanzania?"
-- "Athena *(double beep)* turn up *plays music*" 
+- "Athena *(double beep)* turn up *(plays music)*" 
 - "Athena *(double beep)* open facebook.com" 
 
 Our modular templates make it easy to add new "skills" to Athena. Write a simple Python "skill" module to control your house with your voice. Write a module to post a tweet with your voice. 
 
 Don't like the name "Athena"? Change it to anything you want, like "Swagger Bot" or "Home Slice".
 
-## How can I make my own robo-butler?
+## How can I make my own Athena?
 - Download and install Hey Athena using the directions below
 - Write your own modules so Athena can respond to different commands
 
@@ -27,44 +28,39 @@ Don't like the name "Athena"? Change it to anything you want, like "Swagger Bot"
 
 ## Core Dependencies
 - Python 3
-- Pocketsphinx
-    - Sphinxbase (packaged with pocketsphinx)
+- Pocketsphinx (SWIG required in your PATH during installation)
 - SpeechRecognition
-    - https://pypi.python.org/pypi/SpeechRecognition/#downloads
-- Pyglet
-    - https://bitbucket.org/pyglet/pyglet/wiki/Download
-    - AVBin (library file must be seen by pyglet)
-        http://avbin.github.io/AVbin/Download.html
-- PyAudio
-    - Linux/Mac: https://people.csail.mit.edu/hubert/pyaudio/
-    - Unofficial Windows: http://www.lfd.uci.edu/~gohlke/pythonlibs/#pyaudio
+- Pyglet (AVBin required)
+- PyAudio (unofficial windows build: http://www.lfd.uci.edu/~gohlke/pythonlibs/#pyaudio)
 - gTTS
-    - requests (packaged with gTTS)
 - PyYAML
 - Selenium
 
-## Install PyAudio
-- Users not using Python 3.4 and above might need to install `pip` command tool
-- Download unofficial PyAudio:
-    - For Python 3.4 users, download `PyAudio‑0.2.8‑cp34‑none‑win32.whl`  (tip: cp34 = Python 3.4)
-    - http://www.lfd.uci.edu/~gohlke/pythonlibs/#pyaudio
-- Open command prompt and switch to the download directory:
-    - `cd (download directory)`
-    - `pip3 install PyAudio‑0.2.8‑cp34‑none‑win32.whl`
-
-## Upcoming installation (in progress)
-- Install PyAudio using directions above
-- `pip3 install AthenaVoice`
+## Normal Installation
+- Install SWIG (only required to install pocketsphinx and can be removed afterward)
+    - Mac: using Homebrew package manager, type `brew install swig`
+    - Linux: sudo apt-get install swig
+    - Windows: http://www.swig.org/download.html (download swigwin-3.X.X and place swig.exe in your environment PATH)
+- Install PyAudio:
+    - Mac: `brew install portaudio` `pip install pyaudio`
+    - Linux: `sudo apt-get install libasound2-dev libportaudio-dev python3-pyaudio`
+    - Windows: `python -m pip install pyaudio`
+- Install AVBin:
+    - http://avbin.github.io/AVbin/Download.html
+- `pip3 install HeyAthena`
 - If all goes well, open the Python shell and run `>>> import athena.brain as brain` `>>> brain.start()`
+- You can add modules/edit the client in Python's site-packages/athena folder
+- Try write your own module using the directions below.
 
-## Normal Installation (Python 3.4)
+## Developer Installation
 - Install Pyaudio using directions above
 - `pip3 install pocketsphinx SpeechRecognition pyglet gTTS pyyaml wolframalpha selenium`
-- Download the `athena-voice-client` repository and extract it
-- Add `C:\path\to\athena-voice-client-master` to your `PYTHONPATH` system or user environment variable
+- Download the `hey-athena-client` repository and extract it
+- Add `C:\path\to\hey-athena-client-master` to your `PYTHONPATH` system or user environment variable
     - One easy way to do this is to import the project into Eclipse (PyDev) and have it add the project to PYTHONPATH
-- `cd athena-voice-client-master\client`
+- `cd hey-athena-client-master\client`
 - If all goes well, run `__main__.py`, create a user, say "Athena", and ask her a question!
+- Now try write your own module using the directions below.
 
 ## Active Modules
 An active module is simply a collection of tasks. Tasks look for patterns in user text input (generally through "regular expressions"). If a pattern is matched, the task executes its action.
@@ -111,19 +107,20 @@ class Bitcoin(Module):
 
 ### Module Ideas
 - Context module (remembers location and important stuff)
-- IFTTT
-- Play music based on mood (and weather)
 - Oauth API
-- Canvas
+- Canvas module (for college grades/assignments info)
 - Gmail (and other google modules)
 - Calender (regular)
-- Twitter (automate sending tweets)
 - Facebook
+- Movies/Showing Times
+- Sports-related modules
 - Phone Texting (for multiple carriers)
 - Text-based Games (zork, etc.)
 - Movement (passive, active, API)
+- Play music based on mood (and weather)
 
-If you create a module, submit a pull request! We'd love to add it too.
+If you create a module, submit a pull request! We'd love to add it to the repository.
+You can also email it to connor@heyathena.com
 
 ## Passive Modules
 (not implemented yet)
@@ -134,10 +131,8 @@ If you create a module, submit a pull request! We'd love to add it too.
 
 ## Common Errors
 
-**Error:** "no module named athena"
-
+**Error:** "no module named athena"  
 **Fix:** Make sure the athena project directory is in your PYTHONPATH
 
-**Error:** "AVbin is required to decode compressed media"
-
+**Error:** "AVbin is required to decode compressed media"  
 **Fix:** Pyglet needs the avbin.dll file to be installed. On Windows, sometimes the file is wrongfully placed in System32 instead of SysWOW64.
