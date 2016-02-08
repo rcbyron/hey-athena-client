@@ -1,9 +1,11 @@
 # Hey Athena ![https://travis-ci.org/hey-athena/hey-athena-client.svg?branch=connor-branch](https://travis-ci.org/hey-athena/hey-athena-client.svg?branch=connor-branch)
 Your personal voice assistant.
 
-"Hey Athena" is a 100% open-source, cross-platform, modular voice assistant framework. It aims to do everything that Siri, Cortana, and Echo can do -- and more. 
+"Hey Athena" is a 100% open-source, cross-platform, modular voice assistant framework. It aims to do everything that Siri, Cortana, and Echo can do -- and more.
 
 Website (under development): http://heyathena.com
+
+Written in Python 3
 
 ## Usage Examples: 
 - "Athena *(double beep)* tweet What's good Twitter homies?" (IFTTT key required)
