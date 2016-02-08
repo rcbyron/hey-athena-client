@@ -53,11 +53,11 @@ Don't like the name "Athena"? Change it to anything you want, like "Swagger Bot"
 - Try write your own module using the directions below.
 
 ## Developer Installation
-- Install Pyaudio using directions above
-- `pip3 install pocketsphinx SpeechRecognition pyglet gTTS pyyaml wolframalpha selenium`
-- Download the `hey-athena-client` repository and extract it
-- Add `C:\path\to\hey-athena-client-master` to your `PYTHONPATH` system or user environment variable
-    - One easy way to do this is to import the project into Eclipse (PyDev) and have it add the project to PYTHONPATH
+- Install SWIG, PyAudio, and AVBin using the directions above
+- `pip3 install pocketsphinx pyaudio SpeechRecognition pyglet gTTS pyyaml wolframalpha selenium`
+- Clone or download the `hey-athena-client` repository
+- Add `C:\path\to\hey-athena-client` to your `PYTHONPATH` system or user environment variable
+    - Eclipse (PyDev) has an option for this while importing the project from Git
 - `cd hey-athena-client-master\client`
 - If all goes well, run `__main__.py`, create a user, say "Athena", and ask her a question!
 - Now try write your own module using the directions below.
