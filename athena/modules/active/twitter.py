@@ -15,7 +15,7 @@ MOD_PARAMS = {
 class SendTweetTask(ActiveTask):
     
     def __init__(self):
-        super().__init__(patterns=[r'.*\btweet (.*)'])
+        super().__init__(patterns=[r'.*\btweet (.*)', r'.*\bpost (.*)\bto twitter\b.*'])
          
     def match(self, text):
         for p in self.patterns:
