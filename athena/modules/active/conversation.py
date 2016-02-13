@@ -25,11 +25,20 @@ RESPONSES = {
          '"I\'m sorry" and "I apologize" mean the same thing... except when you\'re at a funeral.',
          'Joke? Try looking in a mirror.'],
              
-    r'.*\b(hey|hi|hello|(w(h)?(a|o|u)t(\'s)?(\s)+up(\?)?|s+u+p+))\b.*':
+    r'.*\b(hey|hi|hello|(w(h)?(a|o|u)t(\')?s?(\s)+up(\?)?|s+u+p+))\b.*':
         ['Hey there! I\'m just computing numbers and such. You?',
          'Oh hey, I\'m just hanging out right now.',
          'Oh hey, I\'m just trying to solve p=np',
-         'Hey, how\'s it goin\' yo?'],
+         'Hey, how\'s it going?'],
+             
+    r'.*\b(how(\')?s? (it going?|are you))\b.*':
+        ['I\'m doing well. How about you?'],
+    
+    r'.*\b(lol|lmao|laugh out loud|rofl)\b.*':
+        ['Haha what\'s so funny?'],
+    
+    r'.*\b(suh+ du(de)?)\b.*':
+        ['Suhhhh.', 'Usuhhh dude!'],
     
     r'.*\b(y+o+)\b.*':
         ['Sup holmes.',
@@ -41,6 +50,9 @@ RESPONSES = {
     
     r'.*\b(movie(s)?)\b.*':
         ['My master hasn\'t created a "movies" module for me yet. Maybe you could help me?'],
+        
+    r'.*\b(aliens.*(exist|universe|space)|(believe|universe|space).*aliens)\b.*':
+        ['Science has not confirmed that aliens exist, but the universe is expansive and full of mysteries.'],
 }
 
 class ConversationTask(ActiveTask):

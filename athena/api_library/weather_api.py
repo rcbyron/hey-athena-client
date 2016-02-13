@@ -9,9 +9,10 @@ http://www.wunderground.com/weather/api/d/docs
 
 import urllib.request, json, time, re
 
-import athena.settings as settings
-import athena.config as cfg
 import athena.tts as tts
+
+from athena import settings, brain
+from athena.classes.api import Api
 
 DAYS = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
 BASE_URL = 'http://api.wunderground.com/api/'
@@ -20,37 +21,41 @@ URL_DATA_TYPES = {
     'forecast':   '/forecast/q/',
     'geolookup':  '/geolookup/q/'
 }
-API_KEY = 'd647ca403a0ac94b'
 
-def config():
-    weather_info = {}
-    prompt1 = 'Default Zip Code or City or Airport Code: '
-    prompt2 = 'Default State or Country: '
-    weather_info['zip-iata-city'] = cfg.safe_input(prompt1, require=True)
-    weather_info['state-country'] = cfg.safe_input(prompt2)
-    return weather_info
+SAVE_DATA = [
+    ('zip_iata_city', 'Default City or Zip Code or Airport Code: '      , True),
+    ('state_country', 'Default State or Country: '                     , False),
+]
 
 # Number of seconds to wait before a call will update the data
 UPDATE_CONDITIONS_INT = 120
 UPDATE_FORECAST_INT   = 120
 
-class WeatherApi():
+class WeatherApi(Api):
+
     def __init__(self):
+        super().__init__('weather_api', SAVE_DATA)
         self.c_update_time  = -UPDATE_CONDITIONS_INT
         self.fc_update_time = -UPDATE_FORECAST_INT
         self.restore_flag = False
         
-        if not 'weather_api' in settings.inst.user:
-            raise Exception
-        self.default_zip_iata_city = settings.inst.user['weather_api']['zip-iata-city']
-        self.default_state_country = settings.inst.user['weather_api']['state-country']
-        self.key = API_KEY
-        if not self.update_loc(self.default_zip_iata_city, self.default_state_country):
-            raise Exception
+        self.default_zip_iata_city = None
+        self.default_state_country = None
+        
+        self.api_key = settings.WUNDERGROUND_KEY
+        
+        self.build_attributes()
+        
+    def verify_data(self, user):
+        has_data = super().verify_data(user)
+        #print(dir(self))
+        self.default_zip_iata_city = self.zip_iata_city
+        self.default_state_country = self.state_country
+        return has_data and self.update_loc(self.default_zip_iata_city, self.default_state_country)
     
     def get_json_data(self, data_type, loc_extension=None):
         """ Returns the desired JSON weather data """
-        url = BASE_URL+self.key+URL_DATA_TYPES[data_type]
+        url = BASE_URL+self.api_key+URL_DATA_TYPES[data_type]
         if not loc_extension:
             url += self.loc_extension
         else:
@@ -117,46 +122,27 @@ class WeatherApi():
             return self.zip_iata_city.upper()
         return self.zip_iata_city.replace('_', ' ').title()
 
-    def temperature(self):
-        return self.c_data['temperature_string']
-    
-    def feels_like(self):
-        return self.c_data['feelslike_string']
-    
-    def humidity(self):
-        return self.c_data['relative_humidity']
-    
-    def wind_speed(self):
-        return self.c_data['wind_string']
-    
-    def uv_index(self):
-        return self.c_data['UV']
-    
-    def precip_today(self):
-        return self.c_data['precip_today_string']
-    
-    def precip_1_hr(self):
-        return self.c_data['precip_1hr_string'].replace('( ', '(')
-    
-    def visibility(self):
-        return self.c_data['visibility_mi']
-    
-    def pressure(self):
-        return self.c_data['pressure_in']
-    
-    def conditions(self):
-        return self.c_data['weather']
+    def build_attributes(self):
+        self.temperature   = lambda: self.c_data['temperature_string']
+        self.feels_like    = lambda: self.c_data['feelslike_string']
+        self.humidity      = lambda: self.c_data['relative_humidity']
+        self.wind_speed    = lambda: self.c_data['wind_string']
+        self.uv_index      = lambda: self.c_data['UV']
+        self.precip_today  = lambda: self.c_data['precip_today_string']
+        self.precip_1_hr   = lambda: self.c_data['precip_1hr_string'].replace('( ', '(')
+        self.visibility    = lambda: self.c_data['visibility_mi']
+        self.pressure      = lambda: self.c_data['pressure_in']
+        self.conditions    = lambda: self.c_data['weather']
+        
+        """ Get the day string relative to today """
+        self.get_day       = lambda offset: DAYS[(self.today_num()+offset)%7]
 
     def fc_day(self, period):
         """ Gets the forecast given a list of period numbers 0-7 """
         if period > 7:
-            return ('I don\'t have any further forecasts beyond 3 days.', '')
+            return None
         return (self.fc_list[period]['title'], self.fc_list[period]['fcttext'])
 
-    def get_day(self, offset):
-        """ Get the day string relative to today """
-        return DAYS[(self.today_num()+offset)%7]
-    
     def today_num(self):
         """ Get the weekday number of today """
         self.load_forecast()

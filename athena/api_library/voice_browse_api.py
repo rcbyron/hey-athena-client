@@ -9,15 +9,18 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 
+from athena.classes.api import Api
+
 #FOLDER_PATH = os.path.dirname(os.path.abspath(__file__))
 #CHROME_PATH = os.path.join(FOLDER_PATH, 'chromedriver')
 GOOGLE_URL = 'https://www.google.com'
 SEARCH_XPATH = '//input[@name="q"]'
 OS_KEY = Keys.CONTROL # Mac users must change to Keys.COMMAND
 
-class VoiceBrowseApi():
+class VoiceBrowseApi(Api):
     
     def __init__(self):
+        self.key = 'voice_browse_api'
         self.driver = None
         
     def open(self, url=None):

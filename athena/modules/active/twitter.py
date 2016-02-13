@@ -5,7 +5,7 @@ Created on Feb 6, 2016
 '''
 from athena.classes.module import Module
 from athena.classes.task import ActiveTask
-from athena.modules.api_library import ifttt_api as ifttt
+from athena.api_library import ifttt_api as ifttt
 
 MOD_PARAMS = {
     'name': 'twitter',
@@ -15,18 +15,16 @@ MOD_PARAMS = {
 class SendTweetTask(ActiveTask):
     
     def __init__(self):
-        super().__init__(patterns=[r'.*\btweet (.*)', r'.*\bpost (.*)\bto twitter\b.*'])
+        super().__init__(patterns=[r'.*\btweet (.*)',
+                                   r'.*\bpost (.*)\bto twitter\b.*'])
+        
+        self.groups = {1: 'tweet'}
          
     def match(self, text):
-        for p in self.patterns:
-            m = p.match(text)
-            if m is not None:
-                self.tweet = m.group(1)
-                return True
-        return False
+        return self.match_and_save_groups(text, self.groups)
     
     def action(self, text):
-        self.speak('Sending tweet...')
+        self.speak('Sending tweet...', show_text=True)
         ifttt.trigger('voice_tweet', self.tweet)
         
         

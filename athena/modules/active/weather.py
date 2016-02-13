@@ -7,7 +7,8 @@ import re
 
 from athena.classes.module import Module
 from athena.classes.task import ActiveTask
-from athena.modules.api_library import weather_api
+from athena.api_library import weather_api
+from athena.apis import api_lib
 
 MOD_PARAMS = {
     'name': 'weather',
@@ -29,11 +30,11 @@ WEATHER_INPUT_PATTERNS = [r'^.*\b(temp(erature)?|high(s)?|low(s)?|heat|hot(ter|t
 class CurrentDayTask(ActiveTask):
     
     def match(self, text):
-        text = self.api.replace_day_aliases(text)
+        text = api_lib['weather_api'].replace_day_aliases(text)
         
         """ Invalid if text contains a non-current day """
         invalid_days = list(weather_api.DAYS)
-        invalid_days.remove(self.api.get_day(0))
+        invalid_days.remove(api_lib['weather_api'].get_day(0))
         if any(day in text.lower() for day in invalid_days):
             return False
         
@@ -45,47 +46,44 @@ class CurrentDayTask(ActiveTask):
         return len(self.cases) > 0
     
     def action(self, text):
-        self.api.load_conditions()
-        self.api.load_forecast()
+        api_lib['weather_api'].load_conditions()
+        api_lib['weather_api'].load_forecast()
         
         """ Outputs the desired current weather conditions """
-        print('\n~ Location: '+self.api.location()+'\n')
+        print('\n~ Location: '+api_lib['weather_api'].location())
         self.spoke_once = False
         if 0 in self.cases:
-            self.list_weather('Temperature',     self.api.temperature())
-            self.list_weather('Feels Like',      self.api.feels_like())
+            value = re.findall(r'(\d+(?:\.\d+))?',    api_lib['weather_api'].temperature())
+            if len(value) > 0:
+                self.list_weather('Temperature', str(round(float(value[0])))+' degrees')
+            self.list_weather('Feels Like',      api_lib['weather_api'].feels_like())
         if 1 in self.cases:
-            self.list_weather('Humidity',        self.api.humidity())
+            self.list_weather('Humidity',        api_lib['weather_api'].humidity())
         if 2 in self.cases:
-            self.list_weather('Wind Speed',      self.api.wind_speed())
+            self.list_weather('Wind Speed',      api_lib['weather_api'].wind_speed())
         if 3 in self.cases:
-            self.list_weather('UV Index',        self.api.uv_index())
+            self.list_weather('UV Index',        api_lib['weather_api'].uv_index())
         if 4 in self.cases:
-            self.list_weather('Precipitation',   self.api.precip_today())
-            self.list_weather('Past Hour',       self.api.precip_1_hr())
+            self.list_weather('Precipitation',   api_lib['weather_api'].precip_today())
+            self.list_weather('Past Hour',       api_lib['weather_api'].precip_1_hr())
         if 5 in self.cases:
-            self.list_weather('Visibility',      self.api.visibility())
+            self.list_weather('Visibility',      api_lib['weather_api'].visibility())
         if 6 in self.cases:
-            self.list_weather('Pressure',        self.api.pressure())
+            self.list_weather('Pressure',        api_lib['weather_api'].pressure())
         if 7 in self.cases:
-            self.list_weather('Condition',       self.api.fc_day(0)[1])
-        print('')
-        self.api.restore_loc()
+            self.list_weather('Condition',       api_lib['weather_api'].fc_day(0)[1])
+        api_lib['weather_api'].restore_loc()
         
     def list_weather(self, output, value):
         #print('~ '+output+':', value)
         if not self.spoke_once:
-            self.speak('The '+output.lower()+' in '+self.api.location()+' is '+value)
+            self.speak('The '+output.lower()+' in '+api_lib['weather_api'].location()+' is '+value)
             self.spoke_once = True
 
 class ForecastTask(ActiveTask): 
        
     def match(self, text):
-        """ See if it matches any weather input patterns """
-        for p in self.patterns:
-            if p.match(text):
-                return True
-        return False
+        return self.match_any(text)
         
     def find_periods(self, text):
         """ Finds time periods to forecast
@@ -93,13 +91,13 @@ class ForecastTask(ActiveTask):
         matched_periods = set()
         for day in weather_api.DAYS:
             if re.search(r'^.*\btonight\b.*$', text, re.IGNORECASE):
-                if 'Night' not in self.api.fc_day(0)[0]:
+                if 'Night' not in api_lib['weather_api'].fc_day(0)[0]:
                     matched_periods.add(1)
             if re.search(r'^.*\b'+day+r'\b.*$', text, re.IGNORECASE):
                 day_num = weather_api.DAYS.index(day)
-                if day_num < self.api.today_num():
+                if day_num < api_lib['weather_api'].today_num():
                     day_num += 7
-                day_num -= self.api.today_num()
+                day_num -= api_lib['weather_api'].today_num()
                 period = day_num*2
                 if re.search(r'^.*\b'+day+r'\s+night\b.*$', text, re.IGNORECASE):
                     period += 1
@@ -110,19 +108,19 @@ class ForecastTask(ActiveTask):
         return matched_periods
     
     def action(self, text):
-        text = self.api.replace_day_aliases(text)
-        self.api.load_forecast()
+        text = api_lib['weather_api'].replace_day_aliases(text)
+        api_lib['weather_api'].load_forecast()
         
         matched_periods = self.find_periods(text)
-        print('\n~ Location: '+self.api.location()+'\n')
+        print('\n~ Location: '+api_lib['weather_api'].location()+'\n')
         for period in sorted(matched_periods):
-            fc = self.api.fc_day(period)
+            fc = api_lib['weather_api'].fc_day(period)
             if fc[1]:
                 print('~ '+fc[0]+': '+fc[1])
             else:
                 print('~ '+fc[0])
         print('')
-        self.api.restore_loc()
+        api_lib['weather_api'].restore_loc()
         
 class UpdateLocationTask(ActiveTask):
     
@@ -145,25 +143,16 @@ class UpdateLocationTask(ActiveTask):
 
     def action(self, text):
         """ Make task greedy if matched location in text but could not update """
-        if not self.api.try_set_loc(self.zip_iata_city, self.state_country):
+        if not api_lib['weather_api'].try_set_loc(self.zip_iata_city, self.state_country):
             self.task_greedy = True
         else:
-            self.api.restore_flag = True
+            api_lib['weather_api'].restore_flag = True
 
 class Weather(Module):
     
     def __init__(self):
-        w_api = None
-        mod_enabled = True
-        try:
-            w_api = weather_api.WeatherApi()
-        except:
-            mod_enabled = False
-            print('~ Please properly configure the weather API')
-            return
-        
         tasks = [UpdateLocationTask(patterns=[ZIP_IATA_PATTERN,CITY_PATTERN],
-                                    priority=5, api=w_api, greedy=False),
-                 CurrentDayTask(WEATHER_INPUT_PATTERNS, priority=2, api=w_api),
-                 ForecastTask(WEATHER_INPUT_PATTERNS, priority=1, api=w_api)]
+                                    priority=5, greedy=False),
+                 CurrentDayTask(WEATHER_INPUT_PATTERNS, priority=2),
+                 ForecastTask(WEATHER_INPUT_PATTERNS, priority=1)]
         super().__init__(MOD_PARAMS, tasks)

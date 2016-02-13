@@ -21,7 +21,7 @@ class PlaySongTask(ActiveTask):
         super().__init__(patterns=[r'.*(\b)+turn(\s)+up(\b)+.*'])
          
     def match(self, text):
-        return self.patterns[0].match(text) is not None
+        return self.match_any(text)
     
     def action(self, text):
         self.speak('Turning up...')

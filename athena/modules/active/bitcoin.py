@@ -5,7 +5,7 @@ Created on Jul 19, 2015
 '''
 from athena.classes.module import Module
 from athena.classes.task import ActiveTask
-from athena.modules.api_library import bitcoin_api
+from athena.api_library import bitcoin_api
 
 MOD_PARAMS = {
     'name': 'bitcoin',
@@ -18,17 +18,11 @@ class GetValueTask(ActiveTask):
         super().__init__(patterns=[r'.*\b(bitcoin)\b.*'])
     
     def match(self, text):
-        for p in self.patterns:
-            if p.match(text):
-                return True
-        return False
+        return self.match_any(text)
     
     def action(self, text):
-        print('')
-        print('~ 24 Hour Average: $'    + str(bitcoin_api.get_data('24h_avg')))
-        print('~ Last Price: $'         + str(bitcoin_api.get_data('last')))
-        print('')
-        self.speak(str(bitcoin_api.get_data('last')))
+        val = str(bitcoin_api.get_data('last'))
+        self.speak(val)
 
 
 class Bitcoin(Module):

@@ -39,26 +39,26 @@ def listen_keyword():
         if decoder.hyp() and decoder.hyp().hypstr == settings.WAKE_UP_WORD:
             decoder.end_utt()
             return
-        else:
-            continue
     decoder.end_utt()
     
 def active_listen():
     r = speech_recognition.Recognizer()
 
-    with speech_recognition.Microphone() as src:    # use the default microphone as the audio source
-        r.adjust_for_ambient_noise(src)             # listen for 1 second to calibrate the energy threshold for ambient noise levels
+    # use the default microphone as the audio source
+    with speech_recognition.Microphone() as src:   
+        # listen for 1 second to adjust energy threshold for ambient noise
+        r.adjust_for_ambient_noise(src)             
         print('\n~ Active listening... ')
         tts.play_mp3('double-beep.mp3')
-        audio = r.listen(src)                       # listen for the first phrase and extract it into audio data
+        
+        # listen for the first phrase and extract it into audio data
+        audio = r.listen(src)
     
     msg = ''
     try:
         msg = r.recognize_google(audio)             # recognize speech using Google Speech Recognition
         print('\n~ \''+msg+'\'')
     except LookupError:                             # speech is unintelligible
-        msg = ''
-        print('\n~ '+settings.ERROR_MESSAGE+'\n')
-        tts.speak(settings.ERROR_MESSAGE)
+        tts.speak(settings.ERROR)
     finally:
         return msg

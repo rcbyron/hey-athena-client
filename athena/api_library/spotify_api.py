@@ -5,38 +5,30 @@ Created on Jan 10, 2016
 '''
 import traceback
 
-import athena.config as cfg
-import athena.settings as settings
-
 from selenium import webdriver
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 
+from athena.classes.api import Api
+from athena import brain
+
 BASE_URL = 'https://play.spotify.com/browse'
 
-def config():
-    spotify_info = {}
-    spotify_info['username'] = cfg.safe_input('Spotify Username: ')
-    spotify_info['password'] = cfg.safe_input('Spotify Password: ')
-    return spotify_info
+SAVE_DATA = [
+    ('username', 'Username: '      , True),
+    ('password', 'Password: '      , True),
+]
 
-class SpotifyApi():
+class SpotifyApi(Api):
     
     def __init__(self):
+        super().__init__('spotify_api', SAVE_DATA)
         self.frame = None
         self.driver = None
-        if 'spotify_api' in settings.inst.user:
-            self.username = settings.inst.user['spotify_api']['username']
-            self.password = settings.inst.user['spotify_api']['password']
-        else:
-            print('~ Please add spotify configuration to your user.')
     
     def login(self):
-        if not self.password or not self.username:
-            self.username = input('Username: ')
-            self.password = input('Password: ')
         self.driver = webdriver.Firefox()
         self.driver.get(BASE_URL)
     

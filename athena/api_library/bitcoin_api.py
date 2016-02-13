@@ -5,8 +5,8 @@ Created on Jun 18, 2015
 
 API Documentation:
 https://bitcoinaverage.com/api
-
 '''
+
 import urllib.request, json
 
 '''

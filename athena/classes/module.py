@@ -5,6 +5,7 @@ Created on Aug 14, 2015
 '''
 
 class Module(object):
+    
     def __init__(self, mod_params, mod_tasks=[]):
         """ Make a unique mod name """
         self.name = mod_params['name']

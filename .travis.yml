@@ -8,8 +8,7 @@ python:
   - "nightly"
 before_install:
   - sudo apt-get -qq update
-  - sudo apt-get install -y portaudio19-dev
-  - sudo apt-get install -y swig
+  - sudo apt-get install -y portaudio19-dev swig libavbin-dev libavbin0
 install:
   - python setup.py install
 script:

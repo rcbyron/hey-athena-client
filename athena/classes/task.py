@@ -5,23 +5,19 @@ Created on Jun 4, 2015
 '''
 import re
 
-from athena.tts import speak
+import athena.tts as tts
 
 class Task(object):
+    speak = staticmethod(tts.speak)
+    
     def action(self, text):
         """ Execute the task action """
         return
-    
-    def speak(self, phrase, show_text=True):
-        if show_text:
-            print('\n~ '+phrase+'\n')
-        speak(phrase)
 
 class ActiveTask(Task):
     def __init__(self,
                  patterns=[],
                  priority=0,
-                 api=None,
                  greedy=True,
                  regex_precompile=True,
                  regex_ignore_case=True):
@@ -37,12 +33,31 @@ class ActiveTask(Task):
         """ Tasks are matched/sorted with priority in modules """
         self.priority = priority
         
-        """ Optional API object to use """
-        self.api = api
-        
         """ If task is matched, stop module from matching the proceeding tasks """
         self.greedy = greedy
         
     def match(self, text):
         """ Check if the task input criteria is met """
         return False
+
+    def match_any(self, text):
+        """ Check if any patterns match """
+        for p in self.patterns:
+            if p.match(text):
+                return True
+        return False
+
+    def match_and_save_groups(self, text, group_key_dict):
+        """
+            Check if any patterns match,
+            If so, save the match groups to self.(key name)
+        """
+        for p in self.patterns:
+            m = p.match(text)
+            if m is not None:
+                for group_num, attribute_name in group_key_dict.items():
+                    setattr(self, attribute_name, m.group(group_num))
+                return True
+        return False
+    
+    
