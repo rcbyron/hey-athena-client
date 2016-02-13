@@ -109,6 +109,8 @@ class Bitcoin(Module):
 
 ### Module Ideas
 - Context module (remembers location and important stuff)
+- Smart Home API/modules (Hook outlets)
+- RESTful API services
 - Oauth API
 - Canvas module (for college grades/assignments info)
 - Gmail (and other google modules)
