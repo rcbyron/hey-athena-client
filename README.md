@@ -1,11 +1,17 @@
-# Hey Athena ![https://travis-ci.org/hey-athena/hey-athena-client.svg?branch=connor-branch](https://travis-ci.org/hey-athena/hey-athena-client.svg?branch=connor-branch)
+# Hey Athena
+![https://travis-ci.org/hey-athena/hey-athena-client.svg?branch=connor-branch](https://travis-ci.org/hey-athena/hey-athena-client.svg?branch=connor-branch)
+[![PyPI version](https://badge.fury.io/py/heyathena.svg)](https://badge.fury.io/py/heyathena)
+[![GitHub license](https://img.shields.io/badge/license-GPLv3-blue.svg)](https://raw.githubusercontent.com/hey-athena/hey-athena-client/connor-branch/LICENSE)
+
 Your personal voice assistant.
 
 "Hey Athena" is a 100% open-source, cross-platform, modular voice assistant framework. It aims to do everything that Siri, Cortana, and Echo can do -- and more.
 
-Website (under development): http://heyathena.com
-
 Written in Python 3
+
+Under Development:
+Website: http://heyathena.com
+Documentation: http://pythonhosted.org/HeyAthena/
 
 ## Usage Examples: 
 - "Athena *(double beep)* tweet What's good Twitter homies?" (IFTTT key required)

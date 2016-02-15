@@ -1,8 +1,4 @@
-'''
-Created on Jan 12, 2016
-
-@author: Connor
-'''
+""" A simple API to retrieve user info """
 from athena.classes.api import Api
 
 SAVE_DATA = [

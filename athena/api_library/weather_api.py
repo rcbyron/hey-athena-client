@@ -1,17 +1,14 @@
-'''
-Created on Jun 1, 2015
+"""
+A simple Wunderground weather API
 
-@author: Connor
-
-API Documentation:
+Documentation:
 http://www.wunderground.com/weather/api/d/docs
-'''
-
+"""
 import urllib.request, json, time, re
 
 import athena.tts as tts
 
-from athena import settings, brain
+from athena import settings
 from athena.classes.api import Api
 
 DAYS = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']

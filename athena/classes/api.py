@@ -1,9 +1,7 @@
-'''
-Created on Feb 11, 2016
-
-@author: Connor
-'''
-
+""" 
+    The "Api" class is used when an instance
+    of an API is required in the athena.apis.api_lib
+"""
 class Api(object):
     
     def __init__(self, key, save_data=None, enabled=True):
@@ -13,6 +11,7 @@ class Api(object):
         self.enabled = enabled
         
     def verify_data(self, user):
+        """ Verify that the current user .yml file has required save_data attributes """
         try:
             if hasattr(self, 'save_data'):
                 for tup in self.save_data:

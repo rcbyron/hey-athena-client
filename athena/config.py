@@ -1,14 +1,11 @@
-'''
-Created on Jan 12, 2016
-
-@author: Connor
-'''
+""" Helpful methods for generating a user .yml config file """
 import os, yaml
 
 import athena.settings as settings
 from athena.apis import api_lib
 
 def safe_input(prompt, require=False):
+    """ Prompts the user for input """
     answer = ''
     if require:
         confirm = 'N'
@@ -26,6 +23,7 @@ def safe_input(prompt, require=False):
     return answer
 
 def block_print(title):
+    """ Prints a title block """
     if not title:
         title = '(empty)'
     length = len(title)+10
@@ -36,6 +34,7 @@ def block_print(title):
     print('#'*length           +'\n')
 
 def generate():
+    """ Generates a user .yml config file """
     block_print('USER CONFIG FILE GENERATOR')
     print('~ Please let me learn some things about you :)\n')
     print('~ Required fields are denoted with a \'*\'\n')

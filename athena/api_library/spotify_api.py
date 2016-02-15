@@ -1,8 +1,4 @@
-'''
-Created on Jan 10, 2016
-
-@author: Connor
-'''
+""" A simple spotify web browser API """
 import traceback
 
 from selenium import webdriver
@@ -12,7 +8,6 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 
 from athena.classes.api import Api
-from athena import brain
 
 BASE_URL = 'https://play.spotify.com/browse'
 

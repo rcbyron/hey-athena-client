@@ -1,8 +1,7 @@
-'''
-Created on Jun 4, 2015
-
-@author: Connor
-'''
+"""
+    The "Brain" class handles most of Hey Athena's processing.
+    To listen for input, use ``brain.inst.run()``
+""" 
 import inspect, pkgutil, traceback, os, yaml, re
 import athena.modules.active as active_mods
 
@@ -15,6 +14,14 @@ def init():
 
 class Brain():
     def __init__(self):
+        """
+            First it looks for and initializes APIs in the "api_library" folder.
+            Then it prompts the user to log in.
+            Next it verifies that the user's .yml file is configured for each API.
+            If an API's required configuration variables are not found, the API is disabled.
+            Next it finds and loads modules in the "modules" folder.
+            Lastly, it initializes the STT engine.
+        """
         apis.find_apis()
         self.login()
         
@@ -46,7 +53,7 @@ class Brain():
         self.modules.sort(key=lambda mod: mod.priority, reverse=True)
 
     def list_mods(self):
-        """ List module order """
+        """ Print modules in order """
         print('\n~ Module Order: ', end='')
         print(str([mod.name for mod in self.modules])[1:-1]+'\n')
         
@@ -70,6 +77,7 @@ class Brain():
             self.find_users()
 
     def load_user(self, username):
+        """ Load (username).yml data into the user """
         with open(os.path.join(settings.USERS_DIR, username+'.yml'), 'r') as f:
             self.user = yaml.load(f)
             print('\n~ Logged in as: '+self.user['user_api']['username'])
@@ -112,7 +120,7 @@ class Brain():
                 break
     
     def execute_mods(self, text):
-        """ Executes a module's task queue """
+        """ Executes the modules in prioritized order """
         if len(self.matched_mods) <= 0:
             tts.speak(settings.NO_MODULES)
             return
@@ -174,7 +182,7 @@ class Brain():
                 self.matched_mods.append(mod)
     
     def error(self):
-        """ Prompt user to specify which module to use to respond """
+        """ Inform the user that an error occurred """
         tts.speak(settings.ERROR)
         text = input('> ')
         #response = stt.active_listen()
@@ -182,6 +190,7 @@ class Brain():
         return 'y' in text.lower()
     
     def run(self):
+        """ Listen for input, match the modules and respond """
         while True:
             try:
                 if settings.USE_STT:

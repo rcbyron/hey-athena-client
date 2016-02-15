@@ -1,8 +1,4 @@
-'''
-Created on Jun 1, 2015
-
-@author: Connor
-'''
+""" A module for finding the weather (using Wunderground) """
 import re
 
 from athena.classes.module import Module

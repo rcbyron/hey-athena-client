@@ -1,18 +1,14 @@
-'''
-Created on Jan 9, 2016
-
-@author: Connor
-'''
+""" Global settings are stored here """
 import os
 import os.path as path
 
-'''
+"""
 LANGS = ['af', 'sq', 'ar', 'hy', 'ca', 'zh-CN', 'zh-TW', 'hr', 'cs',
          'da', 'nl', 'en', 'eo', 'fi', 'fr', 'de', 'el', 'ht', 'hi',
          'hu', 'is', 'id', 'it', 'ja', 'ko', 'la', 'lv', 'mk', 'no',
          'pl', 'pt', 'ro', 'ru', 'sr', 'sk', 'es', 'sw', 'sv', 'ta',
          'th', 'tr', 'vi', 'cy']
-'''
+"""
 LANG = 'en'
 
 # Wake-up Word(s) must be in the sphinx dict file

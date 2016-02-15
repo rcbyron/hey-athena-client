@@ -16,6 +16,7 @@ ALIASES = {
     'latitude':     'lat',
     'longitude':    'lon',
 }
+
 response = None
 
 def update_data():

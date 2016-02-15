@@ -1,9 +1,4 @@
-'''
-Created on Feb 12, 2016
-
-@author: Connor
-'''
-
+""" Finds and stores APIs in the 'api_lib' global variable """
 import pkgutil, inspect, traceback
 
 from athena import api_library
