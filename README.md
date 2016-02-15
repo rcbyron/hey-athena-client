@@ -10,9 +10,9 @@ Your personal voice assistant.
 
 Written in Python 3
 
-Under Development:
-Website: http://heyathena.com
-Documentation: http://pythonhosted.org/HeyAthena/
+Under Development:  
+Website: http://heyathena.com  
+Documentation: http://pythonhosted.org/HeyAthena/  
 
 ## Usage Examples: 
 - "Athena *(double beep)* tweet What's good Twitter homies?" (IFTTT key required)
