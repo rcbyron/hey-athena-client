@@ -3,6 +3,7 @@
 [![PyPI version](https://badge.fury.io/py/heyathena.svg)](https://badge.fury.io/py/heyathena)
 [![GitHub license](https://img.shields.io/badge/license-GPLv3-blue.svg)](https://raw.githubusercontent.com/hey-athena/hey-athena-client/connor-branch/LICENSE)
 
+## Overview
 Your personal voice assistant.
 
 "Hey Athena" is a 100% open-source, cross-platform, modular voice assistant framework. It aims to do everything that Siri, Cortana, and Echo can do -- and more.
