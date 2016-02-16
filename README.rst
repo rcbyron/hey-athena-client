@@ -9,7 +9,7 @@ Overview
 
 Your personal voice assistant.
 
-“Hey Athena” is a 100% open-source, cross-platform, modular voice
+"Hey Athena" is a 100% open-source, cross-platform, modular voice
 assistant framework. It aims to do everything that Siri, Cortana, and
 Echo can do – and more.
 
@@ -21,19 +21,19 @@ Written in Python 3
 Usage Examples:
 ---------------
 
--  “Athena *(double beep)* tweet What’s good Twitter homies?” (IFTTT key
+-  "Athena *(double beep)* tweet What's good Twitter homies?" (IFTTT key
    required)
--  “Athena *(double beep)* what’s the weather like in DFW?”
--  “Athena *(double beep)* what is the capital of Tanzania?”
--  “Athena *(double beep)* turn up *(plays music)*”
--  “Athena *(double beep)* open facebook.com”
+-  "Athena *(double beep)* what's the weather like in DFW?"
+-  "Athena *(double beep)* what is the capital of Tanzania?"
+-  "Athena *(double beep)* turn up *(plays music)*"
+-  "Athena *(double beep)* open facebook.com"
 
-Our modular templates make it easy to add new “skills” to Athena. Write
-a simple Python “skill” module to control your house with your voice.
+Our modular templates make it easy to add new "skills" to Athena. Write
+a simple Python "skill" module to control your house with your voice.
 Write a module to post a tweet with your voice.
 
-Don’t like the name “Athena”? Change it to anything you want, like
-“Swagger Bot” or “Home Slice”.
+Don't like the name "Athena"? Change it to anything you want, like
+"Swagger Bot" or "Home Slice".
 
 How can I make my own Athena?
 -----------------------------
@@ -94,7 +94,7 @@ Normal Installation
 	brain.init()
 	brain.inst.run()
 
--  You can add modules/edit the client in Python’s site-packages/athena
+-  You can add modules/edit the client in Python's site-packages/athena
    folder
 -  Try write your own module using the directions below.
 
@@ -111,7 +111,7 @@ Developer Installation
       from Git
 
 -  ``cd hey-athena-client-master\client``
--  If all goes well, run ``__main__.py``, create a user, say “Athena”,
+-  If all goes well, run ``__main__.py``, create a user, say "Athena",
    and ask her a question!
 -  Now try write your own module using the directions below.
 
@@ -119,7 +119,7 @@ Active Modules
 --------------
 
 An active module is simply a collection of tasks. Tasks look for
-patterns in user text input (generally through “regular expressions”).
+patterns in user text input (generally through "regular expressions").
 If a pattern is matched, the task executes its action. Note: module
 priority is taken into account first, then task priority.
 
@@ -188,7 +188,7 @@ Module Ideas
 -  Movement (passive, active, API)
 -  Play music based on mood (and weather)
 
-If you create a module, submit a pull request! We’d love to add it to
+If you create a module, submit a pull request! We'd love to add it to
 the repository. You can also email it to connor@heyathena.com
 
 Passive Modules
@@ -203,10 +203,10 @@ Passive Modules
 Common Errors
 -------------
 
-| **Error:** “no module named athena”
+| **Error:** "no module named athena"
 | **Fix:** Make sure the athena project directory is in your PYTHONPATH
 | 
-| **Error:** “AVbin is required to decode compressed media”
+| **Error:** "AVbin is required to decode compressed media"
 | **Fix:** Pyglet needs the avbin.dll file to be installed. On Windows,
   sometimes the file is wrongfully placed in System32 instead of
   SysWOW64.
