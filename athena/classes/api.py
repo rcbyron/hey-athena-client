@@ -1,7 +1,11 @@
 """ 
     The "Api" class is used when an instance
     of an API is required in the athena.apis.api_lib
+    
+    Use "from athena.apis import api_lib" & "api_lib['(api_name_key)']"
+    to access instances of APIs.
 """
+
 class Api(object):
     
     def __init__(self, key, save_data=None, enabled=True):

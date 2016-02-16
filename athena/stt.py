@@ -1,8 +1,7 @@
-'''
-Created on Aug 6, 2015
+"""
+    Basic Speech-To-Text tools are stored here
+"""
 
-@author: Connor
-'''
 import os, pyaudio, speech_recognition
 import athena.tts as tts
 import athena.settings as settings
@@ -26,6 +25,9 @@ def init():
     p = pyaudio.PyAudio()
 
 def listen_keyword():
+    """
+        Passively listens for the WAKE_UP_WORD string
+    """
     global decoder, p
     stream = p.open(format=pyaudio.paInt16, channels=1, rate=16000, input=True, frames_per_buffer=1024)
     stream.start_stream()
@@ -42,6 +44,11 @@ def listen_keyword():
     decoder.end_utt()
     
 def active_listen():
+    """
+        Actively listens for speech to translate into text
+    
+        :return: speech input as a text string
+    """
     r = speech_recognition.Recognizer()
 
     # use the default microphone as the audio source

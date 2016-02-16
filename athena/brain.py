@@ -21,6 +21,9 @@ class Brain():
             If an API's required configuration variables are not found, the API is disabled.
             Next it finds and loads modules in the "modules" folder.
             Lastly, it initializes the STT engine.
+
+            Use "from athena.apis import api_lib" & "api_lib['(api_name_key)']"
+            to access instances of APIs.
         """
         apis.find_apis()
         self.login()
@@ -165,6 +168,7 @@ class Brain():
         print('\n~ No module name found.\n')
     
     def match_mods(self, text):
+        """ Attempts to match a modules and their tasks """
         self.matched_mods = []
         for mod in self.modules:
             if not mod.enabled:

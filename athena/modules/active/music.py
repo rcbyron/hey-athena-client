@@ -1,8 +1,11 @@
-'''
-Created on Aug 13, 2015
+"""
+    A simple module for playing music
 
-@author: Connor
-'''
+    Usage Examples:
+        - "Play some music"
+        - "Turn up!"
+"""
+
 from athena.classes.module import Module
 from athena.classes.task import ActiveTask
 from athena.tts import play_mp3
@@ -18,7 +21,7 @@ TURN_UP_SONG = 'godj.mp3'
 class PlaySongTask(ActiveTask):
     
     def __init__(self):
-        super().__init__(patterns=[r'.*(\b)+turn(\s)+up(\b)+.*'])
+        super().__init__(patterns=[r'.*\b(get turnt|turn up|play.*music)\b.*'])
          
     def match(self, text):
         return self.match_any(text)

@@ -1,9 +1,10 @@
 """
-A simple Wunderground weather API
-
-Documentation:
-http://www.wunderground.com/weather/api/d/docs
+    An API for retrieving Wunderground weather information
+    
+    Documentation:
+    http://www.wunderground.com/weather/api/d/docs
 """
+
 import urllib.request, json, time, re
 
 import athena.tts as tts

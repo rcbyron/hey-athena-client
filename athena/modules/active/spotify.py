@@ -1,8 +1,15 @@
-'''
-Created on Jan 10, 2016
+"""
+    Wraps the Spotify Web Player to play music
+    
+    Requires:
+        - Spotify username/password configuration
 
-@author: Connor
-'''
+    Usage Examples:
+        - "Play (song name XOR artist name)"
+        - "Stop this song"
+        - "Next song please"
+"""
+
 from athena.classes.module import Module
 from athena.classes.task import ActiveTask
 from athena.apis import api_lib

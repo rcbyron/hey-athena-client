@@ -1,8 +1,7 @@
-'''
-Created on Jan 9, 2016
+"""
+    Randomly generates responses based on "emotion" chances
+"""
 
-@author: Connor
-'''
 import random as r
 
 from athena.classes.module import Module

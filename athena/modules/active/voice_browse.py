@@ -1,8 +1,12 @@
-'''
-Created on Jan 30, 2016
+"""
+    Wraps the Spotify Web Player to play music
 
-@author: Connor
-'''
+    Usage Examples:
+        - "Open facebook.com"
+        - "Search Neil Degrasse Tyson"
+        - "Maximize the browser"
+"""
+
 from athena.classes.module import Module
 from athena.classes.task import ActiveTask
 from athena.apis import api_lib
@@ -17,7 +21,7 @@ class VoiceBrowseTask(ActiveTask):
     def __init__(self):
         super().__init__(patterns=[r'.*\b(?:search|look up|tell me about)\b(.*)',
                                    r'.*\b(?:go to|open)(.*\.(com|org|net|edu|gov|io|html))\b',
-                                   r'.*\b(?:close(?: the| this)? (browser|tab|page))\b.*',
+                                   r'.*\b(?:(?:close|shut)(?: the| this)? (browser|tab|page))\b.*',
                                    r'.*\b(?:type)\b(.*)',
                                    r'.*\b(delete|clear the)\b.*',
                                    r'.*\b(maximize)\b.*',

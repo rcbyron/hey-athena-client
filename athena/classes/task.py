@@ -1,8 +1,12 @@
-'''
-Created on Jun 4, 2015
+"""
+    The "Task" class represents an action to be performed
+    
+    The "ActiveTask" class uses the "match" method to trigger an action.
+    Generally regex patterns are supplied to do the input matching.
+    The "match" method can be overriden with "return match_any(text)" to
+    trigger an action upon matching any given regex pattern.
+"""
 
-@author: Connor
-'''
 import re
 
 import athena.tts as tts

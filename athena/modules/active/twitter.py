@@ -1,8 +1,14 @@
-'''
-Created on Feb 6, 2016
+"""
+    Allows users to send tweets via voice command
+    
+    Requires:
+        - IFTTT configuration
 
-@author: Connor
-'''
+    Usage Examples:
+        - "Tweet What's up guys?"
+        - "Post What's up everyone? to twitter"
+"""
+
 from athena.classes.module import Module
 from athena.classes.task import ActiveTask
 from athena.api_library import ifttt_api as ifttt

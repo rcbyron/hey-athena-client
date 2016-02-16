@@ -1,8 +1,11 @@
-'''
-Created on Jun 5, 2015
+"""
+    Uses the external IP to find geographical info
 
-@author: Connor
-'''
+    Usage Examples:
+        - "What time is it?"
+        - "Where am I?"
+"""
+
 from athena.classes.module import Module
 from athena.classes.task import ActiveTask
 from athena.api_library import geo_info_api

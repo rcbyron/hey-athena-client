@@ -1,4 +1,6 @@
-""" Global settings are stored here """
+"""
+    Global settings are stored here
+"""
 import os
 import os.path as path
 
@@ -52,3 +54,4 @@ NO_MIC = "I couldn't connect to a microphone."
 #####################
 WOLFRAM_KEY = '4QR84U-VY7T7AVA34'
 WUNDERGROUND_KEY = 'd647ca403a0ac94b'
+IFTTT_KEY = ''

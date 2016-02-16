@@ -1,4 +1,6 @@
-""" A simple spotify web browser API """
+"""
+    A wrapper API for Spotify Web Player (requires Firefox)
+"""
 import traceback
 
 from selenium import webdriver

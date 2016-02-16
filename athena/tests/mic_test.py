@@ -1,8 +1,6 @@
-'''
-Created on Jan 28, 2016
-
-@author: Connor
-'''
+"""
+    A simple test script for passive/active listening
+"""
 import traceback
 
 print('---- Running Microphone Test ----')

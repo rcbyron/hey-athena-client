@@ -1,11 +1,10 @@
-'''
-Created on Jun 18, 2015
+"""
+    A tool for retrieving geographical info based on external IP
+    
+    API Documentation:
+    http://ip-api.com
+"""
 
-@author: Connor
-
-API Documentation:
-http://www.telize.com/
-'''
 import urllib.request, json
 
 from time import strftime

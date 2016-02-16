@@ -1,8 +1,11 @@
-'''
-Created on Jul 19, 2015
+"""
+    Finds and returns the latest bitcoin price
 
-@author: Connor
-'''
+    Usage Examples:
+        - "What is the price of bitcoin?"
+        - "How much is a bitcoin worth?"
+"""
+
 from athena.classes.module import Module
 from athena.classes.task import ActiveTask
 from athena.api_library import bitcoin_api

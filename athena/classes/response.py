@@ -1,8 +1,7 @@
-'''
-Created on Feb 11, 2016
+"""
+    The "Response" class represents a cached audio response
+"""
 
-@author: Connor
-'''
 import os.path as path
 
 from athena import settings

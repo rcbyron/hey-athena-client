@@ -1,8 +1,6 @@
-'''
-Created on Aug 14, 2015
-
-@author: Connor
-'''
+""" 
+    The "Module" class represents a collection of tasks
+"""
 
 class Module(object):
     

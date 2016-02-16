@@ -1,8 +1,7 @@
-'''
-Created on Jan 30, 2016
+"""
+    Tools to automate browsing (requires Firefox)
+"""
 
-@author: Connor
-'''
 from selenium import webdriver
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.keys import Keys

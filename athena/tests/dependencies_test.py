@@ -1,8 +1,6 @@
-'''
-Created on Jan 28, 2016
-
-@author: Connor
-'''
+"""
+    A simple test script to check if all dependencies are installed
+"""
 import traceback
 
 print('---- Running Dependencies Test ----')

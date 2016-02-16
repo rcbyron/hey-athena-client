@@ -1,8 +1,11 @@
-'''
-Created on Jun 1, 2015
+"""
+    Responds to general conversation questions
 
-@author: Connor
-'''
+    Usage Examples:
+        - "What's up?"
+        - "Tell me a joke"
+"""
+
 import re, random
 
 from athena.classes.module import Module

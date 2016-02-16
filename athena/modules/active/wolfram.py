@@ -1,8 +1,14 @@
-'''
-Created on Jun 5, 2015
+"""
+    Handles most general questions (including math!)
+    
+    Requires:
+        - WolframAlpha API key
 
-@author: Connor
-'''
+    Usage Examples:
+        - "How tall is Mount Everest?"
+        - "What is the derivative of y = 2x?"
+"""
+
 import wolframalpha
 
 from athena.classes.module import Module

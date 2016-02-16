@@ -1,5 +1,5 @@
 # Hey Athena
-![https://travis-ci.org/hey-athena/hey-athena-client.svg?branch=connor-branch](https://travis-ci.org/hey-athena/hey-athena-client.svg?branch=connor-branch)
+[![https://travis-ci.org/hey-athena/hey-athena-client.svg?branch=connor-branch](https://travis-ci.org/hey-athena/hey-athena-client.svg?branch=connor-branch)](https://travis-ci.org/hey-athena/hey-athena-client)
 [![PyPI version](https://badge.fury.io/py/heyathena.svg)](https://badge.fury.io/py/heyathena)
 [![GitHub license](https://img.shields.io/badge/license-GPLv3-blue.svg)](https://raw.githubusercontent.com/hey-athena/hey-athena-client/connor-branch/LICENSE)
 
@@ -72,46 +72,51 @@ Don't like the name "Athena"? Change it to anything you want, like "Swagger Bot"
 - Now try write your own module using the directions below.
 
 ## Active Modules
-An active module is simply a collection of tasks. Tasks look for patterns in user text input (generally through "regular expressions"). If a pattern is matched, the task executes its action.
+An active module is simply a collection of tasks. Tasks look for patterns in user text input (generally through "regular expressions"). If a pattern is matched, the task executes its action. Note: module priority is taken into account first, then task priority.
 
 ### Active Module Example
 ```python
+"""
+    Finds and returns the latest bitcoin price
+
+    Usage Examples:
+        - "What is the price of bitcoin?"
+        - "How much is a bitcoin worth?"
+"""
+
 from athena.classes.module import Module
 from athena.classes.task import ActiveTask
-from athena.modules.api_library import bitcoin_api
+from athena.api_library import bitcoin_api
 
+# Only a unique name parameter is required
+# See other parameters in athena/classes/module.py
 MOD_PARAMS = {
-    'name': 'bitcoin', # Module name is required
-    'priority': 2,     # Modules with higher priority match/execute first
+    'name': 'bitcoin',
+    'priority': 2,
 }
 
+# A task matches text patterns and executes Python code accordingly
 class GetValueTask(ActiveTask):
     
-    def __init__(self):
-        # Give regex patterns to match text input
-        super().__init__(patterns=[r'.*\b(bitcoin)\b.*'])
+	def __init__(self):
+		# Give regex patterns to match text input
+		super().__init__(patterns=[r'.*\b(bitcoin)\b.*'])
     
-    def match(self, text):
-    	 # See if the patterns match the text
-        for p in self.patterns:
-            if p.match(text):
-                return True
-        return False
+		def match(self, text):
+		# See if the text matches any pattern
+		return self.match_any(text)
     
-    def action(self, text):
-    	 # If a pattern matches, list the bitcoin price
-        print('')
-        print('~ 24 Hour Average: $'    + str(bitcoin_api.get_data('24h_avg')))
-        print('~ Last Price: $'         + str(bitcoin_api.get_data('last')))
-        print('')
-        self.speak(str(bitcoin_api.get_data('last')))
+	def action(self, text):
+		# If any pattern matched, speak the bitcoin price
+		val = str(bitcoin_api.get_data('last'))
+		self.speak(val)
 
-
+# This is a bare-minimum module
 class Bitcoin(Module):
     
-    def __init__(self):
-        tasks = [GetValueTask()]
-        super().__init__(MOD_PARAMS, tasks)
+	def __init__(self):
+		tasks = [GetValueTask()]
+		super().__init__(MOD_PARAMS, tasks)
 ```
 
 ### Module Ideas
@@ -123,6 +128,7 @@ class Bitcoin(Module):
 - Gmail (and other google modules)
 - Calender (regular)
 - Facebook
+- Cooking module (hands-free cooking)
 - Movies/Showing Times
 - Sports-related modules
 - Phone Texting (for multiple carriers)

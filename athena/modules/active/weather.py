@@ -1,4 +1,15 @@
-""" A module for finding the weather (using Wunderground) """
+"""
+    A basic module for retrieving weather information
+    
+    Requires:
+        - Wunderground API key
+
+    Usage Examples:
+        - "What's the weather like in Tokyo right now?"
+        - "Is it raining outside?"
+        - "What is the forecast for tomorrow?"
+"""
+
 import re
 
 from athena.classes.module import Module
@@ -76,6 +87,7 @@ class CurrentDayTask(ActiveTask):
             self.speak('The '+output.lower()+' in '+api_lib['weather_api'].location()+' is '+value)
             self.spoke_once = True
 
+
 class ForecastTask(ActiveTask): 
        
     def match(self, text):
@@ -117,6 +129,7 @@ class ForecastTask(ActiveTask):
                 print('~ '+fc[0])
         print('')
         api_lib['weather_api'].restore_loc()
+       
         
 class UpdateLocationTask(ActiveTask):
     
@@ -143,6 +156,7 @@ class UpdateLocationTask(ActiveTask):
             self.task_greedy = True
         else:
             api_lib['weather_api'].restore_flag = True
+
 
 class Weather(Module):
     

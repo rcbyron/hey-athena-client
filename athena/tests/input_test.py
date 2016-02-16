@@ -1,8 +1,6 @@
-'''
-Created on Jan 28, 2016
-
-@author: Connor
-'''
+"""
+    A simple test script to see if the brain is responding to input
+"""
 import traceback
 
 from athena import brain
