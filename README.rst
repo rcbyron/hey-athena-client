@@ -86,8 +86,14 @@ Normal Installation
    -  http://avbin.github.io/AVbin/Download.html
 
 -  ``pip3 install HeyAthena``
--  If all goes well, open the Python shell and run
-   ``>>> import athena.brain as brain`` ``>>> brain.start()``
+-  If all goes well, run the test script:
+
+.. code:: python
+
+	from athena import brain
+	brain.init()
+	brain.inst.run()
+
 -  You can add modules/edit the client in Python’s site-packages/athena
    folder
 -  Try write your own module using the directions below.
