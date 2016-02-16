@@ -11,7 +11,7 @@ Your personal voice assistant.
 
 "Hey Athena" is a 100% open-source, cross-platform, modular voice
 assistant framework. It aims to do everything that Siri, Cortana, and
-Echo can do – and more.
+Echo can do - and more.
 
 Written in Python 3
 
