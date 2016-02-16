@@ -41,14 +41,6 @@ athena.modules.active.geo_info module
     :undoc-members:
     :show-inheritance:
 
-athena.modules.active.google module
------------------------------------
-
-.. automodule:: athena.modules.active.google
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
 athena.modules.active.music module
 ----------------------------------
 

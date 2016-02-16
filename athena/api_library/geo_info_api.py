@@ -1,8 +1,6 @@
 """
     A tool for retrieving geographical info based on external IP
-    
-    API Documentation:
-    http://ip-api.com
+    | API Documentation: http://ip-api.com
 """
 
 import urllib.request, json
@@ -31,22 +29,21 @@ def time():
     
 def get_data(key):
     """
-    {
-        'status': 'success',
-        'country': 'COUNTRY',
-        'countryCode': 'COUNTRY CODE',
-        'region': 'REGION CODE',
-        'regionName': 'REGION NAME',
-        'city': 'CITY',
-        'zip': 'ZIP CODE',
-        'lat': LATITUDE,
-        'lon': LONGITUDE,
-        'timezone': 'TIME ZONE',
-        'isp': 'ISP NAME',
-        'org': 'ORGANIZATION NAME',
-        'as': 'AS NUMBER / NAME',
-        'query': 'IP ADDRESS USED FOR QUERY'
-    }
+        Keys/Values:
+            | status: SUCCESS,
+            | country: COUNTRY,
+            | countryCode: COUNTRY CODE,
+            | region: REGION CODE,
+            | regionName: REGION NAME,
+            | city: CITY,
+            | zip: ZIP CODE,
+            | lat: LATITUDE,
+            | lon: LONGITUDE,
+            | timezone: TIME ZONE,
+            | isp: ISP NAME,
+            | org: ORGANIZATION NAME,
+            | as: AS NUMBER / NAME,
+            | query: IP ADDRESS USED FOR QUERY
     """
     if key in ALIASES:
         key = ALIASES[key]
