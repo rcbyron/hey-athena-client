@@ -62,7 +62,21 @@ Core Dependencies
 -  gTTS
 -  PyYAML
 -  Selenium
-   
+
+Ubuntu Installation
+-------------------
+-  ``sudo apt-get install -y python3 python3-dev python3-pip build-essential swig git portaudio19-dev python3-pyaudio``  
+-  ``sudo pip3 install pocketsphinx HeyAthena``  
+
+-  Install AVBin:
+
+   -  http://avbin.github.io/AVbin/Download.html
+   -  ``chmod +x ./install-avbin-linux-XXX-XX-v10``
+   -  ``sudo ./install-avbin-linux-XXX-XX-v10``
+    
+-  ``sudo python3``
+-  ``>>> from athena import __main__``
+
 Normal Installation
 -------------------
 
@@ -70,7 +84,7 @@ Normal Installation
    removed afterward)
 
    -  Mac: using Homebrew package manager, type ``brew install swig``
-   -  Linux: sudo apt-get install swig
+   -  Linux: ``sudo apt-get install swig``
    -  Windows: http://www.swig.org/download.html (download swigwin-3.X.X
       and place swig.exe in your environment PATH)
 
