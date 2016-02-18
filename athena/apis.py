@@ -12,7 +12,7 @@ def find_apis():
     """ Find APIs """
     global api_lib
     api_lib = {}
-    print('~ Looking for APIs in: '+str(api_library.__path__).replace('\\\\', '\\')[1:-1])
+    print('~ Looking for APIs in: '+str(api_library.__path__).replace('\\\\', '\\').replace('//', '/')[1:-1])
     for finder, name, _ in pkgutil.iter_modules(api_library.__path__):
         try:
             file = finder.find_module(name).load_module(name)

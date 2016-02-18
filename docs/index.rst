@@ -1,23 +1,10 @@
-.. Hey Athena documentation master file, created by
-   sphinx-quickstart on Mon Feb 15 22:52:00 2016.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+Hey Athena API Documentation
+============================
 
-Welcome to Hey Athena's documentation!
-======================================
-
-Contents:
+Information on specific functions, classes, and methods.
 
 .. toctree::
-   :maxdepth: 4
+   :maxdepth: 2
 
-   athena
-
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
-
+   intro/index
+   api/athena

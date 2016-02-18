@@ -32,11 +32,7 @@ class GetIPInfoTask(ActiveTask):
             self.speak('The time is '+geo_info_api.time())
             return
         
-        title = self.query.title()
-        if len(title) <= 3:
-            title = title.upper()
-
-        self.speak(title+': '+str(geo_info_api.get_data(self.query)))
+        self.speak(str(geo_info_api.get_data(self.query)))
         
         
 class GeoInfo(Module):

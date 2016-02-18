@@ -13,9 +13,9 @@ def init():
     # Create a decoder with certain model
     config = Decoder.default_config()
     config.set_string('-logfn', os.path.join(settings.LOGS_DIR, 'passive-listen.log'))
-    config.set_string('-hmm', os.path.join(settings.MODEL_DIR, 'en-us\en-us'))
-    config.set_string('-lm', os.path.join(settings.MODEL_DIR, 'en-us\en-us.lm.bin'))
-    config.set_string('-dict', os.path.join(settings.MODEL_DIR, 'en-us\cmudict-en-us.dict'))
+    config.set_string('-hmm', os.path.join(settings.MODEL_DIR, 'en-us/en-us'))
+    config.set_string('-lm', os.path.join(settings.MODEL_DIR, 'en-us/en-us.lm.bin'))
+    config.set_string('-dict', os.path.join(settings.MODEL_DIR, 'en-us/cmudict-en-us.dict'))
     
     # Decode streaming data
     global decoder, p
