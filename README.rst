@@ -65,10 +65,11 @@ Core Dependencies
 
 Ubuntu Installation
 -------------------
--  ``sudo apt-get install -y python3 python3-dev python3-pip build-essential swig git portaudio19-dev python3-pyaudio``  
+-  ``sudo apt-get update -y``
+-  ``sudo apt-get install -y python3 python3-dev python3-pip build-essential swig git portaudio19-dev python3-pyaudio flac``  
 -  ``sudo pip3 install pocketsphinx HeyAthena``  
 
--  Install AVBin:
+-  Install AVBin 10:
 
    -  http://avbin.github.io/AVbin/Download.html
    -  ``chmod +x ./install-avbin-linux-XXX-XX-v10``
