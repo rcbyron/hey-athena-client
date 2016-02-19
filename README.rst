@@ -17,6 +17,7 @@ Written in Python 3
 
 | **Website:** http://heyathena.com
 | **Documentation:** http://pythonhosted.org/HeyAthena/
+| **GitHub:** https://github.com/hey-athena/hey-athena-client
 
 Usage Examples:
 ---------------
@@ -78,40 +79,40 @@ Ubuntu Installation
 -  ``sudo python3``
 -  ``>>> from athena import __main__``
 
-Normal Installation
--------------------
+-  If all goes well, create a user, say "Athena", and ask her a question!
+-  Otherwise post an issue describing the error to the GitHub repository linked above
+-  You can add modules/edit the client in Python's site-packages/athena
+   folder
+-  Try writing your own module using the directions below!
+
+Normal Installation (Mac/Windows)
+---------------------------------
 
 -  Install SWIG (only required to install pocketsphinx and can be
    removed afterward)
 
    -  Mac: using Homebrew package manager, type ``brew install swig``
-   -  Linux: ``sudo apt-get install swig``
    -  Windows: http://www.swig.org/download.html (download swigwin-3.X.X
       and place swig.exe in your environment PATH)
 
 -  Install PyAudio:
 
-   -  Mac: ``brew install portaudio`` ``pip install pyaudio``
-   -  Linux:
-      ``sudo apt-get install libasound2-dev libportaudio-dev python3-pyaudio``
+   -  Mac: ``brew install portaudio`` ``pip install pyaudio```
    -  Windows: ``python -m pip install pyaudio``
 
 -  Install AVBin:
 
    -  http://avbin.github.io/AVbin/Download.html
+   -  *Windows Only*: verify that the avbin.dll or avbin64.dll was placed in SysWOW64 not System32
 
 -  ``pip3 install HeyAthena``
--  If all goes well, run the test script:
+-  Now open up Python 3 and run ``>>> from athena import __main__``
 
-.. code:: python
-
-	from athena import brain
-	brain.init()
-	brain.inst.run()
-
+-  If all goes well, create a user, say "Athena", and ask her a question!
+-  Otherwise post an issue describing the error to the GitHub repository linked above
 -  You can add modules/edit the client in Python's site-packages/athena
    folder
--  Try write your own module using the directions below.
+-  Try writing your own module using the directions below!
 
 Developer Installation
 ----------------------
@@ -128,7 +129,7 @@ Developer Installation
 -  ``cd hey-athena-client-master\client``
 -  If all goes well, run ``__main__.py``, create a user, say "Athena",
    and ask her a question!
--  Now try write your own module using the directions below.
+-  Now try write your own module using the directions below!
 
 Active Modules
 --------------
@@ -168,7 +169,7 @@ priority is taken into account first, then task priority.
             # Give regex patterns to match text input
             super().__init__(patterns=[r'.*\b(bitcoin)\b.*'])
         
-            def match(self, text):
+        def match(self, text):
             # See if the text matches any pattern
             return self.match_any(text)
         
@@ -189,6 +190,7 @@ Module Ideas
 
 -  Context module (remembers location and important stuff)
 -  Smart Home API/modules (Hook outlets)
+-  IFTTT Maker recipe modules
 -  RESTful API services
 -  Oauth API
 -  Canvas module (for college grades/assignments info)
@@ -225,6 +227,8 @@ Common Errors
 | **Fix:** Pyglet needs the avbin.dll file to be installed. On Windows,
   sometimes the file is wrongfully placed in System32 instead of
   SysWOW64.
+  
+  Other errors can be found by searching the issues on our GitHub page.
 
 .. |https://travis-ci.org/hey-athena/hey-athena-client.svg?branch=connor-branch| image:: https://travis-ci.org/hey-athena/hey-athena-client.svg?branch=connor-branch
    :target: https://travis-ci.org/hey-athena/hey-athena-client

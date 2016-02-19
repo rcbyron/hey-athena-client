@@ -110,8 +110,8 @@ class Brain():
         print(r" |_|  |_|\___|\__, | /_/    \_\__|_| |_|\___|_| |_|\__,_|")
         print(r"               __/ |                                     ")
         print(r"              |___/                                      ")
-        if self.user['user_api']['nickname']:
-            print('\n~ Hey there, '+self.user['user_api']['nickname']+'!\n')
+        if apis.api_lib['user_api'].name:
+            print('\n~ Hey there, '+apis.api_lib['user_api'].name+'!\n')
         else:
             print('\n~ Hello, what can I do for you today?\n')
             
@@ -188,7 +188,7 @@ class Brain():
     def error(self):
         """ Inform the user that an error occurred """
         tts.speak(settings.ERROR)
-        text = input('> ')
+        text = input('Continue? (Y/N) ')
         #response = stt.active_listen()
         
         return 'y' in text.lower()

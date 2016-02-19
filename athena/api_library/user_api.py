@@ -16,4 +16,8 @@ class UserApi(Api):
     
     def __init__(self):
         super().__init__('user_api', SAVE_DATA)
-        
+        self.name = None
+        if hasattr(self, 'nickname'):
+            self.name = self.nickname
+        elif hasattr(self, 'full_name'):
+            self.name = self.full_name

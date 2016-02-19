@@ -29,12 +29,13 @@ MAX_CHAR = 140
 #####################
 CLIENT_DIR =    path.dirname(os.path.abspath(__file__))
 BASE_DIR =      path.dirname(CLIENT_DIR)
-MODEL_DIR =     path.join(CLIENT_DIR, 'models'         )
-LOGS_DIR =      path.join(CLIENT_DIR, 'logs'           )
-MEDIA_DIR =     path.join(CLIENT_DIR, 'media'          )
-INPUTS_DIR =    path.join(MEDIA_DIR,  'example_inputs' )
-RESPONSES_DIR = path.join(MEDIA_DIR,  'responses'      )
-USERS_DIR =     path.join(CLIENT_DIR, 'users'          )
+DATA_DIR =      path.join(CLIENT_DIR, 'data'             )
+MODEL_DIR =     path.join(DATA_DIR,   'models'           )
+LOGS_DIR =      path.join(DATA_DIR,   'logs'             )
+MEDIA_DIR =     path.join(DATA_DIR,   'media'            )
+INPUTS_DIR =    path.join(MEDIA_DIR,  'example_inputs'   )
+RESPONSES_DIR = path.join(MEDIA_DIR,  'responses'        )
+USERS_DIR =     path.join(DATA_DIR,   'users'            )
 
 DIRS = [MODEL_DIR, LOGS_DIR, MEDIA_DIR, INPUTS_DIR, RESPONSES_DIR, USERS_DIR]
 
