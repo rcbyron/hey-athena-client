@@ -224,10 +224,8 @@ Common Errors
 | **Fix:** Make sure the athena project directory is in your PYTHONPATH
 | 
 | **Error:** "AVbin is required to decode compressed media"
-| **Fix:** Pyglet needs the avbin.dll file to be installed. On Windows,
-  sometimes the file is wrongfully placed in System32 instead of
-  SysWOW64.
-  
+| **Fix:** Pyglet needs the avbin.dll file to be installed. On Windows, sometimes the file is wrongfully placed in System32 instead of SysWOW64.
+| 
 | Other errors can be found by searching the issues on our GitHub page.
 
 .. |https://travis-ci.org/hey-athena/hey-athena-client.svg?branch=connor-branch| image:: https://travis-ci.org/hey-athena/hey-athena-client.svg?branch=connor-branch
