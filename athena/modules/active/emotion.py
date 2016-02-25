@@ -14,7 +14,7 @@ MOD_PARAMS = {
     'greedy': False,
 }
 
-EMOTION_CHANCE = 0.2
+EMOTION_CHANCE = 0.1
 
 # Relative emotion weights (should add to 1)
 EMOTIONS = {
@@ -26,7 +26,7 @@ EMOTIONS = {
 
 RESPONSES = {
     0: ["Beep boop. Computing a response...",
-        "I actually have no idea how to respond... Psych!" 
+        "I actually have no idea how to respond... Psych!",
         "Self destructing in 3... 2... 1... (kidding... calm down)"],
     1: ["I'll respond when I please. Okay?",
         "I don't feel like responding to that right now. But I will."],

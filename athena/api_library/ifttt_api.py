@@ -1,6 +1,8 @@
 """
-    A simple IFTTT trigger tool
-    | API Documentation: https://ifttt.com/maker
+
+A simple IFTTT trigger tool
+| API Documentation: https://ifttt.com/maker
+
 """
 
 import urllib

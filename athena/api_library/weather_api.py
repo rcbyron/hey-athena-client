@@ -1,6 +1,8 @@
 """
-    An API for retrieving Wunderground weather information
-    | API Documentation: http://www.wunderground.com/weather/api/d/docs
+
+An API for retrieving Wunderground weather information
+| API Documentation: http://www.wunderground.com/weather/api/d/docs
+    
 """
 
 import urllib.request, json, time, re
@@ -18,11 +20,6 @@ URL_DATA_TYPES = {
     'geolookup':  '/geolookup/q/'
 }
 
-SAVE_DATA = [
-    ('zip_iata_city', 'Default City or Zip Code or Airport Code: '      , True),
-    ('state_country', 'Default State or Country: '                     , False),
-]
-
 # Number of seconds to wait before a call will update the data
 UPDATE_CONDITIONS_INT = 120
 UPDATE_FORECAST_INT   = 120
@@ -30,13 +27,13 @@ UPDATE_FORECAST_INT   = 120
 class WeatherApi(Api):
 
     def __init__(self):
-        super().__init__('weather_api', SAVE_DATA)
+        super().__init__('weather_api')
         self.c_update_time  = -UPDATE_CONDITIONS_INT
         self.fc_update_time = -UPDATE_FORECAST_INT
         self.restore_flag = False
         
-        self.default_zip_iata_city = None
-        self.default_state_country = None
+        self.default_zip_iata_city = 'Austin'
+        self.default_state_country = 'TX'
         
         self.api_key = settings.WUNDERGROUND_KEY
         
@@ -44,9 +41,8 @@ class WeatherApi(Api):
         
     def verify_data(self, user):
         has_data = super().verify_data(user)
-        #print(dir(self))
-        self.default_zip_iata_city = self.zip_iata_city
-        self.default_state_country = self.state_country
+        #self.default_zip_iata_city = self.zip_iata_city
+        #self.default_state_country = self.state_country
         return has_data and self.update_loc(self.default_zip_iata_city, self.default_state_country)
     
     def get_json_data(self, data_type, loc_extension=None):

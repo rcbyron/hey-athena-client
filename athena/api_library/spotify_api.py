@@ -1,5 +1,7 @@
 """
-    A wrapper API for Spotify Web Player (requires Firefox)
+
+A wrapper API for Spotify Web Player (requires Firefox)
+
 """
 import traceback
 

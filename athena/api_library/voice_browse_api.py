@@ -20,13 +20,14 @@ class VoiceBrowseApi(Api):
         self.key = 'voice_browse_api'
         self.driver = None
         
-    def open(self, url=None):
+    def open(self, url=None, new_tab=True):
         if not self.driver:
             self.driver = webdriver.Chrome(settings.CHROME_PATH)
             #self.driver = webdriver.Firefox()
         else:
-            print('\n~ Opening new tab...')
-            self.driver.find_element_by_tag_name('body').send_keys(OS_KEY+'t')
+            if new_tab:
+                print('\n~ Opening new tab...')
+                self.driver.find_element_by_tag_name('body').send_keys(OS_KEY+'t')
         if url:
             self.driver.get(url)
         
@@ -53,7 +54,7 @@ class VoiceBrowseApi(Api):
             self.driver.maximize_window()
             
     def search(self, q):
-        self.open(GOOGLE_URL+up.quote_plus(q))
+        self.open(GOOGLE_URL+up.quote_plus(q), new_tab=False)
     
     def clear(self):
         if self.driver:

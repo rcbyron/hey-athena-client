@@ -1,6 +1,8 @@
 """
-    A tool for retrieving geographical info based on external IP
-    | API Documentation: http://ip-api.com
+
+A tool for retrieving geographical info based on external IP
+| API Documentation: http://ip-api.com
+    
 """
 
 import urllib.request, json

@@ -1,6 +1,8 @@
 """
-    A simple API for retrieving bitcoin data
-    | API Documentation: https://bitcoinaverage.com/api
+
+A simple API for retrieving bitcoin data
+| API Documentation: https://bitcoinaverage.com/api
+
 """
 
 import urllib.request, json
@@ -18,12 +20,12 @@ def update_data():
 
 def get_data(key):
     """
-        Keys/Values:
-            | 24h_avg: average of weighted averages for last 24 hours
-            | ask: weighted average of ask prices
-            | bid: weighted average of bid prices
-            | last: weighted average of last prices
-            | total_vol: trading volume across all exchanges in last 24 hours
+    Keys/Values:
+    | 24h_avg: average of weighted averages for last 24 hours
+    | ask: weighted average of ask prices
+    | bid: weighted average of bid prices
+    | last: weighted average of last prices
+    | total_vol: trading volume across all exchanges in last 24 hours
     """
     
     response = update_data()
