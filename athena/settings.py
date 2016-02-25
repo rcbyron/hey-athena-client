@@ -1,5 +1,5 @@
 """
-    Global settings are stored here
+Global settings are stored here
 """
 import os
 import os.path as path
@@ -12,6 +12,7 @@ LANGS = ['af', 'sq', 'ar', 'hy', 'ca', 'zh-CN', 'zh-TW', 'hr', 'cs',
          'th', 'tr', 'vi', 'cy']
 """
 LANG = 'en'
+LANG_4CODE = 'en-US'
 
 # Wake-up Word(s) must be in the sphinx dict file
 # Change to 'hey athena' if background noise triggering occurs
@@ -29,6 +30,7 @@ MAX_CHAR = 140
 #####################
 CLIENT_DIR =    path.dirname(os.path.abspath(__file__))
 BASE_DIR =      path.dirname(CLIENT_DIR)
+CHROME_PATH =   path.join(CLIENT_DIR, 'chromedriver'     )
 DATA_DIR =      path.join(CLIENT_DIR, 'data'             )
 MODEL_DIR =     path.join(DATA_DIR,   'models'           )
 LOGS_DIR =      path.join(DATA_DIR,   'logs'             )

@@ -1,5 +1,7 @@
 """
-    The "Response" class represents a cached audio response
+
+The "Response" class represents a cached audio response
+    
 """
 
 import os.path as path

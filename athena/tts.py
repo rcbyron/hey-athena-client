@@ -1,13 +1,13 @@
 """
-    Basic Text-To-Speech tools are stored here
+Basic Text-To-Speech tools are stored here
 """
 
 import pyglet, tempfile, os
 
-import athena.settings as settings
-
 from requests.exceptions import HTTPError
 from gtts import gTTS
+
+from athena import settings
 
 def init():
     #pyglet.options['audio'] = ('openal', 'directsound', 'silent')
@@ -16,10 +16,10 @@ def init():
     
 def play_mp3(file_name, file_path=settings.MEDIA_DIR):
     """
-        Plays a local MP3 file
+    Plays a local MP3 file
     
-        :param file_name: top-level file name (e.g. hello.mp3)
-        :param file_path: directory containing file ('media' folder by default)
+    :param file_name: top-level file name (e.g. hello.mp3)
+    :param file_path: directory containing file ('media' folder by default)
     """
     pyglet.resource.path.clear()
     pyglet.resource.path.append(file_path)
@@ -36,11 +36,11 @@ def play_mp3(file_name, file_path=settings.MEDIA_DIR):
 
 def speak(phrase, cache=False, filename='default', show_text=True):
     """
-        Speaks a given text phrase
+    Speaks a given text phrase
     
-        :param phrase: text string to speak
-        :param cache: if True, store .mp3 in 'media/responses'
-        :raises HTTPError: if Google TTS fails to respond
+    :param phrase: text string to speak
+    :param cache: if True, store .mp3 in 'media/responses'
+    :raises HTTPError: if Google TTS fails to respond
     """
     if show_text:
         print('\n~ '+phrase+'\n')

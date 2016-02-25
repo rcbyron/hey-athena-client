@@ -1,5 +1,5 @@
 """
-    Basic Speech-To-Text tools are stored here
+Basic Speech-To-Text tools are stored here
 """
 
 import os, pyaudio, speech_recognition
@@ -23,10 +23,14 @@ def init():
     decoder.set_keyphrase('wakeup', settings.WAKE_UP_WORD)
     decoder.set_search('wakeup')
     p = pyaudio.PyAudio()
+    
+    global r
+    r = speech_recognition.Recognizer()
+    #r.recognize_google(settings.LANG_4CODE)
 
 def listen_keyword():
     """
-        Passively listens for the WAKE_UP_WORD string
+    Passively listens for the WAKE_UP_WORD string
     """
     global decoder, p
     stream = p.open(format=pyaudio.paInt16, channels=1, rate=16000, input=True, frames_per_buffer=1024)
@@ -45,12 +49,10 @@ def listen_keyword():
     
 def active_listen():
     """
-        Actively listens for speech to translate into text
-    
-        :return: speech input as a text string
+    Actively listens for speech to translate into text
+    :return: speech input as a text string
     """
-    r = speech_recognition.Recognizer()
-
+    global r
     # use the default microphone as the audio source
     with speech_recognition.Microphone() as src:   
         # listen for 1 second to adjust energy threshold for ambient noise
