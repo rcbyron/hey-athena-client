@@ -1,19 +1,17 @@
 """
-    Tools to automate browsing (requires Firefox)
+
+Tools to automate browsing (requires Firefox)
+    
 """
+import urllib.parse as up
 
 from selenium import webdriver
-from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
 
 from athena.classes.api import Api
+from athena import settings
 
-#FOLDER_PATH = os.path.dirname(os.path.abspath(__file__))
-#CHROME_PATH = os.path.join(FOLDER_PATH, 'chromedriver')
-GOOGLE_URL = 'https://www.google.com'
-SEARCH_XPATH = '//input[@name="q"]'
+GOOGLE_URL = 'https://www.google.com/search?gs_ivs=1&q='
 OS_KEY = Keys.CONTROL # Mac users must change to Keys.COMMAND
 
 class VoiceBrowseApi(Api):
@@ -24,8 +22,8 @@ class VoiceBrowseApi(Api):
         
     def open(self, url=None):
         if not self.driver:
-            #self.driver = webdriver.Chrome(CHROME_PATH)
-            self.driver = webdriver.Firefox()
+            self.driver = webdriver.Chrome(settings.CHROME_PATH)
+            #self.driver = webdriver.Firefox()
         else:
             print('\n~ Opening new tab...')
             self.driver.find_element_by_tag_name('body').send_keys(OS_KEY+'t')
@@ -55,11 +53,7 @@ class VoiceBrowseApi(Api):
             self.driver.maximize_window()
             
     def search(self, q):
-        self.open(GOOGLE_URL)
-        search_bar = WebDriverWait(self.driver, 10).until(
-            EC.presence_of_element_located((By.XPATH, SEARCH_XPATH))
-        )
-        search_bar.send_keys(q+Keys.RETURN)
+        self.open(GOOGLE_URL+up.quote_plus(q))
     
     def clear(self):
         if self.driver:
