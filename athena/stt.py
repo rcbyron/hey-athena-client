@@ -1,10 +1,12 @@
 """
+
 Basic Speech-To-Text tools are stored here
+
 """
 
 import os, pyaudio, speech_recognition
-import athena.tts as tts
-import athena.settings as settings
+
+from athena import settings, tts
 
 from sphinxbase.sphinxbase import Config, Config_swigregister  # @UnusedImport
 from pocketsphinx.pocketsphinx import Decoder
@@ -13,9 +15,9 @@ def init():
     # Create a decoder with certain model
     config = Decoder.default_config()
     config.set_string('-logfn', os.path.join(settings.LOGS_DIR, 'passive-listen.log'))
-    config.set_string('-hmm', os.path.join(settings.MODEL_DIR, 'en-us/en-us'))
-    config.set_string('-lm', os.path.join(settings.MODEL_DIR, 'en-us/en-us.lm.bin'))
-    config.set_string('-dict', os.path.join(settings.MODEL_DIR, 'en-us/cmudict-en-us.dict'))
+    config.set_string('-hmm', os.path.join(settings.MODEL_DIR, 'en-US/acoustic-model'))
+    config.set_string('-lm', os.path.join(settings.MODEL_DIR, 'en-US/language-model.lm.bin'))
+    config.set_string('-dict', os.path.join(settings.MODEL_DIR, 'en-US/pronounciation-dictionary.dict'))
     
     # Decode streaming data
     global decoder, p
@@ -62,12 +64,16 @@ def active_listen():
         
         # listen for the first phrase and extract it into audio data
         audio = r.listen(src)
-    
+
     msg = ''
     try:
-        msg = r.recognize_google(audio)             # recognize speech using Google Speech Recognition
+        msg = r.recognize_google(audio) # recognize speech using Google Speech Recognition
         print('\n~ \''+msg+'\'')
-    except LookupError:                             # speech is unintelligible
+    except speech_recognition.UnknownValueError:
+        print("Google Speech Recognition could not understand audio")
+    except speech_recognition.RequestError as e:
+        print("Could not request results from Google Speech Recognition service; {0}".format(e))
+    except:                             # speech is unintelligible
         tts.speak(settings.ERROR)
     finally:
         return msg
