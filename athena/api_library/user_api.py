@@ -3,21 +3,24 @@
 """
 
 from athena.classes.api import Api
-
-SAVE_DATA = [
-    ('username' , 'Username: '      , True ),
-    ('full_name', 'Full Name: '     , False),
-    ('nickname' , 'Nickname: '      , False),
-    ('phone'    , 'Phone Number: '  , False),
-    ('email'    , 'Email: '         , False),
-]
+from athena.classes.input_field import InputField
 
 class UserApi(Api):
     
     def __init__(self):
-        super().__init__('user_api', SAVE_DATA)
-        self.name = None
+        self.save_data = [
+            InputField('username', require=True),
+            InputField('full_name'),
+            InputField('nickname'),
+            InputField('phone'),
+            InputField('email'),
+        ]
+        super().__init__('user_api')
+    
+    def name(self):    
+        name = None
         if hasattr(self, 'nickname'):
-            self.name = self.nickname
+            name = self.nickname
         elif hasattr(self, 'full_name'):
-            self.name = self.full_name
+            name = self.full_name
+        return name

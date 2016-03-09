@@ -12,18 +12,18 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 
 from athena.classes.api import Api
+from athena.classes.input_field import InputField
 
 BASE_URL = 'https://play.spotify.com/browse'
-
-SAVE_DATA = [
-    ('username', 'Username: '      , True),
-    ('password', 'Password: '      , True),
-]
 
 class SpotifyApi(Api):
     
     def __init__(self):
-        super().__init__('spotify_api', SAVE_DATA)
+        self.save_data = [
+            InputField('username', require=True),
+            InputField('password', require=True),
+        ]
+        super().__init__('spotify_api')
         self.frame = None
         self.driver = None
     

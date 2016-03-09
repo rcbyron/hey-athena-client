@@ -4,8 +4,7 @@ Global settings are stored here
 
 """
 
-import os
-import os.path as path
+from os import mkdir, path
 
 # Wake-up Word(s) must be in the sphinx dict file
 # Change to 'hey athena' if background noise triggering occurs
@@ -13,7 +12,7 @@ WAKE_UP_WORD = 'athena'
 
 # Set these to False while debugging
 USE_STT = True
-USE_TTS = True
+USE_TTS = False
 
 # Max gTTS (speaking) string length
 MAX_CHAR = 140
@@ -31,24 +30,25 @@ LANG_4CODE = 'en-US'
 #####################
 #    DIRECTORIES    #
 #####################
-CLIENT_DIR =    path.dirname(os.path.abspath(__file__))
+CLIENT_DIR =    path.dirname(path.abspath(__file__))
 BASE_DIR =      path.dirname(CLIENT_DIR)
-CHROME_PATH =   path.join(CLIENT_DIR, 'chromedriver'     )
-DATA_DIR =      path.join(CLIENT_DIR, 'data'             )
-LOGS_DIR =      path.join(DATA_DIR,   'logs'             )
-MEDIA_DIR =     path.join(DATA_DIR,   'media'            )
-INPUTS_DIR =    path.join(MEDIA_DIR,  'example_inputs'   )
-RESPONSES_DIR = path.join(MEDIA_DIR,  'responses'        )
-USERS_DIR =     path.join(DATA_DIR,   'users'            )
+CHROME_PATH =   path.join(CLIENT_DIR, 'chrome/chromedriver'     )
+DATA_DIR =      path.join(CLIENT_DIR, 'data'                    )
+LOGS_DIR =      path.join(DATA_DIR,   'logs'                    )
+MEDIA_DIR =     path.join(DATA_DIR,   'media'                   )
+INPUTS_DIR =    path.join(MEDIA_DIR,  'example_inputs'          )
+RESPONSES_DIR = path.join(MEDIA_DIR,  'responses'               )
+USERS_DIR =     path.join(DATA_DIR,   'users'                   )
 
+# Get speech_recognition pocketsphinx models
 import speech_recognition as sr
-MODEL_DIR = path.join(path.dirname(os.path.abspath(sr.__file__)), 'pocketsphinx-data')
+MODEL_DIR = path.join(path.dirname(path.abspath(sr.__file__)), 'pocketsphinx-data')
 
 DIRS = [LOGS_DIR, MEDIA_DIR, INPUTS_DIR, RESPONSES_DIR, USERS_DIR]
 
 for d in DIRS:
     if not path.exists(d):
-        os.mkdir(d)
+        mkdir(d)
 
 #####################
 #     RESPONSES     #

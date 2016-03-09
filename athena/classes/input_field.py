@@ -8,7 +8,6 @@ class InputField(object):
     
     def __init__(self, key, help_msg='', prompt='', require=False, val=None):
         self.key = key
-
         self.help_msg = help_msg
 
         if not prompt:
@@ -19,7 +18,7 @@ class InputField(object):
         self.require = require
         self.val = val
         
-    def prompt(self):
+    def get_input(self):
         """ Prompts the user for input and saves the value """
         answer = ''
         if self.require:

@@ -21,6 +21,8 @@ class VoiceBrowseApi(Api):
         self.driver = None
         
     def open(self, url=None, new_tab=True):
+        if url[0:4] is not 'http':
+            url = 'https://'+url.replace(' ', '')
         if not self.driver:
             self.driver = webdriver.Chrome(settings.CHROME_PATH)
             #self.driver = webdriver.Firefox()

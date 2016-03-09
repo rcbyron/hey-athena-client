@@ -14,11 +14,6 @@ from athena.classes.module import Module
 from athena.classes.task import ActiveTask
 from athena.apis import api_lib
 
-MOD_PARAMS = {
-    'name': 'spotify',
-    'priority': 2,
-}
-
 class PlaySongTask(ActiveTask):
     
     def __init__(self):
@@ -38,9 +33,6 @@ class PauseSongTask(ActiveTask):
     def __init__(self):
         p_list = [r'.*\b(play|(un)?pause|stop|start)(\sth(e|is))?\ssong\b.*']
         super().__init__(patterns=p_list, priority=1)
-         
-    def match(self, text):
-        return self.match_any(text)
 
     def action(self, text):
         self.speak('Toggling song...')
@@ -51,9 +43,6 @@ class NextSongTask(ActiveTask):
     
     def __init__(self):
         super().__init__(patterns=[r'.*\b(next)\ssong\b.*'], priority=1)
-         
-    def match(self, text):
-        return self.match_any(text)
 
     def action(self, text):
         self.speak('Next song...')
@@ -64,4 +53,4 @@ class Music(Module):
 
     def __init__(self):
         tasks = [PlaySongTask(), PauseSongTask(), NextSongTask()]
-        super().__init__(MOD_PARAMS, tasks)
+        super().__init__('spotify', tasks, priority=2)

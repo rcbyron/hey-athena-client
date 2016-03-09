@@ -7,9 +7,7 @@ An API for retrieving Wunderground weather information
 
 import urllib.request, json, time, re
 
-import athena.tts as tts
-
-from athena import settings
+from athena import settings, tts
 from athena.classes.api import Api
 
 DAYS = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']

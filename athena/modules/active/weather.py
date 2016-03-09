@@ -17,11 +17,6 @@ from athena.classes.task import ActiveTask
 from athena.api_library import weather_api
 from athena.apis import api_lib
 
-MOD_PARAMS = {
-    'name': 'weather',
-    'priority': 2,
-}
-
 ZIP_IATA_PATTERN = r'.*\b(in|at|near|around|close to)\s(\d{5}|[A-Z]{3})\b.*'
 CITY_PATTERN = r'.*\b(in|at|near|around|close to)\s([a-zA-Z_]+),?(\s([a-zA-Z_]+))?\b.*'
 WEATHER_INPUT_PATTERNS = [r'^.*\b(temp(erature)?|high(s)?|low(s)?|heat|hot(ter|test)?|(cold|cool)(er|est)?)\b.*$',
@@ -90,9 +85,6 @@ class CurrentDayTask(ActiveTask):
 
 class ForecastTask(ActiveTask): 
        
-    def match(self, text):
-        return self.match_any(text)
-        
     def find_periods(self, text):
         """ Finds time periods to forecast
             Periods are half of a day in length """
@@ -161,8 +153,7 @@ class UpdateLocationTask(ActiveTask):
 class Weather(Module):
     
     def __init__(self):
-        tasks = [UpdateLocationTask(patterns=[ZIP_IATA_PATTERN,CITY_PATTERN],
-                                    priority=5, greedy=False),
-                 CurrentDayTask(WEATHER_INPUT_PATTERNS, priority=2),
-                 ForecastTask(WEATHER_INPUT_PATTERNS, priority=1)]
-        super().__init__(MOD_PARAMS, tasks)
+        tasks = [UpdateLocationTask([ZIP_IATA_PATTERN, CITY_PATTERN],   priority=5, greedy=False),
+                 CurrentDayTask(WEATHER_INPUT_PATTERNS,                 priority=2),
+                 ForecastTask(WEATHER_INPUT_PATTERNS,                   priority=1)]
+        super().__init__('weather', tasks, priority=2)

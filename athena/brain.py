@@ -37,6 +37,8 @@ class Brain():
         self.greet()
         stt.init()
         
+        self.quit_flag = False
+        
     def find_mods(self):
         """ Find and import modules from the module directory """
         self.modules = []
@@ -58,7 +60,19 @@ class Brain():
     def list_mods(self):
         """ Print modules in order """
         print('\n~ Module Order: ', end='')
-        print(str([mod.name for mod in self.modules])[1:-1]+'\n')
+        print(str([mod.name for mod in self.modules if mod.enabled])[1:-1]+'\n')
+        
+    def disable_mod(self, name):
+        for mod in self.modules:
+            if name in mod.name:
+                print('\n~ Disabling: '+name+'\n')
+                mod.enabled = False
+                
+    def enable_mod(self, name):
+        for mod in self.modules:
+            if name in mod.name:
+                print('\n~ Enabling: '+name+'\n')
+                mod.enabled = True
         
     def find_users(self):
         """ Returns a list of available user strings """
@@ -110,8 +124,8 @@ class Brain():
         print(r" |_|  |_|\___|\__, | /_/    \_\__|_| |_|\___|_| |_|\__,_|")
         print(r"               __/ |                                     ")
         print(r"              |___/                                      ")
-        if apis.api_lib['user_api'].name:
-            print('\n~ Hey there, '+apis.api_lib['user_api'].name+'!\n')
+        if apis.api_lib['user_api'].name():
+            print('\n~ Hey there, '+apis.api_lib['user_api'].name()+'!\n')
         else:
             print('\n~ Hello, what can I do for you today?\n')
             
@@ -193,9 +207,14 @@ class Brain():
         
         return 'y' in text.lower()
     
+    def quit(self):
+        self.quit_flag = True
+    
     def run(self):
         """ Listen for input, match the modules and respond """
         while True:
+            if self.quit_flag:
+                break
             try:
                 if settings.USE_STT:
                     stt.listen_keyword()
@@ -205,7 +224,7 @@ class Brain():
                 if not text:
                     print('\n~ No text input received.\n')
                     continue
-        
+
                 self.match_mods(text)
                 self.execute_mods(text)
             except OSError as e:
@@ -216,11 +235,11 @@ class Brain():
                 else:
                     raise Exception
             except EOFError:
-                print('\n\n~ Shutting down...\n')
+                print('\n\n~ Shutting down...')
                 break
             except:
                 if self.error():
                     print(traceback.format_exc())
                 else:
                     break
-        print('~ Arrivederci.')
+        print('\n~ Arrivederci.')

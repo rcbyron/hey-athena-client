@@ -8,12 +8,6 @@ from athena.classes.module import Module
 from athena.classes.task import ActiveTask
 from athena import brain
 
-MOD_PARAMS = {
-    'name': 'emotion',
-    'priority': 3,
-    'greedy': False,
-}
-
 EMOTION_CHANCE = 0.1
 
 # Relative emotion weights (should add to 1)
@@ -36,6 +30,7 @@ RESPONSES = {
         "By the way, have I told you that you're the coolest person I've met?"],
 }
 
+
 class BuildEmotionTask(ActiveTask):
     
     def match(self, text):
@@ -56,6 +51,6 @@ class Emotion(Module):
 
     def __init__(self):
         tasks = [BuildEmotionTask()]
-        super().__init__(MOD_PARAMS, tasks)
+        super().__init__('emotion', tasks, priority=3, greedy=False)
 
     

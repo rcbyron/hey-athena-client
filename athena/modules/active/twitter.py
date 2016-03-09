@@ -13,10 +13,6 @@ from athena.classes.module import Module
 from athena.classes.task import ActiveTask
 from athena.api_library import ifttt_api as ifttt
 
-MOD_PARAMS = {
-    'name': 'twitter',
-    'priority': 2,
-}
 
 class SendTweetTask(ActiveTask):
     
@@ -38,4 +34,4 @@ class Twitter(Module):
 
     def __init__(self):
         tasks = [SendTweetTask()]
-        super().__init__(MOD_PARAMS, tasks)
+        super().__init__('twitter', tasks, priority=2)
