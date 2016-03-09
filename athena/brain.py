@@ -128,6 +128,10 @@ class Brain():
             print('\n~ Hey there, '+apis.api_lib['user_api'].name()+'!\n')
         else:
             print('\n~ Hello, what can I do for you today?\n')
+        print('~ Try asking:')
+        print('  - "Athena (double beep) what\'s the weather like in DFW?"')
+        print('  - "Athena (double beep) what is the capital of Tanzania?"')
+        print('  - "Athena (double beep) open facebook.com"\n')
             
     def execute_tasks(self, mod, text):
         """ Executes a module's task queue """

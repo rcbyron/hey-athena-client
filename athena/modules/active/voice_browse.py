@@ -27,7 +27,7 @@ class VoiceBrowseTask(ActiveTask):
         self.groups = {1: 'group1'}
     
     def match(self, text):
-        self.match_and_save_groups(text, self.groups)
+        return self.match_and_save_groups(text, self.groups)
     
     def action(self, text):
         funcs = {
