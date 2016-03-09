@@ -21,16 +21,18 @@ class VoiceBrowseApi(Api):
         self.driver = None
         
     def open(self, url=None, new_tab=True):
-        if url[0:4] is not 'http':
-            url = 'https://'+url.replace(' ', '')
         if not self.driver:
-            self.driver = webdriver.Chrome(settings.CHROME_PATH)
-            #self.driver = webdriver.Firefox()
+            try:
+                self.driver = webdriver.Chrome(settings.CHROME_PATH)
+            except:
+                self.driver = webdriver.Firefox()
         else:
             if new_tab:
                 print('\n~ Opening new tab...')
                 self.driver.find_element_by_tag_name('body').send_keys(OS_KEY+'t')
         if url:
+            if not url[0:4] == 'http':
+                url = 'https://'+url.replace(' ', '')
             self.driver.get(url)
         
     def close(self):
