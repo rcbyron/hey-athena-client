@@ -12,7 +12,7 @@ WAKE_UP_WORD = 'athena'
 
 # Set these to False while debugging
 USE_STT = True
-USE_TTS = False
+USE_TTS = True
 
 # Max gTTS (speaking) string length
 MAX_CHAR = 140

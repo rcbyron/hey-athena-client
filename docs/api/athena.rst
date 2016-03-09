@@ -1,4 +1,4 @@
-athena package
+Athena Package
 ==============
 
 .. automodule:: athena
