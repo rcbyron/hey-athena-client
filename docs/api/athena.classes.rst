@@ -17,6 +17,14 @@ athena.classes.api module
     :undoc-members:
     :show-inheritance:
 
+athena.classes.input_field module
+---------------------------------
+
+.. automodule:: athena.classes.input_field
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 athena.classes.module module
 ----------------------------
 

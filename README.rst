@@ -16,7 +16,7 @@ Echo can do - and more.
 Written in Python 3
 
 | **Website:** http://heyathena.com
-| **Documentation:** http://pythonhosted.org/HeyAthena/
+| **Documentation:** http://heyathena.com/docs/
 | **GitHub:** https://github.com/hey-athena/hey-athena-client
 
 Usage Examples:
@@ -64,72 +64,9 @@ Core Dependencies
 -  PyYAML
 -  Selenium
 
-Ubuntu Installation
--------------------
--  ``sudo apt-get update -y``
--  ``sudo apt-get install -y python3 python3-dev python3-pip build-essential swig git portaudio19-dev python3-pyaudio flac``  
--  ``sudo pip3 install pocketsphinx HeyAthena``  
-
--  Install AVBin 10:
-
-   -  http://avbin.github.io/AVbin/Download.html
-   -  ``chmod +x ./install-avbin-linux-XXX-XX-v10``
-   -  ``sudo ./install-avbin-linux-XXX-XX-v10``
-    
--  ``sudo python3``
--  ``>>> from athena import __main__``
-
--  If all goes well, create a user, say "Athena", and ask her a question!
--  Otherwise post an issue describing the error to the GitHub repository linked above
--  You can add modules/edit the client in Python's site-packages/athena
-   folder
--  Try writing your own module using the directions below!
-
-Normal Installation (Mac/Windows)
----------------------------------
-
--  Install SWIG (only required to install pocketsphinx and can be
-   removed afterward)
-
-   -  Mac: using Homebrew package manager, type ``brew install swig``
-   -  Windows: http://www.swig.org/download.html (download swigwin-3.X.X
-      and place swig.exe in your environment PATH)
-
--  Install PyAudio:
-
-   -  Mac: ``brew install portaudio`` ``pip install pyaudio```
-   -  Windows: ``python -m pip install pyaudio``
-
--  Install AVBin:
-
-   -  http://avbin.github.io/AVbin/Download.html
-   -  *Windows Only*: verify that the avbin.dll or avbin64.dll was placed in SysWOW64 not System32
-
--  ``pip3 install HeyAthena``
--  Now open up Python 3 and run ``>>> from athena import __main__``
-
--  If all goes well, create a user, say "Athena", and ask her a question!
--  Otherwise post an issue describing the error to the GitHub repository linked above
--  You can add modules/edit the client in Python's site-packages/athena
-   folder
--  Try writing your own module using the directions below!
-
-Developer Installation
-----------------------
-
--  Install SWIG, PyAudio, and AVBin using the directions above
--  ``pip3 install pocketsphinx pyaudio SpeechRecognition pyglet gTTS pyyaml wolframalpha selenium``
--  Clone or download the ``hey-athena-client`` repository
--  Add ``C:\path\to\hey-athena-client`` to your ``PYTHONPATH`` system or
-   user environment variable
-
-   -  Eclipse (PyDev) has an option for this while importing the project
-      from Git
-
--  ``cd hey-athena-client-master\client``
--  If all goes well, run ``__main__.py``, create a user, say "Athena",
-   and ask her a question!
--  Now try write your own module using the directions below!
+Installation
+------------
+For installation notes, please use: http://heyathena.com/docs/intro/install.html
 
 Active Modules
 --------------
@@ -143,47 +80,42 @@ priority is taken into account first, then task priority.
 
 .. code:: python
 
-    """
-        Finds and returns the latest bitcoin price
+	"""
+			File Name: hello_world.py
+			Finds and returns the latest bitcoin price
 
-        Usage Examples:
-            - "What is the price of bitcoin?"
-            - "How much is a bitcoin worth?"
-    """
+			Usage Examples:
+					- "What is the price of bitcoin?"
+					- "How much is a bitcoin worth?"
+	"""
 
-    from athena.classes.module import Module
-    from athena.classes.task import ActiveTask
-    from athena.api_library import bitcoin_api
+	from athena.classes.module import Module
+	from athena.classes.task import ActiveTask
+	from athena.api_library import bitcoin_api
 
-    # Only a unique name parameter is required
-    # See other parameters in athena/classes/module.py
-    MOD_PARAMS = {
-        'name': 'bitcoin',
-        'priority': 2,
-    }
+	class GetValueTask(ActiveTask):
 
-    # A task matches text patterns and executes Python code accordingly
-    class GetValueTask(ActiveTask):
-        
-        def __init__(self):
-            # Give regex patterns to match text input
-            super().__init__(patterns=[r'.*\b(bitcoin)\b.*'])
-        
-        def match(self, text):
-            # See if the text matches any pattern
-            return self.match_any(text)
-        
-        def action(self, text):
-            # If any pattern matched, speak the bitcoin price
-            val = str(bitcoin_api.get_data('last'))
-            self.speak(val)
+			def __init__(self):
+					# Matches any statement with the word "bitcoin"
+					super().__init__(words=['bitcoin'])
 
-    # This is a bare-minimum module
-    class Bitcoin(Module):
-        
-        def __init__(self):
-            tasks = [GetValueTask()]
-            super().__init__(MOD_PARAMS, tasks)
+			# This default match method can be overridden
+			# def match(self, text):
+			#    # "text" is the STT translated input string
+			#    # Return True if the text matches any word or pattern
+			#    return self.match_any(text)
+
+			def action(self, text):
+					 # If 'bitcoin' was found in text, speak the bitcoin price
+					bitcoin_price = str(bitcoin_api.get_data('last'))
+					self.speak(bitcoin_price)
+
+	# This is a bare-minimum module
+	class Bitcoin(Module):
+
+			def __init__(self):
+					tasks = [GetValueTask()]
+					super().__init__('bitcoin', tasks, priority=2)
 
 Module Ideas
 ~~~~~~~~~~~~

@@ -9,6 +9,14 @@ athena.modules.active package
 Submodules
 ----------
 
+athena.modules.active.athena_control module
+-------------------------------------------
+
+.. automodule:: athena.modules.active.athena_control
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 athena.modules.active.bitcoin module
 ------------------------------------
 

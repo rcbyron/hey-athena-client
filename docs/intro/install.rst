@@ -1,6 +1,6 @@
 Installation Notes
 ==================
-Use the "Manual (GitHub) Installation" to debug installation issues.
+For troubleshooting, use the "Developer (GitHub) Installation". Post any issues (with detailed error messages) to the GitHub repository.
 
 Ubuntu/Raspberry Pi/Linux
 -------------------------
@@ -45,8 +45,8 @@ Mac OS X
 -  ``pip3 install HeyAthena``
 -  Now open up Python 3 and run ``>>> from athena import __main__``
 
-Manual (GitHub) Installation
-----------------------------
+Developer (GitHub) Installation
+-------------------------------
 -  Install SWIG, PyAudio, and AVBin using the directions above (depending on your operating system)
 -  ``pip3 install pocketsphinx pyaudio SpeechRecognition pyglet gTTS pyyaml wolframalpha selenium``
 -  Clone or download the ``hey-athena-client`` repository
@@ -64,6 +64,6 @@ Okay I think I've installed everything. Now what?
 
 -  If all goes well, create a user, say "Athena", and ask her a question!
 -  Otherwise post an issue describing the error to the GitHub repository linked above
+-  Continue to personalize Athena by writing your own module
 -  You can add modules/edit the client in Python's site-packages/athena
    folder
--  Try writing your own module using the directions below!
