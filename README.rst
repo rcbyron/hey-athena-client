@@ -76,17 +76,15 @@ patterns in user text input (generally through "regular expressions").
 If a pattern is matched, the task executes its action. Note: module
 priority is taken into account first, then task priority.
 
-~~~~~~~~~~~~~~~~~~~~~
-
 .. code:: python
 
 	"""
-			File Name: hello_world.py
-			Finds and returns the latest bitcoin price
+		File Name: hello_world.py
+		Finds and returns the latest bitcoin price
 
-			Usage Examples:
-					- "What is the price of bitcoin?"
-					- "How much is a bitcoin worth?"
+		Usage Examples:
+		- "What is the price of bitcoin?"
+		- "How much is a bitcoin worth?"
 	"""
 
 	from athena.classes.module import Module
@@ -95,27 +93,27 @@ priority is taken into account first, then task priority.
 
 	class GetValueTask(ActiveTask):
 
-			def __init__(self):
-					# Matches any statement with the word "bitcoin"
-					super().__init__(words=['bitcoin'])
+		def __init__(self):
+			# Matches any statement with the word "bitcoin"
+			super().__init__(words=['bitcoin'])
 
-			# This default match method can be overridden
-			# def match(self, text):
-			#    # "text" is the STT translated input string
-			#    # Return True if the text matches any word or pattern
-			#    return self.match_any(text)
+		# This default match method can be overridden
+		# def match(self, text):
+		#    # "text" is the STT translated input string
+		#    # Return True if the text matches any word or pattern
+		#    return self.match_any(text)
 
-			def action(self, text):
-					 # If 'bitcoin' was found in text, speak the bitcoin price
-					bitcoin_price = str(bitcoin_api.get_data('last'))
-					self.speak(bitcoin_price)
+		def action(self, text):
+			 # If 'bitcoin' was found in text, speak the bitcoin price
+			bitcoin_price = str(bitcoin_api.get_data('last'))
+			self.speak(bitcoin_price)
 
 	# This is a bare-minimum module
 	class Bitcoin(Module):
 
-			def __init__(self):
-					tasks = [GetValueTask()]
-					super().__init__('bitcoin', tasks, priority=2)
+		def __init__(self):
+			tasks = [GetValueTask()]
+			super().__init__('bitcoin', tasks, priority=2)
 
 Module Ideas
 ~~~~~~~~~~~~
