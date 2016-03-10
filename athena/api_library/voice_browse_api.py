@@ -36,10 +36,10 @@ class VoiceBrowseApi(Api):
             self.driver.get(url)
             if 'facebook.com' in url:
                 self.driver.find_element_by_id('email').clear()
-                self.driver.find_element_by_id('email').send_keys('2142185228')
+                self.driver.find_element_by_id('email').send_keys(settings.FB_USER)
                 
                 self.driver.find_element_by_id('pass').clear()
-                self.driver.find_element_by_id('pass').send_keys('Spac3book')
+                self.driver.find_element_by_id('pass').send_keys(settings.FB_PASS)
                 self.driver.find_element_by_id('pass').submit()
         
     def close(self):
