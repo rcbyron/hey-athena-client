@@ -1,0 +1,26 @@
+"""
+    A simple API to retrieve user info
+"""
+
+from athena.classes.api import Api
+from athena.api_library import requests_api
+from athena.apis import api_lib
+
+URL = 'http://textbelt.com/text'
+
+class SmsTextApi(Api):
+    
+    def __init__(self):
+        super().__init__('sms_text_api')
+    
+    def send_text(self, text, number=None):
+        if number is None:
+            if hasattr(api_lib['user_api'], 'phone'):
+                number = api_lib['user_api'].phone
+            else:
+                print('\n~ I could not find a default phone number.\n')
+                return
+        print('\n~ Sending text to '+str(number)+'...\n')
+        params = {'number': number, 'message': text}
+        resp = requests_api.get(URL, params, post=True, key='success')
+        print('~ SMS Text success? '+str(resp)+'\n')

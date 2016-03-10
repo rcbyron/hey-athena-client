@@ -14,7 +14,7 @@ from athena import brain
 class QuitTask(ActiveTask):
     
     def __init__(self):
-        super().__init__(words=['quit', 'stop'])
+        super().__init__(patterns=['\b(athena )?(quit|stop)\b.*'])
 
     def action(self, text):
         brain.inst.quit()

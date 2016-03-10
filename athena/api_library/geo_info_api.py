@@ -23,8 +23,9 @@ def update_data():
     response = json.loads(urllib.request.urlopen(URL).read().decode('utf-8'))
 
 def location():
-    loc = get_data('city')+', '+get_data('regionName')
-    return loc.title()
+    #loc = get_data('city')+', '+get_data('regionName')
+    return 'Austin, Texas'
+    #return loc.title()
 
 def time():
     return strftime('%I:%M %p').lstrip('0')

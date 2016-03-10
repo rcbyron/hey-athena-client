@@ -15,7 +15,7 @@ from athena.apis import api_lib
 class VoiceBrowseTask(ActiveTask):
     
     def __init__(self):
-        super().__init__(patterns=[r'.*\b(?:search|look up|tell me about)\b(.*)',
+        super().__init__(patterns=[r'.*\b(?:search(?: for)?|look up|tell me about)\b(.*)',
                                    r'.*\b(?:go to|open)(.*\.(com|org|net|edu|gov|io|html))\b',
                                    r'.*\b(?:type)\b(.*)',
                                    r'.*\b(?:(?:close|shut)(?: the| this)? (tab|page))\b.*'
