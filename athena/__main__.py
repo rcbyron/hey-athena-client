@@ -1,7 +1,4 @@
-'''
-Created on Jan 28, 2016
-
-@author: Connor
-'''
-import athena.brain as brain
-brain.start()
+""" Hey Athena start script """
+from athena import brain
+brain.init()
+brain.inst.run()

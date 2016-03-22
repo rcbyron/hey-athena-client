@@ -4,6 +4,7 @@
 .credentials
 .pydevproject
 .project
+.settings
 
 !.travis.yml
 

@@ -1,0 +1,1 @@
+sphinx-apidoc -MFEV "1.1.1" -R "1.1.1" -A "Connor Byron, Sahil Shah" -H "Hey Athena" -o ../docs ../athena ../athena/tests ../athena/media ../athena/logs ../athena/models ../athena/users

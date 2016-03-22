@@ -1,49 +1,43 @@
-'''
-Created on Jun 5, 2015
+"""
+    Uses the external IP to find geographical info
 
-@author: Connor
-'''
+    Usage Examples:
+        - "What time is it?"
+        - "Where am I?"
+"""
+
 from athena.classes.module import Module
 from athena.classes.task import ActiveTask
-from athena.modules.api_library import geo_info_api
+from athena.api_library import geo_info_api
 
-MOD_PARAMS = {
-    'name': 'geo_info',
-    'priority': 2,
-}
 
 class GetIPInfoTask(ActiveTask):
     
     def __init__(self):
-        patterns = [r'.*\b(ip|country|region|city|latitude|longitude|isp|internet service provider|timezone|time|where (am I|are we)|location)\b.*']
-        super().__init__(patterns)
+        match_words = ['ip', 'country', 'region', 'city', 'latitude',
+                       'longitude', 'isp', 'internet service provider',
+                       'timezone', 'time', 'where am I', 'where are we',
+                       'location']
+        super().__init__(words=match_words)
         
         geo_info_api.update_data()
+        self.groups = {1: 'query'}
     
     def match(self, text):
-        for p in self.patterns:
-            m = p.match(text)
-            if m is not None:
-                self.query = m.group(1)
-                return True
-        return False
+        return self.match_and_save_groups(text, self.groups)
     
     def action(self, text):
         if 'time' in self.query:
-            print('\n~ The time is '+geo_info_api.time()+'\n')
+            self.speak('The time is '+geo_info_api.time())
             return
         
-        title = self.query.title()
-        if len(title) <= 3:
-            title = title.upper()
-
-        print('\n~ '+title+': '+str(geo_info_api.get_data(self.query))+'\n')
+        self.speak(str(geo_info_api.get_data(self.query)))
         
         
 class GeoInfo(Module):
 
     def __init__(self):
         tasks = [GetIPInfoTask()]
-        super().__init__(MOD_PARAMS, tasks)
+        super().__init__('geo_info', tasks, priority=3)
 
     
