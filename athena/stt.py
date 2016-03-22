@@ -58,7 +58,7 @@ def active_listen():
     # use the default microphone as the audio source
     with speech_recognition.Microphone() as src:   
         # listen for 1 second to adjust energy threshold for ambient noise
-        r.adjust_for_ambient_noise(src)             
+        #r.adjust_for_ambient_noise(src)             
         print('\n~ Active listening... ')
         tts.play_mp3('double-beep.mp3')
         

@@ -20,7 +20,7 @@ class VoiceBrowseApi(Api):
         self.key = 'voice_browse_api'
         self.driver = None
         
-    def open(self, url=None, new_tab=True):
+    def open(self, url=None, new_tab=False):
         if not self.driver:
             try:
                 self.driver = webdriver.Chrome(settings.CHROME_PATH)
@@ -34,6 +34,13 @@ class VoiceBrowseApi(Api):
             if not url[0:4] == 'http':
                 url = 'https://'+url.replace(' ', '')
             self.driver.get(url)
+            if 'facebook.com' in url:
+                self.driver.find_element_by_id('email').clear()
+                self.driver.find_element_by_id('email').send_keys(settings.FB_USER)
+                
+                self.driver.find_element_by_id('pass').clear()
+                self.driver.find_element_by_id('pass').send_keys(settings.FB_PASS)
+                self.driver.find_element_by_id('pass').submit()
         
     def close(self):
         if self.driver:
@@ -58,6 +65,7 @@ class VoiceBrowseApi(Api):
             self.driver.maximize_window()
             
     def search(self, q):
+        print('\n~ Answering with Google...\n')
         self.open(GOOGLE_URL+up.quote_plus(q), new_tab=False)
     
     def clear(self):

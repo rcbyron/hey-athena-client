@@ -5,9 +5,7 @@ A simple IFTTT trigger tool
 
 """
 
-import urllib
-
-from urllib import request
+from urllib import request, parse
 
 from athena import settings
 
@@ -22,7 +20,7 @@ def trigger(event, val1=None, val2=None, val3=None):
     if val3:
         params['value3'] = val3
         
-    req_url = BASE_URL+event+'/with/key/'+settings.IFTTT_KEY+'?'+urllib.parse.urlencode(params)
-    print('\n~ Making GET request at:')
+    req_url = BASE_URL+event+'/with/key/'+settings.IFTTT_KEY+'?'+parse.urlencode(params)
+    print('~ Making GET request at:')
     print(req_url+'\n')
     request.urlopen(req_url)

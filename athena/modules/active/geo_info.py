@@ -38,6 +38,6 @@ class GeoInfo(Module):
 
     def __init__(self):
         tasks = [GetIPInfoTask()]
-        super().__init__('geo_info', tasks, priority=2)
+        super().__init__('geo_info', tasks, priority=3)
 
     
