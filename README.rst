@@ -34,6 +34,26 @@ See documentation: http://heyathena.com/docs/
 
 Don't like the name "Athena"? Change it to anything you want, like "Swagger Bot" or "Home Slice".
 
+Module Ideas
+~~~~~~~~~~~~
+
+-  Smart-Home Control
+
+   - `Power Outlets (Hook) <https://www.indiegogo.com/projects/hook-home-automation-on-a-budget#/>`_
+
+   - `Thermostat (Nest) <https://github.com/jkoelker/python-nest/>`_ 
+-  `IFTTT Recipes <http://ifttt.com/>`_ (use `Maker channel <https://ifttt.com/maker>`_  to trigger)
+-  Grades/Homework Assignments (see `Canvas <https://canvas.instructure.com/doc/api/index.html>`_)
+-  Cooking Recipe Assistant (hands-free)
+-  Facebook, Twitter, GMail
+-  Timer/Stopwatch
+-  Calendar
+-  Games (Zork, etc.)
+-  Robot Movement
+
+If you create a module, submit a pull request! We'd love to add it to
+the repository. You can also email it to connor@heyathena.com
+
 How can I make my own Athena?
 -----------------------------
 
@@ -112,26 +132,6 @@ priority is taken into account first, then task priority.
 			tasks = [GetValueTask()]
 			super().__init__('bitcoin', tasks, priority=2)
 
-Module Ideas
-~~~~~~~~~~~~
-
--  Smart-Home Control
-
-   - `Power Outlets (Hook) <https://www.indiegogo.com/projects/hook-home-automation-on-a-budget#/>`_
-
-   - `Thermostat (Nest) <https://github.com/jkoelker/python-nest/>`_ 
--  `IFTTT Recipes <http://ifttt.com/>`_ (use `Maker channel <https://ifttt.com/maker>`_  to trigger)
--  Grades/Homework Assignments (see `Canvas <https://canvas.instructure.com/doc/api/index.html>`_)
--  Cooking Recipe Assistant (hands-free)
--  Facebook, Twitter, GMail
--  Timer/Stopwatch
--  Calendar
--  Games (Zork, etc.)
--  Robot Movement
-
-If you create a module, submit a pull request! We'd love to add it to
-the repository. You can also email it to connor@heyathena.com
-
 Passive Modules
 ---------------
 
@@ -140,6 +140,10 @@ Passive Modules
 -  Passive modules will be scheduled tasks run in the background.
 -  Useful for notifications (e.g. - Twitter, Facebook, GMail updates).
 -  Future versions may have event triggers for modules as well.
+
+Athena APIs
+-----------
+Athena stores a library of "Api" objects during runtime. Developers can create an "Api" object to separate functions from their modules. Moreover, "Api" objects make it easy to load user configuration data at runtime. This is useful if your module requires username/password authentication.
 
 Common Errors
 -------------
