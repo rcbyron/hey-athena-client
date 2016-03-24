@@ -22,8 +22,8 @@ Usage Examples:
 Say "Athena" *(wait for double beep)* then...
 
 -  "Play some music"
--  "Text [Connor] [Wow, Hey Athena is so cool!]"
--  "Tweet [What's good Twitter homies?]" (IFTTT key
+-  "Text [Joe] [Wow, Hey Athena is so cool!]"
+-  "Tweet [Hello world!]" (IFTTT key
    required)
 -  "Define [artificial intelligence]"
 -  "Show me pictures of [Taj Mahal]"
@@ -32,10 +32,10 @@ Say "Athena" *(wait for double beep)* then...
 Write a simple "module" to control your house with your voice.
 See documentation: http://heyathena.com/docs/
 
-Don't like the name "Athena"? Change it to anything you want, like "Swagger Bot" or "Home Slice".
+Don't like the name "Athena"? Change it to anything you want, like "Joe" or "Swagger Bot".
 
-Module Ideas
-~~~~~~~~~~~~
+Feature Ideas
+-------------
 
 -  Smart-Home Control
 
@@ -54,11 +54,29 @@ Module Ideas
 If you create a module, submit a pull request! We'd love to add it to
 the repository. You can also email it to connor@heyathena.com
 
+Roadmap
+-------
+Hey Athena is just getting started. We plan to build an **open-source community** built around our **voice assistance** framework. Here are some features you can expect to see in the future:
+
+- **Passive Modules:** useful for voice/text notifications (e.g. - "You have an important unread email from Professor Valvano")
+- **Module Database:** developers will be able to easily create and submit modules for other people to use
+- **Machine Learning:** we are looking into libraries like `Scikit <http://scikit-learn.org/stable/>`_ to help Athena learn how to respond better
+- **Natural Language Processing (NLP):** we are constantly working on improving NLP techniques with services like `wit.ai <https://wit.ai/>`_
+- **Web App Demo:** we are in the process of making a simple web app demo for Hey Athena
+- **Bigger Community:** we are working on building a bigger open-source community
+- **HTTP REST API Service:** users will be able to send HTTP requests and receive a voice/text JSON response (e.g. - ``HTTP GET http://heyathena.com/api/{api_key}/q=list%20bitcoin%20price``) 
+
 How can I make my own Athena?
 -----------------------------
 
 -  Download and install Hey Athena using the directions below
 -  Write your own modules so Athena can respond to different commands
+-  Install Hey Athena on a Raspberry Pi to turn your house into a smart-home with voice control
+
+Installation
+------------
+- Windows users can use the `Windows Installer <http://heyathena.com/assets/installers/win_install_hey_athena.bat>`_ (batch script)
+- For installation notes, please use: http://heyathena.com/docs/intro/install.html
 
 How can I help?
 ---------------
@@ -80,10 +98,6 @@ Core Dependencies
 -  gTTS
 -  PyYAML
 -  Selenium
-
-Installation
-------------
-For installation notes, please use: http://heyathena.com/docs/intro/install.html
 
 Active Modules
 --------------
@@ -135,11 +149,10 @@ priority is taken into account first, then task priority.
 Passive Modules
 ---------------
 
-(not implemented yet)
+(soon-to-be implemented)
 
--  Passive modules will be scheduled tasks run in the background.
--  Useful for notifications (e.g. - Twitter, Facebook, GMail updates).
--  Future versions may have event triggers for modules as well.
+-  Passive modules will be collections of scheduled/event-triggered tasks
+-  Useful for notifications (e.g. - Twitter, Facebook, GMail updates)
 
 Athena APIs
 -----------
