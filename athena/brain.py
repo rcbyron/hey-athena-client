@@ -208,8 +208,8 @@ class Brain():
         tts.speak(settings.ERROR)
         text = input('Continue? (Y/N) ')
         #response = stt.active_listen()
-        
-        return 'y' in text.lower()
+        if 'y' in text.lower():
+            print(traceback.format_exc())
     
     def quit(self):
         self.quit_flag = True
@@ -233,7 +233,7 @@ class Brain():
                 self.execute_mods(text)
             except OSError as e:
                 if 'Invalid input device' in str(e):
-                    tts.speak(settings.NO_MIC)
+                    print(settings.NO_MIC+'\n')
                     settings.USE_STT = False
                     continue
                 else:
@@ -242,8 +242,7 @@ class Brain():
                 print('\n\n~ Shutting down...')
                 break
             except:
-                if self.error():
-                    print(traceback.format_exc())
-                else:
-                    break
+                print("(runtime error)")
+                self.error()
+                
         print('\n~ Arrivederci.')

@@ -27,7 +27,7 @@ class AnswerTask(ActiveTask):
             answer = query.pods[1].text.replace('|', '')
             self.speak(answer, show_text=True)
         else:
-            self.speak(settings.ERROR)
+            self.speak(settings.NO_MODULES, show_text=True)
         
          
 class Wolfram(Module):

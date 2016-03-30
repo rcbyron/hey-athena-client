@@ -4,6 +4,7 @@ Tools to automate browsing (requires Firefox)
     
 """
 import urllib.parse as up
+import os
 
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
@@ -23,7 +24,9 @@ class VoiceBrowseApi(Api):
     def open(self, url=None, new_tab=False):
         if not self.driver:
             try:
-                self.driver = webdriver.Chrome(settings.CHROME_PATH)
+                if not os.path.isfile(settings.CHROME_DRIVER):
+                    raise Exception
+                self.driver = webdriver.Chrome(settings.CHROME_DRIVER)
             except:
                 self.driver = webdriver.Firefox()
         else:

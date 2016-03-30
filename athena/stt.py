@@ -6,7 +6,7 @@ Basic Speech-To-Text tools are stored here
 
 import os, pyaudio, speech_recognition
 
-from athena import settings, tts
+from athena import settings, tts, brain
 
 from sphinxbase.sphinxbase import Config, Config_swigregister  # @UnusedImport
 from pocketsphinx.pocketsphinx import Decoder
@@ -74,6 +74,6 @@ def active_listen():
     except speech_recognition.RequestError as e:
         print("Could not request results from Google Speech Recognition service; {0}".format(e))
     except:                             # speech is unintelligible
-        tts.speak(settings.ERROR)
+        brain.inst.error()
     finally:
         return msg

@@ -32,13 +32,13 @@ LANG_4CODE = 'en-US'
 #####################
 CLIENT_DIR =    path.dirname(path.abspath(__file__))
 BASE_DIR =      path.dirname(CLIENT_DIR)
-CHROME_PATH =   path.join(CLIENT_DIR, 'chrome/chromedriver'     )
 DATA_DIR =      path.join(CLIENT_DIR, 'data'                    )
 LOGS_DIR =      path.join(DATA_DIR,   'logs'                    )
 MEDIA_DIR =     path.join(DATA_DIR,   'media'                   )
 INPUTS_DIR =    path.join(MEDIA_DIR,  'example_inputs'          )
 RESPONSES_DIR = path.join(MEDIA_DIR,  'responses'               )
 USERS_DIR =     path.join(DATA_DIR,   'users'                   )
+CHROME_DRIVER = path.join(CLIENT_DIR, 'chrome/chromedriver'     )
 
 # Get speech_recognition pocketsphinx models
 import speech_recognition as sr
