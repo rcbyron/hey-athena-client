@@ -173,7 +173,7 @@ Common Errors
    :target: https://travis-ci.org/hey-athena/hey-athena-client
 .. |PyPI version| image:: https://badge.fury.io/py/heyathena.svg
    :target: https://badge.fury.io/py/heyathena
-.. |GitHub license| image:: https://img.shields.io/badge/license-GPLv3-blue.svg
+.. |GitHub license| image:: https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000
    :target: https://raw.githubusercontent.com/hey-athena/hey-athena-client/connor-branch/LICENSE
 .. |PyPI downloads| image:: https://img.shields.io/pypi/dw/HeyAthena.svg
    :target: https://pypi.python.org/pypi/HeyAthena
