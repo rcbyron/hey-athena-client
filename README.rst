@@ -9,7 +9,7 @@ Overview
 
 Your personal voice assistant. Written in Python 3.
 
-"Hey Athena" is a 100% open-source, cross-platform, modular voice
+"Hey Athena" is a 100% open-source, modular voice
 assistant framework. It aims to do everything that Siri, Cortana, and
 Echo can do - and more.
 
@@ -34,8 +34,8 @@ See documentation: http://heyathena.com/docs/
 
 Don't like the name "Athena"? Change it to anything you want, like "Joe" or "Swagger Bot".
 
-Feature Ideas
--------------
+Module & API Ideas
+------------------
 
 -  Smart-Home Control
 
@@ -51,20 +51,28 @@ Feature Ideas
 -  Games (Zork, etc.)
 -  Robot Movement
 
-If you create a module, submit a pull request! We'd love to add it to
+If you create a module and/or an API, submit a pull request! We'd love to add it to
 the repository. You can also email it to connor@heyathena.com
+
+HTTP RESTful API
+----------------
+We are currently developing a cloud-hosted RESTful API (JSON) service.
+Users will be able to send HTTP requests and receive a voice/text JSON response.  
+
+Current: ``https://heyathena.com/api/?q=test``  
+
+Future: ``HTTP GET http://heyathena.com/api/{api_key}/q=list%20bitcoin%20price``
+
 
 Roadmap
 -------
-Hey Athena is just getting started. We plan to build an **open-source community** built around our **voice assistance** framework. Here are some features you can expect to see in the future:
+Hey Athena is just getting started. We plan to build an **open-source community** built around a quality **voice assistance framework**. Here are some features you can expect to see in the future:
 
+- **Bigger Community:** we are working on building a bigger open-source community
 - **Passive Modules:** useful for voice/text notifications (e.g. - "You have an important unread email from Professor Valvano")
 - **Module Database:** developers will be able to easily create and submit modules for other people to use
 - **Machine Learning:** we are looking into libraries like `Scikit <http://scikit-learn.org/stable/>`_ to help Athena learn how to respond better
 - **Natural Language Processing (NLP):** we are constantly working on improving NLP techniques with services like `wit.ai <https://wit.ai/>`_
-- **Web App Demo:** we are in the process of making a simple web app demo for Hey Athena
-- **Bigger Community:** we are working on building a bigger open-source community
-- **HTTP REST API Service:** users will be able to send HTTP requests and receive a voice/text JSON response (e.g. - ``HTTP GET http://heyathena.com/api/{api_key}/q=list%20bitcoin%20price``) 
 
 How can I make my own Athena?
 -----------------------------
@@ -156,7 +164,11 @@ Passive Modules
 
 Athena APIs
 -----------
-Athena stores a library of "Api" objects during runtime. Developers can create an "Api" object to separate functions from their modules. Moreover, "Api" objects make it easy to load user configuration data at runtime. This is useful if your module requires username/password authentication.
+An "Api" object is simply a separate library of functions for "Modules" to use. Athena stores a library of "Api" objects during runtime. Moreover, "Api" objects make it easy to load user configuration data at runtime. This is useful if your modules require username/password authentication (e.g. - logging into Spotify)
+
+| **Usage example:**
+| ``from athena.apis import api_lib``
+| ``api_lib['your_api_handle'].your_awesome_func()``
 
 Common Errors
 -------------
