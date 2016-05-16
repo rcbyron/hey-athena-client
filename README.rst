@@ -2,7 +2,7 @@ Hey Athena
 ==========
 
 |https://travis-ci.org/hey-athena/hey-athena-client.svg?branch=connor-branch|
-|PyPI version| |GitHub license| |PyPI downloads|
+|PyPI version| |GitHub license|
 
 Overview
 --------
@@ -175,5 +175,3 @@ Common Errors
    :target: https://badge.fury.io/py/heyathena
 .. |GitHub license| image:: https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000
    :target: https://raw.githubusercontent.com/hey-athena/hey-athena-client/connor-branch/LICENSE
-.. |PyPI downloads| image:: https://img.shields.io/pypi/dw/HeyAthena.svg
-   :target: https://pypi.python.org/pypi/HeyAthena
