@@ -9,9 +9,7 @@ Overview
 
 Your personal voice assistant. Written in Python 3.
 
-"Hey Athena" is a 100% open-source, modular voice
-assistant framework. It aims to do everything that Siri, Cortana, and
-Echo can do - and more.
+"Hey Athena" is a 100% open-source, modular voice assistant framework. We aim to do everything that Siri, Cortana, and Echo can do - and more.
 
 | **Website:** http://heyathena.com
 | **Documentation:** http://heyathena.com/docs/
@@ -34,8 +32,8 @@ See documentation: http://heyathena.com/docs/
 
 Don't like the name "Athena"? Change it to anything you want, like "Joe" or "Swagger Bot".
 
-Module & API Ideas
-------------------
+Module Ideas
+------------
 
 -  Smart-Home Control
 
@@ -51,7 +49,7 @@ Module & API Ideas
 -  Games (Zork, etc.)
 -  Robot Movement
 
-If you create a module and/or an API, submit a pull request! We'd love to add it to
+If you create a module, submit a pull request! We'd love to add it to
 the repository. You can also email it to connor@heyathena.com
 
 HTTP RESTful API
@@ -59,9 +57,11 @@ HTTP RESTful API
 We are currently developing a cloud-hosted RESTful API (JSON) service.
 Users will be able to send HTTP requests and receive a voice/text JSON response.  
 
-Current: ``https://heyathena.com/api/?q=test``  
+**Current:** ``https://heyathena.com/api/?q=test``
 
-Future: ``HTTP GET http://heyathena.com/api/{api_key}/q=list%20bitcoin%20price``
+**Future:** ``HTTP GET http://heyathena.com/api/{api_key}/q=list%20bitcoin%20price``  
+
+**Response:** ``{"success": true, "response": "359.7", "intent": "bitcoin"}``
 
 
 Roadmap
