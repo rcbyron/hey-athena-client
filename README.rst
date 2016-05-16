@@ -11,8 +11,8 @@ Your personal voice assistant. Written in Python 3.
 
 "Hey Athena" is a 100% open-source, modular voice assistant framework. We aim to do everything that Siri, Cortana, and Echo can do - and more.
 
-| **Website:** http://heyathena.com
-| **Documentation:** http://heyathena.com/docs/
+| **Website:** https://heyathena.com
+| **Documentation:** https://heyathena.com/docs/
 | **GitHub:** https://github.com/hey-athena/hey-athena-client
 
 Usage Examples:
@@ -28,7 +28,7 @@ Say "Athena" *(wait for double beep)* then...
 -  "Open facebook.com"
 
 Write a simple "module" to control your house with your voice.
-See documentation: http://heyathena.com/docs/
+See documentation: https://heyathena.com/docs/
 
 Don't like the name "Athena"? Change it to anything you want, like "Joe" or "Swagger Bot".
 
@@ -52,18 +52,6 @@ Module Ideas
 If you create a module, submit a pull request! We'd love to add it to
 the repository. You can also email it to connor@heyathena.com
 
-HTTP RESTful API
-----------------
-We are currently developing a cloud-hosted RESTful API (JSON) service.
-Users will be able to send HTTP requests and receive a voice/text JSON response.  
-
-**Current:** ``https://heyathena.com/api/?q=test``
-
-**Future:** ``HTTP GET http://heyathena.com/api/{api_key}/q=list%20bitcoin%20price``  
-
-**Response:** ``{"success": true, "response": "359.7", "intent": "bitcoin"}``
-
-
 Roadmap
 -------
 Hey Athena is just getting started. We plan to build an **open-source community** built around a quality **voice assistance framework**. Here are some features you can expect to see in the future:
@@ -74,6 +62,17 @@ Hey Athena is just getting started. We plan to build an **open-source community*
 - **Machine Learning:** we are looking into libraries like `Scikit <http://scikit-learn.org/stable/>`_ to help Athena learn how to respond better
 - **Natural Language Processing (NLP):** we are constantly working on improving NLP techniques with services like `wit.ai <https://wit.ai/>`_
 
+HTTP RESTful API
+----------------
+We are currently developing a cloud-hosted RESTful API (JSON) service.
+Users will be able to send HTTP requests and receive a voice/text JSON response.  
+
+**Current:** ``https://heyathena.com/api/?q=test``
+
+**Future:** ``HTTP GET https://heyathena.com/api/{api_key}/q=list%20bitcoin%20price``  
+
+**Response:** ``{"success": true, "response": "359.7", "intent": "bitcoin"}``
+
 How can I make my own Athena?
 -----------------------------
 
@@ -83,8 +82,8 @@ How can I make my own Athena?
 
 Installation
 ------------
-- Windows users can use the `Windows Installer <http://heyathena.com/assets/installers/win_install_hey_athena.bat>`_ (batch script)
-- For installation notes, please use: http://heyathena.com/docs/intro/install.html
+- Windows users can use the `Windows Installer <https://raw.githubusercontent.com/hey-athena/hey-athena-client/demo-branch/tools/win_install_hey_athena.bat>`_ (batch script)
+- For installation notes, please use: https://heyathena.com/docs/intro/install.html
 
 How can I help?
 ---------------
