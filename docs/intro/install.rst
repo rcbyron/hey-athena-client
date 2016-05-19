@@ -38,7 +38,7 @@ Windows
 Mac OS X
 --------
 - Using Homebrew package manager, type ``brew install swig``
-- ``brew install portaudio`` ``pip install pyaudio```
+- ``brew install portaudio`` ``pip install pyaudio``
 -  Install AVBin 10:
 
    -  http://avbin.github.io/AVbin/Download.html

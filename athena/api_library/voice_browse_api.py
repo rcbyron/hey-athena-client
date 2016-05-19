@@ -1,10 +1,9 @@
 """
-
 Tools to automate browsing (requires Firefox)
-    
 """
 import urllib.parse as up
 import os
+import traceback
 
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
@@ -13,21 +12,24 @@ from athena.classes.api import Api
 from athena import settings
 
 GOOGLE_URL = 'https://www.google.com/search?gs_ivs=1&q='
-OS_KEY = Keys.CONTROL # Mac users must change to Keys.COMMAND
+OS_KEY = Keys.CONTROL  # Mac users must change to Keys.COMMAND
+
 
 class VoiceBrowseApi(Api):
-    
+
     def __init__(self):
         self.key = 'voice_browse_api'
         self.driver = None
-        
+
     def open(self, url=None, new_tab=False):
         if not self.driver:
             try:
+                print(settings.CHROME_DRIVER, os.path.isfile(settings.CHROME_DRIVER))
                 if not os.path.isfile(settings.CHROME_DRIVER):
                     raise Exception
                 self.driver = webdriver.Chrome(settings.CHROME_DRIVER)
             except:
+                print(traceback.format_exc())
                 self.driver = webdriver.Firefox()
         else:
             if new_tab:
@@ -40,16 +42,16 @@ class VoiceBrowseApi(Api):
             if 'facebook.com' in url:
                 self.driver.find_element_by_id('email').clear()
                 self.driver.find_element_by_id('email').send_keys(settings.FB_USER)
-                
+
                 self.driver.find_element_by_id('pass').clear()
                 self.driver.find_element_by_id('pass').send_keys(settings.FB_PASS)
                 self.driver.find_element_by_id('pass').submit()
-        
+
     def close(self):
         if self.driver:
             self.driver.quit()
             self.driver = None
-            
+
     def close_tab(self):
         if self.driver:
             self.driver.find_element_by_tag_name('body').send_keys(OS_KEY+'w')
@@ -58,27 +60,27 @@ class VoiceBrowseApi(Api):
             except:
                 self.driver = None
                 print('\n~ Browser closed.')
-    
+
     def switch_tab(self):
         if self.driver:
             self.driver.find_element_by_tag_name('body').send_keys(OS_KEY+Keys.TAB)
-    
+
     def maximize(self):
         if self.driver:
             self.driver.maximize_window()
-            
+
     def search(self, q):
         print('\n~ Answering with Google...\n')
         self.open(GOOGLE_URL+up.quote_plus(q), new_tab=False)
-    
+
     def clear(self):
         if self.driver:
             self.driver.switch_to_active_element().clear()
-    
+
     def type(self, text):
         if self.driver:
             self.driver.switch_to_active_element().send_keys(text+Keys.RETURN)
-    
+
     def click(self):
         if self.driver:
             self.driver.switch_to_active_element().click()

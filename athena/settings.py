@@ -4,11 +4,21 @@ Global settings are stored here
 
 """
 
-from os import mkdir, path
+import speech_recognition as sr
 
-# Wake-up Word(s) must be in the sphinx dict file
+from os import mkdir, path
+from os.path import join
+from sys import platform as _platform
+
+from athena import api_library
+from athena.modules import active as active_mods
+
+# Wake-up Word(s) must be in the sphinx dict file (or else RuntimeError occurs)
 # Change to 'hey athena' if background noise triggering occurs
-WAKE_UP_WORD = 'athena'
+WAKE_UP_WORD = "athena"
+
+# Try active listening until no input is received (useful for conversation)
+FREQUENT_ACTIVE_LISTEN = True
 
 # Set these to False while debugging
 USE_STT = True
@@ -32,17 +42,33 @@ LANG_4CODE = 'en-US'
 #####################
 CLIENT_DIR =    path.dirname(path.abspath(__file__))
 BASE_DIR =      path.dirname(CLIENT_DIR)
-DATA_DIR =      path.join(CLIENT_DIR, 'data'                    )
-LOGS_DIR =      path.join(DATA_DIR,   'logs'                    )
-MEDIA_DIR =     path.join(DATA_DIR,   'media'                   )
-INPUTS_DIR =    path.join(MEDIA_DIR,  'example_inputs'          )
-RESPONSES_DIR = path.join(MEDIA_DIR,  'responses'               )
-USERS_DIR =     path.join(DATA_DIR,   'users'                   )
-CHROME_DRIVER = path.join(CLIENT_DIR, 'chrome/chromedriver'     )
+DATA_DIR =      path.join(CLIENT_DIR, 'data')
+LOGS_DIR =      path.join(DATA_DIR,   'logs')
+MEDIA_DIR =     path.join(DATA_DIR,   'media')
+INPUTS_DIR =    path.join(MEDIA_DIR,  'example_inputs')
+RESPONSES_DIR = path.join(MEDIA_DIR,  'responses')
+USERS_DIR =     path.join(DATA_DIR,   'users')
+
+
+CHROME_DRIVER = path.join(CLIENT_DIR, 'chrome', 'mac32', 'chromedriver')
+if _platform.startswith("linux"):
+    CHROME_DRIVER = path.join(CLIENT_DIR, 'chrome', 'linux32', 'chromedriver')
+elif _platform.startswith("win"):
+    CHROME_DRIVER = path.join(CLIENT_DIR, 'chrome', 'win32', 'chromedriver')
+
+
+API_DIRS = [
+    # Add your custom api directory strings here (e.g. - "C:/myapis")
+]
+API_DIRS.extend(api_library.__path__)
+MOD_DIRS = [
+
+]
+MOD_DIRS.extend(active_mods.__path__)
 
 # Get speech_recognition pocketsphinx models
-import speech_recognition as sr
-MODEL_DIR = path.join(path.dirname(path.abspath(sr.__file__)), 'pocketsphinx-data')
+SR_DIR = path.dirname(path.abspath(sr.__file__))
+MODEL_DIR = path.join(SR_DIR, 'pocketsphinx-data')
 
 DIRS = [LOGS_DIR, MEDIA_DIR, INPUTS_DIR, RESPONSES_DIR, USERS_DIR]
 
@@ -50,23 +76,28 @@ for d in DIRS:
     if not path.exists(d):
         mkdir(d)
 
+POCKETSPHINX_LOG = join(LOGS_DIR,  'passive-listen.log')
+ACOUSTIC_MODEL =   join(MODEL_DIR, 'en-US', 'acoustic-model')
+LANGUAGE_MODEL =   join(MODEL_DIR, 'en-US', 'language-model.lm.bin')
+POCKET_DICT =      join(MODEL_DIR, 'en-US', 'pronounciation-dictionary.dict')
+# For custom pronounciations, edit 'athena.dict' and use this line instead
+# POCKET_DICT =      join(DATA_DIR, 'athena.dict')
+
 #####################
 #     RESPONSES     #
 #####################
-ERROR = "Something went wrong. Would you like to see the error message?"
+ERROR =      "Something went wrong. Would you like to see the error message?"
 NO_MODULES = "I'm not sure how to respond to that."
-NO_MIC = "I couldn't connect to a microphone."
+NO_MIC =     "I couldn't connect to a microphone."
 
 #####################
 #     FREE KEYS     #
 #####################
-WOLFRAM_KEY = '4QR84U-VY7T7AVA34'
+WOLFRAM_KEY =      '4QR84U-VY7T7AVA34'
 WUNDERGROUND_KEY = 'd647ca403a0ac94b'
-IFTTT_KEY = ''
+IFTTT_KEY =        ''
 
 FB_USER = ''
 FB_PASS = ''
 
-CONTACTS = {
-    
-}
+CONTACTS = {}

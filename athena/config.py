@@ -2,10 +2,12 @@
 Helpful methods for generating a user .yml config file
 """
 
-import os, yaml
+import os
+import yaml
 
 from athena import settings
 from athena.apis import api_lib
+
 
 def block_print(title):
     """
@@ -14,11 +16,12 @@ def block_print(title):
     if not title:
         title = '(empty)'
     length = len(title)+10
-    print('#'*length                )
+    print('#'*length)
     print('#' + ' '*(length-2) + '#')
-    print('#    '  + title + '    #')
+    print('#    ' + title + '    #')
     print('#' + ' '*(length-2) + '#')
-    print('#'*length           +'\n')
+    print('#'*length + '\n')
+
 
 def generate():
     """
