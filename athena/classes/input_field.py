@@ -1,11 +1,12 @@
-""" 
+"""
 
 The "InputField" class is used for required user configuration data
 
 """
 
+
 class InputField(object):
-    
+
     def __init__(self, key, help_msg='', prompt='', require=False, val=None):
         self.key = key
         self.help_msg = help_msg
@@ -14,10 +15,10 @@ class InputField(object):
             self.prompt = key.replace('_', ' ').title()+': '
         else:
             self.prompt = prompt
-            
+
         self.require = require
         self.val = val
-        
+
     def get_input(self):
         """ Prompts the user for input and saves the value """
         answer = ''

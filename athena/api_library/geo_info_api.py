@@ -2,10 +2,11 @@
 
 A tool for retrieving geographical info based on external IP
 | API Documentation: http://ip-api.com
-    
+
 """
 
-import urllib.request, json
+import urllib.request
+import json
 
 from time import strftime
 
@@ -18,18 +19,22 @@ ALIASES = {
 
 response = None
 
+
 def update_data():
     global response
     response = json.loads(urllib.request.urlopen(URL).read().decode('utf-8'))
 
+
 def location():
-    #loc = get_data('city')+', '+get_data('regionName')
+    # loc = get_data('city')+', '+get_data('regionName')
     return 'Austin, Texas'
-    #return loc.title()
+    # return loc.title()
+
 
 def time():
     return strftime('%I:%M %p').lstrip('0')
-    
+
+
 def get_data(key):
     """
         Keys/Values:
@@ -50,10 +55,10 @@ def get_data(key):
     """
     if key in ALIASES:
         key = ALIASES[key]
-        
+
     if 'where' in key.lower() or 'location' in key.lower():
         return location()
-    
+
     if key not in response:
         return None
     return response[key]

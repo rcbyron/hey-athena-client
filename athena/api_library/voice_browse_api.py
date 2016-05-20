@@ -24,7 +24,7 @@ class VoiceBrowseApi(Api):
     def open(self, url=None, new_tab=False):
         if not self.driver:
             try:
-                print(settings.CHROME_DRIVER, os.path.isfile(settings.CHROME_DRIVER))
+                # print(settings.CHROME_DRIVER, os.path.isfile(settings.CHROME_DRIVER))
                 if not os.path.isfile(settings.CHROME_DRIVER):
                     raise Exception
                 self.driver = webdriver.Chrome(settings.CHROME_DRIVER)

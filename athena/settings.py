@@ -54,7 +54,7 @@ CHROME_DRIVER = path.join(CLIENT_DIR, 'chrome', 'mac32', 'chromedriver')
 if _platform.startswith("linux"):
     CHROME_DRIVER = path.join(CLIENT_DIR, 'chrome', 'linux32', 'chromedriver')
 elif _platform.startswith("win"):
-    CHROME_DRIVER = path.join(CLIENT_DIR, 'chrome', 'win32', 'chromedriver')
+    CHROME_DRIVER = path.join(CLIENT_DIR, 'chrome', 'win32', 'chromedriver.exe')
 
 
 API_DIRS = [
@@ -101,3 +101,5 @@ FB_USER = ''
 FB_PASS = ''
 
 CONTACTS = {}
+
+PHONE_REGEX = r"\b((\(\d{3}\)|\d{3})-?\d{3}-?\d{4})\s?(.*)"
