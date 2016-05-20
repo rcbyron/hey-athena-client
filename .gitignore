@@ -5,6 +5,7 @@
 .pydevproject
 .project
 .settings
+.DS_Store
 
 !.travis.yml
 
