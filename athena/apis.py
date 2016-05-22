@@ -6,7 +6,7 @@ import pkgutil
 import inspect
 import traceback
 
-import settings
+from athena import settings
 
 api_lib = None
 
