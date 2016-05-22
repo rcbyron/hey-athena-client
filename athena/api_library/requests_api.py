@@ -4,21 +4,28 @@ A simple API for HTTP Requests (GET and POST)
 
 """
 
-import json, traceback
+import json
+import traceback
 
-from urllib import parse, request
+try:
+    from urllib.request import urlopen, Request
+    from urllib.parse import urlencode     # Python 3
+except ImportError:
+    from urllib2 import Request
+    from urllib import urlopen, urlencode  # Python 2
+
 
 def get(url, params=None, post=False, key=None):
     if params:
-        data = parse.urlencode(params).encode('utf-8')
+        data = urlencode(params).encode('utf-8')
     if post:
-        req = request.Request(url, data)
+        req = Request(url, data)
     else:
         url += '?'+data
-        req = request.Request(url)
-        
+        req = Request(url)
+
     try:
-        response = json.loads(request.urlopen(req).read().decode('utf-8'))
+        response = json.loads(urlopen(req).read().decode('utf-8'))
         if key:
             if key not in response:
                 print('('+key+' key not found)')

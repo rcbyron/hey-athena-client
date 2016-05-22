@@ -13,7 +13,7 @@ class OrderSomething(ActiveTask):
 
     def __init__(self):
         # Matches any statement with these words
-        super().__init__(patterns=[r'^\b(order|buy)(?: me)?\b(.*)'])
+        super(OrderSomething, self).__init__(patterns=[r'^\b(order|buy)(?: me)?\b(.*)'])
 
     def match(self, text):
         return self.match_and_save_groups(text, {1: 'verb', 2: 'thing'})
@@ -30,7 +30,7 @@ class CancelOrder(ActiveTask):
 
     def __init__(self):
         # Matches any statement with these words
-        super().__init__(patterns=[r'.*\b(cancel.*order)\b.*'])
+        super(CancelOrder, self).__init__(patterns=[r'.*\b(cancel.*order)\b.*'])
 
     def action(self, text):
         return ('shop', 'Canceling previous order.')
@@ -41,4 +41,4 @@ class HelloWorld(Module):
 
     def __init__(self):
         tasks = [OrderSomething(), CancelOrder()]
-        super().__init__('shop', tasks, priority=2)
+        super(HelloWorld, self).__init__('shop', tasks, priority=2)

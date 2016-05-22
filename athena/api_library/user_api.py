@@ -16,7 +16,7 @@ class UserApi(Api):
             InputField('phone'),
             InputField('email'),
         ]
-        super().__init__('user_api')
+        super(UserApi, self).__init__('user_api')
 
     def name(self):
         name = None

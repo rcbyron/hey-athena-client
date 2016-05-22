@@ -5,7 +5,11 @@ A tool for retrieving geographical info based on external IP
 
 """
 
-import urllib.request
+try:
+    from urllib.request import urlopen  # Python 3
+except ImportError:
+    from urllib import urlopen  # Python 2
+
 import json
 
 from time import strftime
@@ -22,7 +26,7 @@ response = None
 
 def update_data():
     global response
-    response = json.loads(urllib.request.urlopen(URL).read().decode('utf-8'))
+    response = json.loads(urlopen(URL).read().decode('utf-8'))
 
 
 def location():

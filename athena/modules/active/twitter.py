@@ -17,7 +17,7 @@ from athena.api_library import ifttt_api as ifttt
 class SendTweetTask(ActiveTask):
 
     def __init__(self):
-        super().__init__(patterns=[r'.*?\btweet (.+)',
+        super(SendTweetTask, self).__init__(patterns=[r'.*?\btweet (.+)',
                                    r'.*\bpost (.+)\bto twitter\b',
                                    r'.*\bpost to twitter\b(.+)'])
 
@@ -35,4 +35,4 @@ class Twitter(Module):
 
     def __init__(self):
         tasks = [SendTweetTask()]
-        super().__init__('twitter', tasks, priority=3)
+        super(Twitter, self).__init__('twitter', tasks, priority=3)

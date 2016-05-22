@@ -25,7 +25,7 @@ VB_PATTERNS = [r'.*\b(?:search(?: for)?|look up|tell me about)\b(.*)',
 class VoiceBrowseTask(ActiveTask):
 
     def __init__(self):
-        super().__init__(patterns=VB_PATTERNS)
+        super(VoiceBrowseTask, self).__init__(patterns=VB_PATTERNS)
         self.groups = {1: 'group1'}
 
     def match(self, text):
@@ -58,4 +58,4 @@ class VoiceBrowse(Module):
 
     def __init__(self):
         tasks = [VoiceBrowseTask()]
-        super().__init__('voice_browse', tasks, priority=2)
+        super(VoiceBrowse, self).__init__('voice_browse', tasks, priority=2)

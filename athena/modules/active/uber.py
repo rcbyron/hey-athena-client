@@ -18,7 +18,7 @@ class CallUberTask(ActiveTask):
 
     def __init__(self):
         # Matches any statement with these words
-        super().__init__(patterns=[UBER_REGEX])
+        super(CallUberTask, self).__init__(patterns=[UBER_REGEX])
 
     def match(self, text):
         return self.match_and_save_groups(text, {1: 'verb', 2: 'thing'})
@@ -33,7 +33,7 @@ class CancelUberTask(ActiveTask):
 
     def __init__(self):
         # Matches any statement with these words
-        super().__init__(patterns=[CANCEL_REGEX])
+        super(CancelUberTask, self).__init__(patterns=[CANCEL_REGEX])
 
     def action(self, text):
         return ('shop', 'Canceling ride sharing request.')
@@ -44,4 +44,4 @@ class CallUber(Module):
 
     def __init__(self):
         tasks = [CallUberTask(), CancelUberTask()]
-        super().__init__('uber', tasks, priority=2)
+        super(CallUber, self).__init__('uber', tasks, priority=2)

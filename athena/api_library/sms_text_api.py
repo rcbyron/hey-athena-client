@@ -8,11 +8,12 @@ from athena.apis import api_lib
 
 URL = 'http://textbelt.com/text'
 
+
 class SmsTextApi(Api):
-    
+
     def __init__(self):
-        super().__init__('sms_text_api')
-    
+        super(SmsTextApi, self).__init__('sms_text_api')
+
     def send_text(self, text, number=None):
         if number is None:
             if hasattr(api_lib['user_api'], 'phone'):

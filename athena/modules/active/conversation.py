@@ -91,4 +91,4 @@ class Conversation(Module):
 
     def __init__(self):
         tasks = [ConversationTask()]
-        super().__init__('conversation', tasks, priority=2)
+        super(Conversation, self).__init__('conversation', tasks, priority=2)

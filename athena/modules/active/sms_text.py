@@ -17,7 +17,7 @@ from athena import settings
 class SendTextTask(ActiveTask):
 
     def __init__(self):
-        super().__init__(patterns=[r'.*\btext (.*)'])
+        super(SendTextTask, self).__init__(patterns=[r'.*\btext (.*)'])
         self.groups = {1: 'msg'}
 
     def match(self, text):
@@ -44,4 +44,4 @@ class SmsText(Module):
 
     def __init__(self):
         tasks = [SendTextTask()]
-        super().__init__('sms_text', tasks, priority=3)
+        super(SmsText, self).__init__('sms_text', tasks, priority=3)

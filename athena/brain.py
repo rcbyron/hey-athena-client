@@ -12,6 +12,11 @@ from athena import settings, stt, tts, apis, mods
 
 inst = None
 
+try:
+    input = raw_input
+except NameError:
+    pass
+
 
 def init():
     global inst

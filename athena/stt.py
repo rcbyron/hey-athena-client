@@ -5,10 +5,14 @@ Basic Speech-To-Text tools are stored here
 import pyaudio
 import speech_recognition
 
+import settings
+import tts
+import brain
+
 from sphinxbase.sphinxbase import Config, Config_swigregister
 from pocketsphinx.pocketsphinx import Decoder
 
-from athena import settings, tts, brain
+# from athena import settings, tts, brain
 
 
 def init():

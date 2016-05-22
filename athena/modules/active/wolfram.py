@@ -35,4 +35,4 @@ class Wolfram(Module):
 
     def __init__(self):
         tasks = [AnswerTask()]
-        super().__init__('wolfram', tasks, priority=0)
+        super(Wolfram, self).__init__('wolfram', tasks, priority=0)

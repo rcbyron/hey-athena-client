@@ -50,11 +50,11 @@ RESPONSES_DIR = path.join(MEDIA_DIR,  'responses')
 USERS_DIR =     path.join(DATA_DIR,   'users')
 
 
-CHROME_DRIVER = path.join(CLIENT_DIR, 'chrome', 'mac32', 'chromedriver')
+CHROME_DRIVER = path.join(CLIENT_DIR, 'chrome', 'win32', 'chromedriver.exe')
 if _platform.startswith("linux"):
     CHROME_DRIVER = path.join(CLIENT_DIR, 'chrome', 'linux32', 'chromedriver')
-elif _platform.startswith("win"):
-    CHROME_DRIVER = path.join(CLIENT_DIR, 'chrome', 'win32', 'chromedriver.exe')
+elif _platform == "darwin":
+    CHROME_DRIVER = path.join(CLIENT_DIR, 'chrome', 'mac32', 'chromedriver')
 
 
 API_DIRS = [
@@ -96,9 +96,6 @@ NO_MIC =     "I couldn't connect to a microphone."
 WOLFRAM_KEY =      '4QR84U-VY7T7AVA34'
 WUNDERGROUND_KEY = 'd647ca403a0ac94b'
 IFTTT_KEY =        ''
-
-FB_USER = ''
-FB_PASS = ''
 
 CONTACTS = {}
 

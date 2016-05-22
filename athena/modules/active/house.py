@@ -13,7 +13,7 @@ class ControlHouseTask(ActiveTask):
 
     def __init__(self):
         # Matches any statement with these words
-        super().__init__(patterns=[r'.*\b(?:turn (off|on))\b (.*)'])
+        super(ControlHouseTask, self).__init__(patterns=[r'.*\b(?:turn (off|on))\b (.*)'])
 
     def match(self, text):
         return self.match_and_save_groups(text, {1: 'verb', 2: 'thing'})
@@ -29,4 +29,4 @@ class ControlHouse(Module):
 
     def __init__(self):
         tasks = [ControlHouseTask()]
-        super().__init__('house', tasks, priority=2)
+        super(ControlHouse, self).__init__('house', tasks, priority=2)

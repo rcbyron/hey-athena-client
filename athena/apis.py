@@ -6,7 +6,7 @@ import pkgutil
 import inspect
 import traceback
 
-from athena import settings
+import settings
 
 api_lib = None
 
@@ -40,5 +40,4 @@ def verify_apis(user):
 def list_apis():
     """ List APIs """
     global api_lib
-    print('\n~ APIs: ', end='')
-    print(str(list(api_lib.keys()))[1:-1]+'\n')
+    print('\n~ APIs:', str(list(api_lib.keys()))[1:-1]+'\n')

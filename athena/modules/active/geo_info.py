@@ -18,7 +18,7 @@ class GetIPInfoTask(ActiveTask):
                        'longitude', 'isp', 'internet service provider',
                        'timezone', 'time', 'where am I', 'where are we',
                        'location']
-        super().__init__(words=match_words)
+        super(GetIPInfoTask, self).__init__(words=match_words)
 
         geo_info_api.update_data()
         self.groups = {1: 'query'}
@@ -38,4 +38,4 @@ class GeoInfo(Module):
 
     def __init__(self):
         tasks = [GetIPInfoTask()]
-        super().__init__('geo_info', tasks, priority=3)
+        super(GeoInfo, self).__init__('geo_info', tasks, priority=3)

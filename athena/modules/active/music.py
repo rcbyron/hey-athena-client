@@ -17,7 +17,7 @@ TURN_UP_SONG = 'godj.mp3'
 class PlaySongTask(ActiveTask):
 
     def __init__(self):
-        super().__init__(patterns=[r'.*\b(get turnt|turn up|play.*music)\b.*'])
+        super(PlaySongTask, self).__init__(patterns=[r'.*\b(get turnt|turn up|play.*music)\b.*'])
 
     def action(self, text):
         self.speak('Turning up...')
@@ -28,4 +28,4 @@ class Music(Module):
 
     def __init__(self):
         tasks = [PlaySongTask()]
-        super().__init__('music', tasks, priority=2)
+        super(Music, self).__init__('music', tasks, priority=2)

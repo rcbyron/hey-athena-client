@@ -34,8 +34,7 @@ def find_mods():
 def list_mods():
     """ Print modules in order """
     global mod_lib
-    print('\n~ Module Order: ', end='')
-    print(str([mod.name for mod in mod_lib])[1:-1]+'\n')
+    print('\n~ Module Order:', str([mod.name for mod in mod_lib])[1:-1]+'\n')
 
 
 def disable_mod(name):

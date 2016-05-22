@@ -41,7 +41,8 @@ def play_mp3(file_name, file_path=settings.MEDIA_DIR):
     :param file_name: top-level file name (e.g. hello.mp3)
     :param file_path: directory containing file ('media' folder by default)
     """
-    pyglet.resource.path.clear()
+    # Clear path list
+    del pyglet.resource.path[:]
     pyglet.resource.path.append(file_path)
     pyglet.resource.reindex()
 
