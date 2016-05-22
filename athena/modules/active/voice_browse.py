@@ -11,25 +11,32 @@ from athena.classes.module import Module
 from athena.classes.task import ActiveTask
 from athena.apis import api_lib
 
+VB_PATTERNS = [r'.*\b(?:search(?: for)?|look up|tell me about)\b(.*)',
+               r'.*\b(?:go to|open)(.*\.(com|org|net|edu|gov|io|html))\b',
+               r'.*\b(?:type)\b(.*)',
+               r'.*\b(?:close|shut)(?: the| this)? (tab|page)\b.*',
+               r'.*\b(?:close|shut)(?: the| this)? (browser)\b.*',
+               r'.*\b(delete|clear the)\b.*',
+               r'.*\b(maximize)\b.*',
+               r'.*\b(click)\b.*',
+               r'.*\b(?:next|switch the) (tab|page)\b.*']
+
 
 class VoiceBrowseTask(ActiveTask):
-    
+
     def __init__(self):
-        super().__init__(patterns=[r'.*\b(?:search(?: for)?|look up|tell me about)\b(.*)',
-                                   r'.*\b(?:go to|open)(.*\.(com|org|net|edu|gov|io|html))\b',
-                                   r'.*\b(?:type)\b(.*)',
-                                   r'.*\b(?:(?:close|shut)(?: the| this)? (tab|page))\b.*'
-                                   r'.*\b(?:(?:close|shut)(?: the| this)? (browser))\b.*',
-                                   r'.*\b(delete|clear the)\b.*',
-                                   r'.*\b(maximize)\b.*',
-                                   r'.*\b(click)\b.*',
-                                   r'.*\b(?:next|switch the) (tab|page)\b.*'])
+        super().__init__(patterns=VB_PATTERNS)
         self.groups = {1: 'group1'}
-    
+
     def match(self, text):
         return self.match_and_save_groups(text, self.groups)
-    
+
     def action(self, text):
+        try:
+            api_lib['voice_browse_api'].driver.current_url
+        except:
+            api_lib['voice_browse_api'].driver = None
+            print('\n~ Browser closed.')
         funcs = {
                  0: api_lib['voice_browse_api'].search,
                  1: api_lib['voice_browse_api'].open,
@@ -48,7 +55,7 @@ class VoiceBrowseTask(ActiveTask):
 
 
 class VoiceBrowse(Module):
-    
+
     def __init__(self):
         tasks = [VoiceBrowseTask()]
         super().__init__('voice_browse', tasks, priority=2)

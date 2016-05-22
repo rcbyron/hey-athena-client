@@ -5,8 +5,9 @@
 from athena.classes.api import Api
 from athena.classes.input_field import InputField
 
+
 class UserApi(Api):
-    
+
     def __init__(self):
         self.save_data = [
             InputField('username', require=True),
@@ -16,8 +17,8 @@ class UserApi(Api):
             InputField('email'),
         ]
         super().__init__('user_api')
-    
-    def name(self):    
+
+    def name(self):
         name = None
         if hasattr(self, 'nickname'):
             name = self.nickname

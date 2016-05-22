@@ -13,12 +13,14 @@ import re
 
 from athena import tts
 
+
 class Task(object):
     speak = staticmethod(tts.speak)
-    
+
     def action(self, text):
         """ Execute the task action """
         return
+
 
 class ActiveTask(Task):
     def __init__(self,
@@ -32,13 +34,13 @@ class ActiveTask(Task):
             patterns = []
         if words is None:
             words = []
-        
+
         if words:
-            p =  r'.*\b('
+            p = r'.*\b('
             p += str(words)[1:-1].replace('\'', '').replace(', ', '|')
             p += r')\b.*'
             patterns.append(p)
-        
+
         if regex_precompile:
             if regex_ignore_case:
                 self.patterns = [re.compile(p, re.IGNORECASE) for p in patterns]
@@ -46,13 +48,13 @@ class ActiveTask(Task):
                 self.patterns = [re.compile(p) for p in patterns]
         else:
             self.patterns = patterns
-        
+
         """ Tasks are matched/sorted with priority in modules """
         self.priority = priority
-        
+
         """ If task is matched, stop module from matching the proceeding tasks """
         self.greedy = greedy
-        
+
     def match(self, text):
         """ Check if the task input criteria is met """
         return self.match_any(text)
@@ -77,4 +79,3 @@ class ActiveTask(Task):
                     setattr(self, attribute_name, m.group(group_num).strip())
                 return True
         return False
-    

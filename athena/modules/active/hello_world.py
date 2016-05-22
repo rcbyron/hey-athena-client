@@ -8,6 +8,7 @@
 from athena.classes.module import Module
 from athena.classes.task import ActiveTask
 
+
 class SpeakPhrase(ActiveTask):
 
     def __init__(self):
