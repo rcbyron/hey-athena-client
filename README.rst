@@ -1,7 +1,7 @@
 Hey Athena
 ==========
 
-|https://travis-ci.org/hey-athena/hey-athena-client.svg?branch=connor-branch|
+|https://travis-ci.org/rcbyron/hey-athena-client.svg?branch=demo-branch|
 |PyPI version| |GitHub license|
 
 Overview
