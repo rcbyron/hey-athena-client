@@ -1,7 +1,7 @@
 Hey Athena
 ==========
 
-|https://travis-ci.org/rcbyron/hey-athena-client.svg?branch=demo-branch|
+|Travis Build|
 |PyPI version| |GitHub license|
 
 Overview
@@ -180,7 +180,7 @@ Common Errors
 | 
 | Other errors can be found by searching the issues on our GitHub page.
 
-.. |https://travis-ci.org/hey-athena/hey-athena-client.svg?branch=connor-branch| image:: https://travis-ci.org/hey-athena/hey-athena-client.svg?branch=connor-branch
+.. |Travis Build| image:: https://travis-ci.org/rcbyron/hey-athena-client.svg?branch=demo-branch
    :target: https://travis-ci.org/hey-athena/hey-athena-client
 .. |PyPI version| image:: https://badge.fury.io/py/heyathena.svg
    :target: https://badge.fury.io/py/heyathena
