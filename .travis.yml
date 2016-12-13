@@ -8,7 +8,7 @@ python:
   - "nightly"
 before_install:
   - sudo apt-get -qq update
-  - sudo apt-get install -y portaudio19-dev swig libavbin-dev libavbin0 libpulse-dev
+  - sudo apt-get install -y portaudio19-dev swig libavbin-dev libavbin0 python-setuptools python3-setuptools libpulse-dev
 install:
   - python setup.py install
 script:
