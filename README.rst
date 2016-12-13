@@ -11,6 +11,11 @@ Your personal voice assistant. Written in Python 3.
 
 "Hey Athena" is a 100% open-source, modular voice assistant framework. We aim to do everything that Siri, Cortana, and Echo can do - and more.
 
+**UPDATE:** Due to server issues, the main website is temporarily down. Please use the temporary links instead. Thanks :)
+
+| **Temporary Website:** http://tiny.cc/heyathena
+| **Temporary Documentation:** http://tiny.cc/heyathena-docs
+
 | **Website:** https://heyathena.com
 | **Documentation:** https://heyathena.com/docs/
 | **GitHub:** https://github.com/hey-athena/hey-athena-client
@@ -82,8 +87,7 @@ How can I make my own Athena?
 
 Installation
 ------------
-- Windows users can use the `Windows Installer <https://raw.githubusercontent.com/hey-athena/hey-athena-client/demo-branch/tools/win_install_hey_athena.bat>`_ (batch script)
-- For installation notes, please use: https://heyathena.com/docs/intro/install.html
+For installation notes, please use: https://heyathena.com/docs/intro/install.html
 
 How can I help?
 ---------------
