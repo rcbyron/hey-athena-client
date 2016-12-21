@@ -3,6 +3,12 @@
 The "InputField" class is used for required user configuration data
 
 """
+from __future__ import print_function
+
+try:
+    input = raw_input  # Python 2 fix
+except NameError:
+    pass
 
 
 class InputField(object):

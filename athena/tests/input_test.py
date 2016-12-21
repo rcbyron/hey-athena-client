@@ -1,5 +1,5 @@
 """
-    A simple test script to see if the brain is responding to input
+A simple test script to see if the brain is responding to input
 """
 import traceback
 

@@ -1,15 +1,16 @@
 """
-    Wraps the Spotify Web Player to play music
+Wraps the Spotify Web Player to play music
 
-    Usage Examples:
-        - "Open facebook.com"
-        - "Search Neil Degrasse Tyson"
-        - "Maximize the browser"
+Usage Examples:
+    - "Open facebook.com"
+    - "Search Neil Degrasse Tyson"
+    - "Maximize the browser"
 """
 
 from athena.classes.module import Module
 from athena.classes.task import ActiveTask
 from athena.apis import api_lib
+from athena import log
 
 VB_PATTERNS = [r'.*\b(?:search(?: for)?|look up|tell me about)\b(.*)',
                r'.*\b(?:go to|open)(.*\.(com|org|net|edu|gov|io|html))\b',
@@ -36,7 +37,7 @@ class VoiceBrowseTask(ActiveTask):
             api_lib['voice_browse_api'].driver.current_url
         except:
             api_lib['voice_browse_api'].driver = None
-            print('\n~ Browser closed.')
+            log.debug('Browser was closed.')
         funcs = {
                  0: api_lib['voice_browse_api'].search,
                  1: api_lib['voice_browse_api'].open,

@@ -1,0 +1,274 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>athena.stt &mdash; Hey Athena 1.3.2 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="Hey Athena 1.3.2 documentation" href="../../index.html"/>
+        <link rel="up" title="Module code" href="../index.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Hey Athena
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.3.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../intro/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/athena.html">Athena Package</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">Hey Athena</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+      
+    <li>athena.stt</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for athena.stt</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Basic Speech-To-Text tools are stored here</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">pyaudio</span>
+<span class="kn">import</span> <span class="nn">speech_recognition</span>
+
+<span class="kn">from</span> <span class="nn">athena</span> <span class="k">import</span> <span class="n">settings</span><span class="p">,</span> <span class="n">tts</span><span class="p">,</span> <span class="n">log</span>
+
+<span class="kn">from</span> <span class="nn">sphinxbase.sphinxbase</span> <span class="k">import</span> <span class="n">Config</span><span class="p">,</span> <span class="n">Config_swigregister</span>
+<span class="kn">from</span> <span class="nn">pocketsphinx.pocketsphinx</span> <span class="k">import</span> <span class="n">Decoder</span>
+
+
+<div class="viewcode-block" id="init"><a class="viewcode-back" href="../../api/athena.html#athena.stt.init">[docs]</a><span class="k">def</span> <span class="nf">init</span><span class="p">():</span>
+    <span class="c1"># Create a decoder with certain model</span>
+    <span class="n">config</span> <span class="o">=</span> <span class="n">Decoder</span><span class="o">.</span><span class="n">default_config</span><span class="p">()</span>
+    <span class="n">config</span><span class="o">.</span><span class="n">set_string</span><span class="p">(</span><span class="s1">&#39;-logfn&#39;</span><span class="p">,</span> <span class="n">settings</span><span class="o">.</span><span class="n">POCKETSPHINX_LOG</span><span class="p">)</span>
+    <span class="n">config</span><span class="o">.</span><span class="n">set_string</span><span class="p">(</span><span class="s1">&#39;-hmm&#39;</span><span class="p">,</span>   <span class="n">settings</span><span class="o">.</span><span class="n">ACOUSTIC_MODEL</span><span class="p">)</span>
+    <span class="n">config</span><span class="o">.</span><span class="n">set_string</span><span class="p">(</span><span class="s1">&#39;-lm&#39;</span><span class="p">,</span>    <span class="n">settings</span><span class="o">.</span><span class="n">LANGUAGE_MODEL</span><span class="p">)</span>
+    <span class="n">config</span><span class="o">.</span><span class="n">set_string</span><span class="p">(</span><span class="s1">&#39;-dict&#39;</span><span class="p">,</span>  <span class="n">settings</span><span class="o">.</span><span class="n">POCKET_DICT</span><span class="p">)</span>
+
+    <span class="c1"># Decode streaming data</span>
+    <span class="k">global</span> <span class="n">decoder</span><span class="p">,</span> <span class="n">p</span>
+    <span class="n">decoder</span> <span class="o">=</span> <span class="n">Decoder</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+    <span class="n">decoder</span><span class="o">.</span><span class="n">set_keyphrase</span><span class="p">(</span><span class="s1">&#39;wakeup&#39;</span><span class="p">,</span> <span class="n">settings</span><span class="o">.</span><span class="n">WAKE_UP_WORD</span><span class="p">)</span>
+    <span class="n">decoder</span><span class="o">.</span><span class="n">set_search</span><span class="p">(</span><span class="s1">&#39;wakeup&#39;</span><span class="p">)</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">pyaudio</span><span class="o">.</span><span class="n">PyAudio</span><span class="p">()</span>
+
+    <span class="k">global</span> <span class="n">r</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">speech_recognition</span><span class="o">.</span><span class="n">Recognizer</span><span class="p">()</span></div>
+    <span class="c1"># r.recognize_google(settings.LANG_4CODE)</span>
+
+
+<div class="viewcode-block" id="listen_keyword"><a class="viewcode-back" href="../../api/athena.html#athena.stt.listen_keyword">[docs]</a><span class="k">def</span> <span class="nf">listen_keyword</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot; Passively listens for the WAKE_UP_WORD string &quot;&quot;&quot;</span>
+    <span class="k">with</span> <span class="n">tts</span><span class="o">.</span><span class="n">ignore_stderr</span><span class="p">():</span>
+        <span class="k">global</span> <span class="n">decoder</span><span class="p">,</span> <span class="n">p</span>
+        <span class="n">stream</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="nb">format</span><span class="o">=</span><span class="n">pyaudio</span><span class="o">.</span><span class="n">paInt16</span><span class="p">,</span> <span class="n">channels</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">rate</span><span class="o">=</span><span class="mi">16000</span><span class="p">,</span>
+                        <span class="nb">input</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">frames_per_buffer</span><span class="o">=</span><span class="mi">1024</span><span class="p">)</span>
+        <span class="n">stream</span><span class="o">.</span><span class="n">start_stream</span><span class="p">()</span>
+        <span class="n">p</span><span class="o">.</span><span class="n">get_default_input_device_info</span><span class="p">()</span>
+
+    <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Waiting to be woken up... &quot;</span><span class="p">)</span>
+    <span class="n">decoder</span><span class="o">.</span><span class="n">start_utt</span><span class="p">()</span>
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">buf</span> <span class="o">=</span> <span class="n">stream</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">1024</span><span class="p">)</span>
+        <span class="n">decoder</span><span class="o">.</span><span class="n">process_raw</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">decoder</span><span class="o">.</span><span class="n">hyp</span><span class="p">()</span> <span class="ow">and</span> <span class="n">decoder</span><span class="o">.</span><span class="n">hyp</span><span class="p">()</span><span class="o">.</span><span class="n">hypstr</span> <span class="o">==</span> <span class="n">settings</span><span class="o">.</span><span class="n">WAKE_UP_WORD</span><span class="p">:</span>
+            <span class="n">decoder</span><span class="o">.</span><span class="n">end_utt</span><span class="p">()</span>
+            <span class="k">return</span>
+    <span class="n">decoder</span><span class="o">.</span><span class="n">end_utt</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="active_listen"><a class="viewcode-back" href="../../api/athena.html#athena.stt.active_listen">[docs]</a><span class="k">def</span> <span class="nf">active_listen</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Actively listens for speech to translate into text</span>
+<span class="sd">    :return: speech input as a text string</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">global</span> <span class="n">r</span>
+    <span class="c1"># use the default microphone as the audio source</span>
+    <span class="k">with</span> <span class="n">tts</span><span class="o">.</span><span class="n">ignore_stderr</span><span class="p">():</span>
+        <span class="k">with</span> <span class="n">speech_recognition</span><span class="o">.</span><span class="n">Microphone</span><span class="p">()</span> <span class="k">as</span> <span class="n">src</span><span class="p">:</span>
+            <span class="c1"># listen for 1 second to adjust energy threshold for ambient noise</span>
+            <span class="c1"># r.adjust_for_ambient_noise(src)</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Active listening... &quot;</span><span class="p">)</span>
+            <span class="n">tts</span><span class="o">.</span><span class="n">play_mp3</span><span class="p">(</span><span class="s1">&#39;double-beep.mp3&#39;</span><span class="p">)</span>
+
+            <span class="c1"># listen for the first phrase and extract it into audio data</span>
+            <span class="n">audio</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
+
+    <span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">recognize_google</span><span class="p">(</span><span class="n">audio</span><span class="p">)</span>  <span class="c1"># recognize speech using Google STT</span>
+    <span class="k">except</span> <span class="n">speech_recognition</span><span class="o">.</span><span class="n">UnknownValueError</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Google Speech Recognition could not understand audio&quot;</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">speech_recognition</span><span class="o">.</span><span class="n">RequestError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Could not request results from Google STT; </span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Unknown exception occurred!&quot;</span><span class="p">)</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">msg</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Connor Byron, Sahil Shah.
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.3.2',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

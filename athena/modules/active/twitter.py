@@ -25,7 +25,7 @@ class SendTweetTask(ActiveTask):
         return self.match_and_save_groups(text, {1: 'tweet'})
 
     def action(self, text):
-        self.tweet += ' - sent from Hey Athena'
+        self.tweet += ' - from Athena'
         print('\n~ Tweet: '+self.tweet)
         self.speak('Sending tweet... ', show_text=True)
         ifttt.trigger('voice_tweet', self.tweet)

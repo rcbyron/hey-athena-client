@@ -6,7 +6,7 @@ import pkgutil
 import inspect
 import traceback
 
-from athena import settings
+from athena import settings, log
 
 mod_lib = None
 
@@ -15,7 +15,7 @@ def find_mods():
     """ Find and import modules from the module directories """
     global mod_lib
     mod_lib = []
-    print('~ Looking for modules in:', settings.MOD_DIRS)
+    log.debug('Looking for modules in: '+str(settings.MOD_DIRS))
     for finder, name, _ in pkgutil.iter_modules(settings.MOD_DIRS):
         try:
             mod = finder.find_module(name).load_module(name)
@@ -27,21 +27,21 @@ def find_mods():
                             mod_lib.append(obj())
         except Exception as e:
             print(traceback.format_exc())
-            print('\n~ Error loading \''+name+'\' '+str(e))
+            log.error('Error loading \''+name+'\' '+str(e))
     mod_lib.sort(key=lambda mod: mod.priority, reverse=True)
 
 
 def list_mods():
     """ Print modules in order """
     global mod_lib
-    print('\n~ Module Order:', str([mod.name for mod in mod_lib])[1:-1]+'\n')
+    log.info('Module Order: '+str([mod.name for mod in mod_lib])[1:-1]+'\n')
 
 
 def disable_mod(name):
     global mod_lib
     for mod in mod_lib:
         if name in mod.name:
-            print('\n~ Disabling: '+name+'\n')
+            log.info('Disabling: '+name+'\n')
             mod.enabled = False
 
 
@@ -49,5 +49,5 @@ def enable_mod(name):
     global mod_lib
     for mod in mod_lib:
         if name in mod.name:
-            print('\n~ Enabling: '+name+'\n')
+            log.info('Enabling: '+name+'\n')
             mod.enabled = True

@@ -1,8 +1,10 @@
 """
-        File Name: hello_world.py
-        Shop with your voice
-        Usage Examples:
-        - "Order me some pizza"
+File Name: uber.py
+
+This module demonstrates how you could call an uber
+
+Usage Examples:
+- "Order me an uber"
 """
 
 from athena.classes.module import Module
@@ -21,12 +23,11 @@ class CallUberTask(ActiveTask):
         super(CallUberTask, self).__init__(patterns=[UBER_REGEX])
 
     def match(self, text):
+        # Matches the 1 & 2 regex capture groups and stores them in variables
         return self.match_and_save_groups(text, {1: 'verb', 2: 'thing'})
 
     def action(self, text):
-        if self.verb.lower() == "call":
-            return ('shop', 'Calling you '+self.thing+'.')
-        return ('shop', 'Requesting '+self.thing+' for you.')
+        return self.speak('Requesting '+self.thing+' for you.')
 
 
 class CancelUberTask(ActiveTask):
@@ -36,7 +37,7 @@ class CancelUberTask(ActiveTask):
         super(CancelUberTask, self).__init__(patterns=[CANCEL_REGEX])
 
     def action(self, text):
-        return ('shop', 'Canceling ride sharing request.')
+        return self.speak('Canceling ride sharing request.')
 
 
 # This is a bare-minimum module

@@ -1,12 +1,10 @@
 """
-
 The "Task" class represents an action to be performed
 
 The "ActiveTask" class uses the "match" method to trigger an action.
 Generally regex patterns are supplied to do the input matching.
 The "match" method can be overriden with "return match_any(text)" to
 trigger an action upon matching any given regex pattern.
-
 """
 
 import re
@@ -49,10 +47,10 @@ class ActiveTask(Task):
         else:
             self.patterns = patterns
 
-        """ Tasks are matched/sorted with priority in modules """
+        # Tasks are matched/sorted with priority in modules
         self.priority = priority
 
-        """ If task is matched, stop module from matching the proceeding tasks """
+        # If task is matched, stop module from matching the proceeding tasks
         self.greedy = greedy
 
     def match(self, text):
@@ -67,9 +65,8 @@ class ActiveTask(Task):
         return False
 
     def match_and_save_groups(self, text, group_key_dict):
-        """
-            Check if any patterns match,
-            If so, save the match groups to self.(key name)
+        """ Check if any patterns match,
+        If so, save the match groups to self.(key name)
         """
         for case, p in enumerate(self.patterns):
             m = p.match(text)

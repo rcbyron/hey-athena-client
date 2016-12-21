@@ -1,9 +1,14 @@
 """
-    A simple test script for passive/active listening
+A simple test script for passive/active listening
 """
 import traceback
 
-from athena import settings
+from athena import settings, tts
+
+try:
+    input = raw_input  # Python 2 fix
+except NameError:
+    pass
 
 print('---- Running Microphone Test ----')
 
@@ -12,6 +17,7 @@ try:
     import athena.stt as stt
     print('~ Initializing stt.py...')
     stt.init()
+    tts.init()
     
     text = ''
     while 'q' not in text.lower():
@@ -22,7 +28,8 @@ try:
             stt.listen_keyword()
             print('~ Wake Up Word Detected!')
         elif 'a' in text.lower():
-            stt.active_listen()
+            text = stt.active_listen()
+            print("~ Text received: "+text)
     
     print('\nMicrophone Test PASSED! :)\n')
 except Exception as e:

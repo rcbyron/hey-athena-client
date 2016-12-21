@@ -1,11 +1,10 @@
 language: python
 python:
-  - "3.2"
+  - "2.7"
   - "3.3"
   - "3.4"
   - "3.5"
   - "3.5-dev"
-  - "nightly"
 before_install:
   - sudo apt-get -qq update
   - sudo apt-get install -y portaudio19-dev swig libavbin-dev libavbin0 python-setuptools python3-setuptools libpulse-dev

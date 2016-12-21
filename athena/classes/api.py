@@ -1,11 +1,9 @@
 """
-
 The "Api" class is used when an instance
 of an API is required in the athena.apis.api_lib
 
 Use "from athena.apis import api_lib" & "api_lib['(api_name_key)']"
 to access instances of APIs.
-
 """
 import traceback
 
@@ -20,8 +18,7 @@ class Api(object):
         self.enabled = enabled
 
     def verify_data(self, user):
-        """
-        Verify that the current user .yml file
+        """ Verify that the current user .yml file
         has required save_data attributes
         """
         try:

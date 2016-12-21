@@ -1,9 +1,9 @@
 """
-
 Global settings are stored here
-
 """
 
+import logging
+import sys
 import speech_recognition as sr
 
 from os import mkdir, path
@@ -49,20 +49,24 @@ INPUTS_DIR =    path.join(MEDIA_DIR,  'example_inputs')
 RESPONSES_DIR = path.join(MEDIA_DIR,  'responses')
 USERS_DIR =     path.join(DATA_DIR,   'users')
 
+LOG_NAME = 'athena'
+LOG_FILE = path.join(LOGS_DIR, LOG_NAME+'.log')
+LOG_LEVEL = logging.DEBUG
+
 
 CHROME_DRIVER = path.join(CLIENT_DIR, 'chrome', 'win32', 'chromedriver.exe')
 if _platform.startswith("linux"):
     CHROME_DRIVER = path.join(CLIENT_DIR, 'chrome', 'linux32', 'chromedriver')
 elif _platform == "darwin":
-    CHROME_DRIVER = path.join(CLIENT_DIR, 'chrome', 'mac32', 'chromedriver')
+    CHROME_DRIVER = path.join(CLIENT_DIR, 'chrome', 'mac64', 'chromedriver')
 
 
 API_DIRS = [
-    # Add your custom api directory strings here (e.g. - "C:/myapis")
+    # Add your custom api directory strings here (e.g. - "C:/my_custom_api_dir")
 ]
 API_DIRS.extend(api_library.__path__)
 MOD_DIRS = [
-
+    # Add your custom api directory strings here (e.g. - "C:/my_custom_mod_dir")
 ]
 MOD_DIRS.extend(active_mods.__path__)
 

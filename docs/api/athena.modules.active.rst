@@ -17,26 +17,10 @@ athena.modules.active.athena_control module
     :undoc-members:
     :show-inheritance:
 
-athena.modules.active.bitcoin module
-------------------------------------
-
-.. automodule:: athena.modules.active.bitcoin
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
 athena.modules.active.conversation module
 -----------------------------------------
 
 .. automodule:: athena.modules.active.conversation
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-athena.modules.active.emotion module
-------------------------------------
-
-.. automodule:: athena.modules.active.emotion
     :members:
     :undoc-members:
     :show-inheritance:
@@ -49,6 +33,22 @@ athena.modules.active.geo_info module
     :undoc-members:
     :show-inheritance:
 
+athena.modules.active.google module
+-----------------------------------
+
+.. automodule:: athena.modules.active.google
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+athena.modules.active.hello_world module
+----------------------------------------
+
+.. automodule:: athena.modules.active.hello_world
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 athena.modules.active.music module
 ----------------------------------
 
@@ -57,10 +57,18 @@ athena.modules.active.music module
     :undoc-members:
     :show-inheritance:
 
-athena.modules.active.spotify module
-------------------------------------
+athena.modules.active.shop module
+---------------------------------
 
-.. automodule:: athena.modules.active.spotify
+.. automodule:: athena.modules.active.shop
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+athena.modules.active.sms_text module
+-------------------------------------
+
+.. automodule:: athena.modules.active.sms_text
     :members:
     :undoc-members:
     :show-inheritance:
@@ -73,18 +81,18 @@ athena.modules.active.twitter module
     :undoc-members:
     :show-inheritance:
 
-athena.modules.active.voice_browse module
------------------------------------------
+athena.modules.active.uber module
+---------------------------------
 
-.. automodule:: athena.modules.active.voice_browse
+.. automodule:: athena.modules.active.uber
     :members:
     :undoc-members:
     :show-inheritance:
 
-athena.modules.active.weather module
-------------------------------------
+athena.modules.active.voice_browse module
+-----------------------------------------
 
-.. automodule:: athena.modules.active.weather
+.. automodule:: athena.modules.active.voice_browse
     :members:
     :undoc-members:
     :show-inheritance:

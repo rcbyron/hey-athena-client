@@ -1,14 +1,14 @@
 """
-    Finds and returns the latest bitcoin price
+A module for controlling Athena
 
-    Usage Examples:
-        - "What is the price of bitcoin?"
-        - "How much is a bitcoin worth?"
+Usage Examples:
+    - "Athena stop"
+    - "Enable Google"
 """
 
 from athena.classes.module import Module
 from athena.classes.task import ActiveTask
-from athena import brain
+from athena import brain, log
 
 
 class QuitTask(ActiveTask):
@@ -39,10 +39,12 @@ class ToggleModuleTask(ActiveTask):
         return self.match_and_save_groups(text, self.groups)
 
     def action(self, text):
-        mod_name = self.module.lower().strip().replace(' ', '_')
+        mod_name = self.module.lower().strip().replace(' ', '')
         if 'disable' in self.enable.lower() or 'remove' in self.enable.lower():
+            log.info("Attempting to disable '"+mod_name+"'")
             brain.inst.disable_mod(mod_name)
         else:
+            log.info("Attempting to enable '"+mod_name+"'")
             brain.inst.enable_mod(mod_name)
 
 

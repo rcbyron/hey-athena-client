@@ -8,11 +8,8 @@ import yaml
 from athena import settings
 from athena.apis import api_lib
 
-
 def block_print(title):
-    """
-    Prints a title block
-    """
+    """ Prints a pretty title block """
     if not title:
         title = '(empty)'
     length = len(title)+10
@@ -24,9 +21,7 @@ def block_print(title):
 
 
 def generate():
-    """
-    Generates a user .yml config file
-    """
+    """ Generates a user .yml config file """
     block_print('USER CONFIG FILE GENERATOR')
     print('~ Please let me learn some things about you :)\n')
     print('~ Required fields are denoted with a \'*\'\n')

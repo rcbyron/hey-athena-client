@@ -1,11 +1,11 @@
-'''
+"""
 Created on Jan 21, 2016
 
 @author: Connor
 
 https://packaging.python.org/en/latest/distributing.html
 https://github.com/pypa/sampleproject
-'''
+"""
 # Always prefer setuptools over distutils
 from setuptools import setup, find_packages
 
@@ -25,20 +25,20 @@ setup(
     # Versions should comply with PEP440.  For a discussion on single-sourcing
     # the version across setup.py and the project code, see
     # https://packaging.python.org/en/latest/single_source_version.html
-    version='1.2.2',
+    version='1.3.2',
 
     description='Your personal voice assistant',
     long_description=long_description,
 
     # The project's main homepage.
-    url='http://heyathena.com/docs/',
+    url='https://heyathena.com',
 
     # Author details
     author='Hey Athena',
     author_email='connor@heyathena.com',
 
     # Choose your license
-    license='GPLv3',
+    license='MIT',
 
     # See https://pypi.python.org/pypi?%3Aaction=list_classifiers
     classifiers=[
@@ -54,12 +54,14 @@ setup(
         'Topic :: Scientific/Engineering :: Human Machine Interfaces',
 
         # Pick your license as you wish (should match "license" above)
-        'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',
+        'License :: OSI Approved :: MIT License',
 
         # Specify the Python versions you support here. In particular, ensure
         # that you indicate whether you support Python 2, Python 3 or both.
+        'Programming Language :: Python',
+        'Programming Language :: Python :: 2',
+        'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.2',
         'Programming Language :: Python :: 3.3',
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
@@ -77,7 +79,7 @@ setup(
     # requirements files see:
     # https://packaging.python.org/en/latest/requirements.html
     install_requires=['pocketsphinx', 'pyaudio', 'SpeechRecognition', 'gTTS',
-                      'pyglet', 'pyyaml', 'wolframalpha', 'selenium'],
+                      'pyglet', 'wolframalpha', 'selenium', 'requests', 'pyyaml'],
 
     # List additional groups of dependencies here (e.g. development
     # dependencies). You can install these using the following syntax,

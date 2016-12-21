@@ -1,9 +1,9 @@
 """
-    A simple module for playing music
+A simple module for playing music
 
-    Usage Examples:
-        - "Play some music"
-        - "Turn up!"
+Usage Examples:
+    - "Play some music"
+    - "Turn up!"
 """
 
 from athena.classes.module import Module

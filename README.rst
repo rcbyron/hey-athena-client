@@ -1,8 +1,7 @@
 Hey Athena
 ==========
 
-|Travis Build|
-|PyPI version| |GitHub license|
+|Travis Build| |PyPI version| |GitHub license|
 
 Overview
 --------
@@ -22,8 +21,7 @@ Say "Athena" *(wait for double beep)* then...
 
 -  "Play some music"
 -  "Text [Joe] [Wow, Hey Athena is so cool!]"
--  "Tweet [Hello world!]" (IFTTT key
-   required)
+-  "Tweet [Hello world!]" (IFTTT key required)
 -  "Define [artificial intelligence]"
 -  "Show me pictures of [Taj Mahal]"
 -  "Open facebook.com"
@@ -68,7 +66,7 @@ HTTP RESTful API
 We are currently developing a cloud-hosted RESTful API (JSON) service.
 Users will be able to send HTTP requests and receive a voice/text JSON response.  
 
-**Current:** ``https://heyathena.com/api/?q=test``
+**Current:** ``https://heyathena.com/api?q=test``
 
 **Future:** ``HTTP GET https://heyathena.com/api/{api_key}/q=list%20bitcoin%20price``  
 
@@ -88,8 +86,7 @@ For installation notes, please use: https://heyathena.com/docs/intro/install.htm
 How can I help?
 ---------------
 
--  Write modules and contribute them by submitting a pull request to
-   this repository
+-  Write modules and contribute them by submitting a pull request to this repository
 -  Find errors and post issues
 -  If you modify the framework software, submit a pull request
 -  Give feedback and help us build a community!
@@ -116,13 +113,13 @@ priority is taken into account first, then task priority.
 
 .. code:: python
 
-	"""
-		File Name: hello_world.py
-		Finds and returns the latest bitcoin price
+    """
+    File Name: hello_world.py
+    Finds and returns the latest bitcoin price
 
-		Usage Examples:
-		- "What is the price of bitcoin?"
-		- "How much is a bitcoin worth?"
+    Usage Examples:
+    - "What is the price of bitcoin?"
+    - "How much is a bitcoin worth?"
 	"""
 
 	from athena.classes.module import Module

@@ -9,14 +9,6 @@ athena.api_library package
 Submodules
 ----------
 
-athena.api_library.bitcoin_api module
--------------------------------------
-
-.. automodule:: athena.api_library.bitcoin_api
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
 athena.api_library.geo_info_api module
 --------------------------------------
 
@@ -33,10 +25,10 @@ athena.api_library.ifttt_api module
     :undoc-members:
     :show-inheritance:
 
-athena.api_library.spotify_api module
--------------------------------------
+athena.api_library.sms_text_api module
+--------------------------------------
 
-.. automodule:: athena.api_library.spotify_api
+.. automodule:: athena.api_library.sms_text_api
     :members:
     :undoc-members:
     :show-inheritance:
@@ -53,14 +45,6 @@ athena.api_library.voice_browse_api module
 ------------------------------------------
 
 .. automodule:: athena.api_library.voice_browse_api
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-athena.api_library.weather_api module
--------------------------------------
-
-.. automodule:: athena.api_library.weather_api
     :members:
     :undoc-members:
     :show-inheritance:

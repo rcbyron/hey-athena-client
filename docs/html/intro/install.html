@@ -1,0 +1,311 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Installation &mdash; Hey Athena 1.3.2 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="Hey Athena 1.3.2 documentation" href="../index.html"/>
+        <link rel="up" title="Getting Started" href="index.html"/>
+        <link rel="next" title="Hello World" href="tutorial.html"/>
+        <link rel="prev" title="Overview" href="overview.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Hey Athena
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.3.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Getting Started</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Installation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#ubuntu-raspberry-pi-linux">Ubuntu/Raspberry Pi/Linux</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#windows">Windows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mac-os-x">Mac OS X</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#developer-github-installation">Developer (GitHub) Installation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#okay-i-think-i-ve-installed-everything-now-what">Okay I think I&#8217;ve installed everything. Now what?</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html">Hello World</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../api/athena.html">Athena Package</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">Hey Athena</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="index.html">Getting Started</a> &raquo;</li>
+      
+    <li>Installation</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/intro/install.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="installation">
+<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
+<p>For troubleshooting, use the &#8220;Developer (GitHub) Installation&#8221;. Post any issues (with detailed error messages) to the GitHub repository.
+It is highly recommended that you use a virtual environment such as &#8220;anaconda&#8221; or &#8220;miniconda&#8221; for a clean installation.</p>
+<div class="section" id="ubuntu-raspberry-pi-linux">
+<h2>Ubuntu/Raspberry Pi/Linux<a class="headerlink" href="#ubuntu-raspberry-pi-linux" title="Permalink to this headline">¶</a></h2>
+<p>NOTE: Better Raspberry Pi support is coming in future versions</p>
+<ul class="simple">
+<li>For Python 2, replace python3 with python</li>
+<li><code class="docutils literal"><span class="pre">sudo</span> <span class="pre">apt-get</span> <span class="pre">update</span> <span class="pre">-y</span></code></li>
+<li><code class="docutils literal"><span class="pre">sudo</span> <span class="pre">apt-get</span> <span class="pre">install</span> <span class="pre">-y</span> <span class="pre">python3</span> <span class="pre">build-essential</span> <span class="pre">swig</span> <span class="pre">portaudio19-dev</span> <span class="pre">python3-pyaudio</span> <span class="pre">flac</span> <span class="pre">libpulse-dev</span></code></li>
+<li><code class="docutils literal"><span class="pre">sudo</span> <span class="pre">pip3</span> <span class="pre">install</span> <span class="pre">HeyAthena</span></code></li>
+<li>Install AVBin 10:
+- Choose 32-bit or 64-bit depending on your OS/python version
+-  32-bit: <code class="docutils literal"><span class="pre">wget</span> <span class="pre">https://github.com/downloads/AVbin/AVbin/install-avbin-linux-x86-32-v10</span></code>
+-  64-bit: <code class="docutils literal"><span class="pre">wget</span> <span class="pre">wget</span> <span class="pre">https://github.com/downloads/AVbin/AVbin/install-avbin-linux-x86-64-v10</span></code>
+-  <code class="docutils literal"><span class="pre">chmod</span> <span class="pre">+x</span> <span class="pre">./install-avbin-linux-XXX-XX-v10</span></code>
+-  <code class="docutils literal"><span class="pre">sudo</span> <span class="pre">./install-avbin-linux-XXX-XX-v10</span></code></li>
+<li><code class="docutils literal"><span class="pre">python3</span></code></li>
+<li><code class="docutils literal"><span class="pre">&gt;&gt;&gt;</span> <span class="pre">from</span> <span class="pre">athena</span> <span class="pre">import</span> <span class="pre">__main__</span></code></li>
+</ul>
+</div>
+<div class="section" id="windows">
+<h2>Windows<a class="headerlink" href="#windows" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Install SWIG (can be removed after installing):<ul>
+<li><a class="reference external" href="http://www.swig.org/download.html">http://www.swig.org/download.html</a></li>
+<li>Download swigwin-3.X.X and place swig.exe in your environment PATH</li>
+</ul>
+</li>
+<li><code class="docutils literal"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">pip</span> <span class="pre">install</span> <span class="pre">pyaudio</span></code></li>
+<li>Install AVBin 10 (for audio):<ul>
+<li><a class="reference external" href="http://avbin.github.io/AVbin/Download.html">http://avbin.github.io/AVbin/Download.html</a></li>
+<li>Verify that the avbin.dll or avbin64.dll was placed in SysWOW64 not System32</li>
+</ul>
+</li>
+<li><code class="docutils literal"><span class="pre">pip3</span> <span class="pre">install</span> <span class="pre">HeyAthena</span></code></li>
+<li>Now open up Python 3 and run <code class="docutils literal"><span class="pre">&gt;&gt;&gt;</span> <span class="pre">from</span> <span class="pre">athena</span> <span class="pre">import</span> <span class="pre">__main__</span></code></li>
+</ul>
+</div>
+<div class="section" id="mac-os-x">
+<h2>Mac OS X<a class="headerlink" href="#mac-os-x" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Using Homebrew package manager, type <code class="docutils literal"><span class="pre">brew</span> <span class="pre">install</span> <span class="pre">swig</span></code></li>
+<li><code class="docutils literal"><span class="pre">brew</span> <span class="pre">install</span> <span class="pre">portaudio</span></code> <code class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">pyaudio</span></code></li>
+<li>Install AVBin 10:<ul>
+<li><a class="reference external" href="http://avbin.github.io/AVbin/Download.html">http://avbin.github.io/AVbin/Download.html</a></li>
+</ul>
+</li>
+<li><code class="docutils literal"><span class="pre">pip3</span> <span class="pre">install</span> <span class="pre">HeyAthena</span></code></li>
+<li>Now open up Python 3 and run <code class="docutils literal"><span class="pre">&gt;&gt;&gt;</span> <span class="pre">from</span> <span class="pre">athena</span> <span class="pre">import</span> <span class="pre">__main__</span></code></li>
+</ul>
+</div>
+<div class="section" id="developer-github-installation">
+<h2>Developer (GitHub) Installation<a class="headerlink" href="#developer-github-installation" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Install SWIG, PyAudio, and AVBin using the directions above (depending on your operating system)</li>
+<li><code class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-U</span> <span class="pre">pip</span> <span class="pre">setuptools</span> <span class="pre">wheel</span></code></li>
+<li><code class="docutils literal"><span class="pre">pip3</span> <span class="pre">install</span> <span class="pre">-U</span> <span class="pre">pocketsphinx</span> <span class="pre">pyaudio</span> <span class="pre">SpeechRecognition</span> <span class="pre">pyglet</span> <span class="pre">gTTS</span> <span class="pre">pyyaml</span> <span class="pre">wolframalpha</span> <span class="pre">selenium</span></code></li>
+<li>Clone or download the <code class="docutils literal"><span class="pre">hey-athena-client</span></code> git repository</li>
+<li>Add <code class="docutils literal"><span class="pre">C:\path\to\hey-athena-client</span></code> to your <code class="docutils literal"><span class="pre">PYTHONPATH</span></code> system or
+user environment variable<ul>
+<li>Eclipse (PyDev) has an option for this while importing the project from Git</li>
+</ul>
+</li>
+<li><code class="docutils literal"><span class="pre">cd</span> <span class="pre">hey-athena-client-master\client</span></code></li>
+<li><code class="docutils literal"><span class="pre">python</span> <span class="pre">__main__.py</span></code></li>
+</ul>
+</div>
+<div class="section" id="okay-i-think-i-ve-installed-everything-now-what">
+<h2>Okay I think I&#8217;ve installed everything. Now what?<a class="headerlink" href="#okay-i-think-i-ve-installed-everything-now-what" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p class="first">If all goes well, create a user, say &#8220;Athena&#8221;, and ask her a question!</p>
+</li>
+<li><dl class="first docutils">
+<dt>If errors occur, try debugging by importing athena unit tests:</dt>
+<dd><ul class="first last simple">
+<li><code class="docutils literal"><span class="pre">from</span> <span class="pre">athena.tests</span> <span class="pre">import</span> <span class="pre">dependencies_test</span></code></li>
+<li><code class="docutils literal"><span class="pre">from</span> <span class="pre">athena.tests</span> <span class="pre">import</span> <span class="pre">input_test</span></code></li>
+<li><code class="docutils literal"><span class="pre">from</span> <span class="pre">athena.tests</span> <span class="pre">import</span> <span class="pre">mic_test</span></code></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p class="first">Otherwise post an issue describing the error to the GitHub repository linked above</p>
+</li>
+<li><p class="first">Continue to personalize Athena by writing your own module</p>
+</li>
+<li><p class="first">You can add modules/edit the client in Python&#8217;s site-packages/athena
+folder</p>
+</li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="tutorial.html" class="btn btn-neutral float-right" title="Hello World" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="overview.html" class="btn btn-neutral" title="Overview" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Connor Byron, Sahil Shah.
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.3.2',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

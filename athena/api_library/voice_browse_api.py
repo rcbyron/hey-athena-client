@@ -14,16 +14,16 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 
 from athena.classes.api import Api
-from athena import settings
+from athena import settings, log
 
 GOOGLE_URL = 'https://www.google.com/search?gs_ivs=1&q='
 
 OS_KEY = Keys.CONTROL
 if _platform == "darwin":
-    OS_KEY = Keys.COMMAND
-NW_TAB = OS_KEY+'n'
-CL_TAB = OS_KEY+'w'
-SW_TAB = OS_KEY+Keys.TAB
+    OS_KEY = Keys.COMMAND  # use CMD key for Mac
+NW_TAB = OS_KEY+'n'  # new tab
+CL_TAB = OS_KEY+'w'  # close tab
+SW_TAB = OS_KEY+Keys.TAB  # switch tab
 
 
 class VoiceBrowseApi(Api):
@@ -45,7 +45,7 @@ class VoiceBrowseApi(Api):
                 self.driver = webdriver.Firefox()
         else:
             if new_tab:
-                print('\n~ Opening new tab...')
+                log.info('Opening new tab...')
                 self.driver.find_element_by_tag_name('body').send_keys(NW_TAB)
         if url:
             if not url[0:4] == 'http':
@@ -64,7 +64,7 @@ class VoiceBrowseApi(Api):
                 self.driver.current_url()
             except:
                 self.driver = None
-                print('\n~ Browser closed.')
+                log.debug('Browser was closed.')
 
     def switch_tab(self):
         if self.driver:
@@ -75,7 +75,7 @@ class VoiceBrowseApi(Api):
             self.driver.maximize_window()
 
     def search(self, q):
-        print('\n~ Answering with Google...\n')
+        log.info('Answering with Google...')
         self.open(GOOGLE_URL+quote_plus(q), new_tab=False)
 
     def clear(self):

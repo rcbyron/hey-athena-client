@@ -1,19 +1,20 @@
 """
-    The "Brain" class handles most of Hey Athena's processing.
-    To listen for input, use ``brain.inst.run()``
+The "Brain" class handles most of Hey Athena's processing.
+To listen for input, use ``brain.inst.run()``
 """
+from __future__ import print_function
 
 import traceback
 import os
-import yaml
 import re
+import yaml
 
-from athena import settings, stt, tts, apis, mods
+from athena import settings, stt, tts, apis, mods, log
 
 inst = None
 
 try:
-    input = raw_input
+    input = raw_input  # Python 2 fix
 except NameError:
     pass
 
@@ -26,17 +27,18 @@ def init():
 class Brain():
     def __init__(self):
         """
-            First look for and initialize APIs in the "api_library" folder.
-            Then prompt the user to log in.
-            Next verify that the user's .yml file is configured for each API.
-            If an API's required configuration variables are not found,
-            then the API is disabled.
-            Next it finds and loads modules in the "modules" folder.
-            Lastly, it initializes the STT engine.
+        First look for and initialize APIs in the "api_library" folder.
+        Then prompt the user to log in.
+        Next verify that the user's .yml file is configured for each API.
+        If an API's required configuration variables are not found,
+        then the API is disabled.
+        Next it finds and loads modules in the "modules" folder.
+        Lastly, it initializes the STT engine.
 
-            Use "from athena.apis import api_lib" & "api_lib['(api_name_key)']"
-            to access instances of APIs.
+        Use "from athena.apis import api_lib" & "api_lib['(api_name_key)']"
+        to access instances of APIs.
         """
+
         apis.find_apis()
         self.login()
 
@@ -74,7 +76,7 @@ class Brain():
         """ Load (username).yml data into the user """
         with open(os.path.join(settings.USERS_DIR, username+'.yml'), 'r') as f:
             self.user = yaml.load(f)
-            print('\n~ Logged in as: '+self.user['user_api']['username'])
+            log.debug('Logged in as: '+self.user['user_api']['username'])
 
     def login(self):
         self.verify_user_exists()
@@ -160,7 +162,7 @@ class Brain():
         for mod in mods:
             if re.search('^.*\\b'+mod.name+'\\b.*$',  mod_select, re.IGNORECASE):
                 return mod
-        print('\n~ No module name found.\n')
+        log.info('No module name found.')
 
     def match_mods(self, text):
         """ Attempts to match a modules and their tasks """
@@ -180,13 +182,31 @@ class Brain():
             if len(mod.task_queue):
                 self.matched_mods.append(mod)
 
+    def list_mods(self):
+        print("~ Modules (highest priority first): ")
+        for mod in mods.mod_lib:
+            print("  - "+mod.name)
+
+    def enable_mod(self, name):
+        for mod in mods.mod_lib:
+            if mod.name == name:
+                mod.enabled = True
+                log.info(mod.name+" enabled.")
+
+
+    def disable_mod(self, name):
+        for mod in mods.mod_lib:
+            if mod.name == name:
+                mod.enabled = False
+                log.info(mod.name + " disabled.")
+
     def error(self):
         """ Inform the user that an error occurred """
         tts.speak(settings.ERROR)
         text = input('Continue? (Y/N) ')
         # response = stt.active_listen()
         if 'y' in text.lower():
-            print(traceback.format_exc())
+            log.error(traceback.format_exc())
 
     def quit(self):
         self.quit_flag = True
@@ -203,23 +223,23 @@ class Brain():
                 else:
                     text = input('> ')
                 if not text:
-                    print('\n~ No text input received.\n')
+                    log.info('No text input received.')
                     continue
 
                 self.match_mods(text)
                 self.execute_mods(text)
             except OSError as e:
                 if 'Invalid input device' in str(e):
-                    print(settings.NO_MIC+'\n')
+                    log.error(settings.NO_MIC+'\n')
                     settings.USE_STT = False
                     continue
                 else:
                     raise Exception
-            except EOFError:
-                print('\n\n~ Shutting down...')
+            except (EOFError, KeyboardInterrupt):
+                log.info('Shutting down...')
                 break
             except:
-                print("(runtime error)")
+                log.error("(runtime error)")
                 self.error()
 
-        print('\n~ Arrivederci.')
+        log.info('Arrivederci.')

@@ -1,8 +1,8 @@
 """
-        File Name: hello_world.py
-        Shop with your voice
-        Usage Examples:
-        - "Order me some pizza"
+File Name: hello_world.py
+Shop with your voice
+Usage Examples:
+- "Order me some pizza"
 """
 
 from athena.classes.module import Module

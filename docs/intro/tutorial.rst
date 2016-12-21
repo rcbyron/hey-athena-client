@@ -10,12 +10,12 @@ Here is an example module (add to ".../athena/modules/active")
 .. code:: python
 
 	"""
-		File Name: hello_world.py
-		Finds and returns the latest bitcoin price
+    File Name: hello_world.py
+    Finds and returns the latest bitcoin price
 
-		Usage Examples:
-		- "What is the price of bitcoin?"
-		- "How much is a bitcoin worth?"
+    Usage Examples:
+    - "What is the price of bitcoin?"
+    - "How much is a bitcoin worth?"
 	"""
 
 	from athena.classes.module import Module
@@ -45,3 +45,5 @@ Here is an example module (add to ".../athena/modules/active")
 		def __init__(self):
 			tasks = [GetValueTask()]
 			super().__init__('bitcoin', tasks, priority=2)
+
+For more examples, check the ".../athena/modules/active" folder.

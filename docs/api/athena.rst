@@ -42,6 +42,22 @@ athena.config module
     :undoc-members:
     :show-inheritance:
 
+athena.log module
+-----------------
+
+.. automodule:: athena.log
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+athena.mods module
+------------------
+
+.. automodule:: athena.mods
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 athena.settings module
 ----------------------
 

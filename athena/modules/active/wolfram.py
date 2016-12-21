@@ -1,12 +1,12 @@
 """
-    Handles most general questions (including math!)
+Handles most general questions (including math!)
 
-    Requires:
-        - WolframAlpha API key
+Requires:
+    - WolframAlpha API key
 
-    Usage Examples:
-        - "How tall is Mount Everest?"
-        - "What is the derivative of y = 2x?"
+Usage Examples:
+    - "How tall is Mount Everest?"
+    - "What is the derivative of y = 2x?"
 """
 
 import wolframalpha
@@ -15,6 +15,8 @@ from athena.classes.module import Module
 from athena.classes.task import ActiveTask
 from athena import settings
 
+wolfram_client = wolframalpha.Client(settings.WOLFRAM_KEY)
+
 
 class AnswerTask(ActiveTask):
 
@@ -22,13 +24,11 @@ class AnswerTask(ActiveTask):
         return True
 
     def action(self, text):
-        query = wolframalpha.Client(settings.WOLFRAM_KEY).query(text)
-
-        if len(query.pods) > 1 and query.pods[1].text:
-            answer = query.pods[1].text.replace('|', '')
-            self.speak(answer, show_text=True)
-        else:
-            self.speak(settings.NO_MODULES, show_text=True)
+        try:
+            query = wolfram_client.query(text)
+            self.speak(next(query.results).text)
+        except:
+            self.speak(settings.NO_MODULES)
 
 
 class Wolfram(Module):

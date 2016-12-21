@@ -1,0 +1,438 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>athena.brain &mdash; Hey Athena 1.3.2 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
+    <link rel="top" title="Hey Athena 1.3.2 documentation" href="../../index.html"/>
+        <link rel="up" title="Module code" href="../index.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Hey Athena
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.3.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../intro/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/athena.html">Athena Package</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">Hey Athena</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+      
+    <li>athena.brain</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for athena.brain</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">The &quot;Brain&quot; class handles most of Hey Athena&#39;s processing.</span>
+<span class="sd">To listen for input, use ``brain.inst.run()``</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span>
+
+<span class="kn">import</span> <span class="nn">traceback</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">yaml</span>
+
+<span class="kn">from</span> <span class="nn">athena</span> <span class="k">import</span> <span class="n">settings</span><span class="p">,</span> <span class="n">stt</span><span class="p">,</span> <span class="n">tts</span><span class="p">,</span> <span class="n">apis</span><span class="p">,</span> <span class="n">mods</span><span class="p">,</span> <span class="n">log</span>
+
+<span class="n">inst</span> <span class="o">=</span> <span class="kc">None</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="nb">input</span> <span class="o">=</span> <span class="n">raw_input</span>  <span class="c1"># Python 2 fix</span>
+<span class="k">except</span> <span class="ne">NameError</span><span class="p">:</span>
+    <span class="k">pass</span>
+
+
+<div class="viewcode-block" id="init"><a class="viewcode-back" href="../../api/athena.html#athena.brain.init">[docs]</a><span class="k">def</span> <span class="nf">init</span><span class="p">():</span>
+    <span class="k">global</span> <span class="n">inst</span>
+    <span class="n">inst</span> <span class="o">=</span> <span class="n">Brain</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="Brain"><a class="viewcode-back" href="../../api/athena.html#athena.brain.Brain">[docs]</a><span class="k">class</span> <span class="nc">Brain</span><span class="p">():</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        First look for and initialize APIs in the &quot;api_library&quot; folder.</span>
+<span class="sd">        Then prompt the user to log in.</span>
+<span class="sd">        Next verify that the user&#39;s .yml file is configured for each API.</span>
+<span class="sd">        If an API&#39;s required configuration variables are not found,</span>
+<span class="sd">        then the API is disabled.</span>
+<span class="sd">        Next it finds and loads modules in the &quot;modules&quot; folder.</span>
+<span class="sd">        Lastly, it initializes the STT engine.</span>
+
+<span class="sd">        Use &quot;from athena.apis import api_lib&quot; &amp; &quot;api_lib[&#39;(api_name_key)&#39;]&quot;</span>
+<span class="sd">        to access instances of APIs.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">apis</span><span class="o">.</span><span class="n">find_apis</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">login</span><span class="p">()</span>
+
+        <span class="n">apis</span><span class="o">.</span><span class="n">verify_apis</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">user</span><span class="p">)</span>
+        <span class="n">apis</span><span class="o">.</span><span class="n">list_apis</span><span class="p">()</span>
+
+        <span class="n">mods</span><span class="o">.</span><span class="n">find_mods</span><span class="p">()</span>
+        <span class="n">mods</span><span class="o">.</span><span class="n">list_mods</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">greet</span><span class="p">()</span>
+        <span class="n">stt</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">quit_flag</span> <span class="o">=</span> <span class="kc">False</span>
+
+<div class="viewcode-block" id="Brain.find_users"><a class="viewcode-back" href="../../api/athena.html#athena.brain.Brain.find_users">[docs]</a>    <span class="k">def</span> <span class="nf">find_users</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Returns a list of available user strings &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">users</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">USERS_DIR</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">file</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.yml&#39;</span><span class="p">):</span>
+                <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">USERS_DIR</span><span class="p">,</span> <span class="n">file</span><span class="p">))</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                    <span class="n">user</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">users</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">user</span><span class="p">[</span><span class="s1">&#39;user_api&#39;</span><span class="p">][</span><span class="s1">&#39;username&#39;</span><span class="p">])</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">users</span></div>
+
+<div class="viewcode-block" id="Brain.verify_user_exists"><a class="viewcode-back" href="../../api/athena.html#athena.brain.Brain.verify_user_exists">[docs]</a>    <span class="k">def</span> <span class="nf">verify_user_exists</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Verify that at least 1 user exists &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">find_users</span><span class="p">()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">users</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;~ No users found. Please create a new user.</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="kn">import</span> <span class="nn">athena.config</span> <span class="k">as</span> <span class="nn">cfg</span>
+            <span class="n">cfg</span><span class="o">.</span><span class="n">generate</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">find_users</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Brain.load_user"><a class="viewcode-back" href="../../api/athena.html#athena.brain.Brain.load_user">[docs]</a>    <span class="k">def</span> <span class="nf">load_user</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">username</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Load (username).yml data into the user &quot;&quot;&quot;</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">USERS_DIR</span><span class="p">,</span> <span class="n">username</span><span class="o">+</span><span class="s1">&#39;.yml&#39;</span><span class="p">),</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">user</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Logged in as: &#39;</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">user</span><span class="p">[</span><span class="s1">&#39;user_api&#39;</span><span class="p">][</span><span class="s1">&#39;username&#39;</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="Brain.login"><a class="viewcode-back" href="../../api/athena.html#athena.brain.Brain.login">[docs]</a>    <span class="k">def</span> <span class="nf">login</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">verify_user_exists</span><span class="p">()</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">users</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">load_user</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">users</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="k">return</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;~ Users: &#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">users</span><span class="p">)[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">username</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+        <span class="k">while</span> <span class="n">username</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">users</span><span class="p">:</span>
+            <span class="n">username</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">~ Username: &#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">username</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">users</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">~ Please enter a valid username&#39;</span><span class="p">)</span>
+                <span class="k">continue</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">load_user</span><span class="p">(</span><span class="n">username</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Brain.greet"><a class="viewcode-back" href="../../api/athena.html#athena.brain.Brain.greet">[docs]</a>    <span class="k">def</span> <span class="nf">greet</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Greet the user &quot;&quot;&quot;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">r&quot;  _    _                      _   _                      &quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">r&quot; | |  | |                /\  | | | |                     &quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">r&quot; | |__| | ___ _   _     /  \ | |_| |__   ___ _ __   __ _ &quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">r&quot; |  __  |/ _ \ | | |   / /\ \| __| &#39;_ \ / _ \ &#39;_ \ / _` |&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">r&quot; | |  | |  __/ |_| |  / ____ \ |_| | | |  __/ | | | (_| |&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">r&quot; |_|  |_|\___|\__, | /_/    \_\__|_| |_|\___|_| |_|\__,_|&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">r&quot;               __/ |                                     &quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">r&quot;              |___/                                      &quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">apis</span><span class="o">.</span><span class="n">api_lib</span><span class="p">[</span><span class="s1">&#39;user_api&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">name</span><span class="p">():</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">~ Hey there, &#39;</span><span class="o">+</span><span class="n">apis</span><span class="o">.</span><span class="n">api_lib</span><span class="p">[</span><span class="s1">&#39;user_api&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">name</span><span class="p">()</span><span class="o">+</span><span class="s1">&#39;!</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">~ Hello, what can I do for you today?</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;~ Try asking:&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;  - &quot;Athena (double beep) what</span><span class="se">\&#39;</span><span class="s1">s the weather like in DFW?&quot;&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;  - &quot;Athena (double beep) what is the capital of Tanzania?&quot;&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;  - &quot;Athena (double beep) open facebook.com&quot;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Brain.execute_tasks"><a class="viewcode-back" href="../../api/athena.html#athena.brain.Brain.execute_tasks">[docs]</a>    <span class="k">def</span> <span class="nf">execute_tasks</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mod</span><span class="p">,</span> <span class="n">text</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Executes a module&#39;s task queue &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">task</span> <span class="ow">in</span> <span class="n">mod</span><span class="o">.</span><span class="n">task_queue</span><span class="p">:</span>
+            <span class="n">task</span><span class="o">.</span><span class="n">action</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">task</span><span class="o">.</span><span class="n">greedy</span><span class="p">:</span>
+                <span class="k">break</span></div>
+
+<div class="viewcode-block" id="Brain.execute_mods"><a class="viewcode-back" href="../../api/athena.html#athena.brain.Brain.execute_mods">[docs]</a>    <span class="k">def</span> <span class="nf">execute_mods</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Executes the modules in prioritized order &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">matched_mods</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">tts</span><span class="o">.</span><span class="n">speak</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">NO_MODULES</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">matched_mods</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">mod</span><span class="p">:</span> <span class="n">mod</span><span class="o">.</span><span class="n">priority</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="n">normal_mods</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">greedy_mods</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">greedy_flag</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">priority</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">mod</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">matched_mods</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">greedy_flag</span> <span class="ow">and</span> <span class="n">mod</span><span class="o">.</span><span class="n">priority</span> <span class="o">&lt;</span> <span class="n">priority</span><span class="p">:</span>
+                <span class="k">break</span>
+            <span class="k">if</span> <span class="n">mod</span><span class="o">.</span><span class="n">greedy</span><span class="p">:</span>
+                <span class="n">greedy_mods</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mod</span><span class="p">)</span>
+                <span class="n">greedy_flag</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="n">priority</span> <span class="o">=</span> <span class="n">mod</span><span class="o">.</span><span class="n">priority</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">normal_mods</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mod</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">greedy_mods</span><span class="p">)</span> <span class="ow">is</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">normal_mods</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">greedy_mods</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">greedy_mods</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">if</span> <span class="mi">0</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">normal_mods</span><span class="p">):</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">~ Matched mods (non-greedy): &#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">([</span><span class="n">mod</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">mod</span> <span class="ow">in</span> <span class="n">normal_mods</span><span class="p">])[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="n">m</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mod_select</span><span class="p">(</span><span class="n">greedy_mods</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">m</span><span class="p">:</span>
+                <span class="k">return</span>
+            <span class="n">normal_mods</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">mod</span> <span class="ow">in</span> <span class="n">normal_mods</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">execute_tasks</span><span class="p">(</span><span class="n">mod</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Brain.mod_select"><a class="viewcode-back" href="../../api/athena.html#athena.brain.Brain.mod_select">[docs]</a>    <span class="k">def</span> <span class="nf">mod_select</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mods</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Prompt user to specify which module to use to respond &quot;&quot;&quot;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">~ Which module (greedy) would you like me to use to respond?&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;~ Choices: &#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">([</span><span class="n">mod</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">mod</span> <span class="ow">in</span> <span class="n">mods</span><span class="p">])[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">mod_select</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s1">&#39;&gt; &#39;</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">mod</span> <span class="ow">in</span> <span class="n">mods</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">&#39;^.*</span><span class="se">\\</span><span class="s1">b&#39;</span><span class="o">+</span><span class="n">mod</span><span class="o">.</span><span class="n">name</span><span class="o">+</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">b.*$&#39;</span><span class="p">,</span>  <span class="n">mod_select</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">IGNORECASE</span><span class="p">):</span>
+                <span class="k">return</span> <span class="n">mod</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;No module name found.&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Brain.match_mods"><a class="viewcode-back" href="../../api/athena.html#athena.brain.Brain.match_mods">[docs]</a>    <span class="k">def</span> <span class="nf">match_mods</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Attempts to match a modules and their tasks &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">matched_mods</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">mod</span> <span class="ow">in</span> <span class="n">mods</span><span class="o">.</span><span class="n">mod_lib</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">mod</span><span class="o">.</span><span class="n">enabled</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="sd">&quot;&quot;&quot; Find matched tasks and add to module&#39;s task queue &quot;&quot;&quot;</span>
+            <span class="n">mod</span><span class="o">.</span><span class="n">task_queue</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">task</span> <span class="ow">in</span> <span class="n">mod</span><span class="o">.</span><span class="n">tasks</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">task</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+                    <span class="n">mod</span><span class="o">.</span><span class="n">task_queue</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">task</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">task</span><span class="o">.</span><span class="n">greedy</span><span class="p">:</span>
+                        <span class="k">break</span>
+
+            <span class="sd">&quot;&quot;&quot; Add modules with matched tasks to list &quot;&quot;&quot;</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">mod</span><span class="o">.</span><span class="n">task_queue</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">matched_mods</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mod</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Brain.list_mods"><a class="viewcode-back" href="../../api/athena.html#athena.brain.Brain.list_mods">[docs]</a>    <span class="k">def</span> <span class="nf">list_mods</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;~ Modules (highest priority first): &quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">mod</span> <span class="ow">in</span> <span class="n">mods</span><span class="o">.</span><span class="n">mod_lib</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  - &quot;</span><span class="o">+</span><span class="n">mod</span><span class="o">.</span><span class="n">name</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Brain.enable_mod"><a class="viewcode-back" href="../../api/athena.html#athena.brain.Brain.enable_mod">[docs]</a>    <span class="k">def</span> <span class="nf">enable_mod</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">mod</span> <span class="ow">in</span> <span class="n">mods</span><span class="o">.</span><span class="n">mod_lib</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">mod</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="n">name</span><span class="p">:</span>
+                <span class="n">mod</span><span class="o">.</span><span class="n">enabled</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">mod</span><span class="o">.</span><span class="n">name</span><span class="o">+</span><span class="s2">&quot; enabled.&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Brain.disable_mod"><a class="viewcode-back" href="../../api/athena.html#athena.brain.Brain.disable_mod">[docs]</a>    <span class="k">def</span> <span class="nf">disable_mod</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">mod</span> <span class="ow">in</span> <span class="n">mods</span><span class="o">.</span><span class="n">mod_lib</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">mod</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="n">name</span><span class="p">:</span>
+                <span class="n">mod</span><span class="o">.</span><span class="n">enabled</span> <span class="o">=</span> <span class="kc">False</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">mod</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s2">&quot; disabled.&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Brain.error"><a class="viewcode-back" href="../../api/athena.html#athena.brain.Brain.error">[docs]</a>    <span class="k">def</span> <span class="nf">error</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Inform the user that an error occurred &quot;&quot;&quot;</span>
+        <span class="n">tts</span><span class="o">.</span><span class="n">speak</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">ERROR</span><span class="p">)</span>
+        <span class="n">text</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s1">&#39;Continue? (Y/N) &#39;</span><span class="p">)</span>
+        <span class="c1"># response = stt.active_listen()</span>
+        <span class="k">if</span> <span class="s1">&#39;y&#39;</span> <span class="ow">in</span> <span class="n">text</span><span class="o">.</span><span class="n">lower</span><span class="p">():</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">())</span></div>
+
+<div class="viewcode-block" id="Brain.quit"><a class="viewcode-back" href="../../api/athena.html#athena.brain.Brain.quit">[docs]</a>    <span class="k">def</span> <span class="nf">quit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">quit_flag</span> <span class="o">=</span> <span class="kc">True</span></div>
+
+<div class="viewcode-block" id="Brain.run"><a class="viewcode-back" href="../../api/athena.html#athena.brain.Brain.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Listen for input, match the modules and respond &quot;&quot;&quot;</span>
+        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">quit_flag</span><span class="p">:</span>
+                <span class="k">break</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">settings</span><span class="o">.</span><span class="n">USE_STT</span><span class="p">:</span>
+                    <span class="n">stt</span><span class="o">.</span><span class="n">listen_keyword</span><span class="p">()</span>
+                    <span class="n">text</span> <span class="o">=</span> <span class="n">stt</span><span class="o">.</span><span class="n">active_listen</span><span class="p">()</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">text</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s1">&#39;&gt; &#39;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">text</span><span class="p">:</span>
+                    <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;No text input received.&#39;</span><span class="p">)</span>
+                    <span class="k">continue</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">match_mods</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">execute_mods</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">OSError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="k">if</span> <span class="s1">&#39;Invalid input device&#39;</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">):</span>
+                    <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">NO_MIC</span><span class="o">+</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+                    <span class="n">settings</span><span class="o">.</span><span class="n">USE_STT</span> <span class="o">=</span> <span class="kc">False</span>
+                    <span class="k">continue</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">Exception</span>
+            <span class="k">except</span> <span class="p">(</span><span class="ne">EOFError</span><span class="p">,</span> <span class="ne">KeyboardInterrupt</span><span class="p">):</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Shutting down...&#39;</span><span class="p">)</span>
+                <span class="k">break</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;(runtime error)&quot;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">error</span><span class="p">()</span>
+
+        <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Arrivederci.&#39;</span><span class="p">)</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Connor Byron, Sahil Shah.
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'1.3.2',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -1,47 +1,48 @@
 """
-    A simple test script to check if all dependencies are installed
+A simple test script to check if all dependencies are installed
 """
 import traceback
 
 print('---- Running Dependencies Test ----')
 
 dep = ['PyAudio', 'pocketsphinx', 'SpeechRecognition', 'gTTS',
-        'pyglet', 'PyYAML', 'WolframAlpha', 'AthenaVoice']
+        'pyglet', 'WolframAlpha', 'HeyAthena']
 
 print('\n~ Requires: '+str(dep)[1:-1]+'\n')
 
 passed = True
 
+
 def test_case(case):
+    global passed
     try:
         print('~ Checking dependency:', dep[case])
         if case is 0:
-            import pyaudio  # @UnusedImport
+            import pyaudio
         elif case is 1:
-            from sphinxbase.sphinxbase import Config, Config_swigregister  # @UnusedImport
-            from pocketsphinx.pocketsphinx import Decoder  # @UnusedImport
+            from sphinxbase.sphinxbase import Config, Config_swigregister
+            from pocketsphinx.pocketsphinx import Decoder
         elif case is 2:
-            import speech_recognition  # @UnusedImport
+            import speech_recognition
         elif case is 3:
-            from requests.exceptions import HTTPError  # @UnusedImport
-            from gtts import gTTS  # @UnusedImport
+            from requests.exceptions import HTTPError
+            from gtts import gTTS
         elif case is 4:
-            import pyglet  # @UnusedImport
-        elif case is 5:
-            import yaml  # @UnusedImport
+            import pyglet
         elif case is 6:
-            import wolframalpha  # @UnusedImport
+            import wolframalpha
         elif case is 7:
-            import athena  # @UnusedImport
-            import athena.brain  # @UnusedImport
+            import athena
+            import athena.brain
         print('~ Import successful.')
     except:
         print(traceback.format_exc())
         print('~ Import failed!')
         passed = False
 
-for i, _ in enumerate(dep):
+for i in range(len(dep)):
     test_case(i)
+
 if passed:
     print('\nDependencies Test PASSED! :)\n')
 else:

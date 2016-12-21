@@ -4,6 +4,7 @@ Overview
 
 | **Website:** http://heyathena.com
 | **Documentation:** http://heyathena.com/docs/
+| **Forum:** http://heyathena.com/forum/
 | **GitHub:** https://github.com/hey-athena/hey-athena-client
 | 
 
@@ -55,5 +56,5 @@ Hey Athena is just getting started. We plan to build an open-source community bu
 - **Bigger Community:** we are working on building a bigger open-source community
 - **HTTP REST API Service:** users will be able to send HTTP requests and receive a voice/text JSON response (e.g. - ``HTTP GET http://heyathena.com/api/{api_key}/q=list%20bitcoin%20price``) 
 
-.. |Graphic Overview| image:: http://heyathena.com/images/graphic.png
-   :target: http://heyathena.com/images/graphic.png
+.. |Graphic Overview| image:: https://heyathena.com/img/graphic.png
+   :target: https://heyathena.com/img/graphic.png

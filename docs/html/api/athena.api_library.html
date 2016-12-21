@@ -1,0 +1,360 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>athena.api_library package &mdash; Hey Athena 1.3.2 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="Hey Athena 1.3.2 documentation" href="../index.html"/>
+        <link rel="up" title="Athena Package" href="athena.html"/>
+        <link rel="next" title="athena.classes package" href="athena.classes.html"/>
+        <link rel="prev" title="Athena Package" href="athena.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Hey Athena
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.3.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../intro/index.html">Getting Started</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="athena.html">Athena Package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="athena.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">athena.api_library package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-athena.api_library.geo_info_api">athena.api_library.geo_info_api module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-athena.api_library.ifttt_api">athena.api_library.ifttt_api module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-athena.api_library.sms_text_api">athena.api_library.sms_text_api module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-athena.api_library.user_api">athena.api_library.user_api module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-athena.api_library.voice_browse_api">athena.api_library.voice_browse_api module</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="athena.classes.html">athena.classes package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="athena.modules.html">athena.modules package</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="athena.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="athena.html#module-athena.apis">athena.apis module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="athena.html#module-athena.brain">athena.brain module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="athena.html#module-athena.config">athena.config module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="athena.html#module-athena.log">athena.log module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="athena.html#module-athena.mods">athena.mods module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="athena.html#module-athena.settings">athena.settings module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="athena.html#module-athena.stt">athena.stt module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="athena.html#module-athena.tts">athena.tts module</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">Hey Athena</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="athena.html">Athena Package</a> &raquo;</li>
+      
+    <li>athena.api_library package</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/api/athena.api_library.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-athena.api_library">
+<span id="athena-api-library-package"></span><h1>athena.api_library package<a class="headerlink" href="#module-athena.api_library" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-athena.api_library.geo_info_api">
+<span id="athena-api-library-geo-info-api-module"></span><h2>athena.api_library.geo_info_api module<a class="headerlink" href="#module-athena.api_library.geo_info_api" title="Permalink to this headline">¶</a></h2>
+<p>A tool for retrieving geographical info based on external IP
+| API Documentation: <a class="reference external" href="http://ip-api.com">http://ip-api.com</a></p>
+<dl class="function">
+<dt id="athena.api_library.geo_info_api.get_data">
+<code class="descclassname">athena.api_library.geo_info_api.</code><code class="descname">get_data</code><span class="sig-paren">(</span><em>key</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/athena/api_library/geo_info_api.html#get_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#athena.api_library.geo_info_api.get_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the desired data given an input key</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="athena.api_library.geo_info_api.location">
+<code class="descclassname">athena.api_library.geo_info_api.</code><code class="descname">location</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/athena/api_library/geo_info_api.html#location"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#athena.api_library.geo_info_api.location" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="athena.api_library.geo_info_api.time">
+<code class="descclassname">athena.api_library.geo_info_api.</code><code class="descname">time</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/athena/api_library/geo_info_api.html#time"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#athena.api_library.geo_info_api.time" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="athena.api_library.geo_info_api.update_data">
+<code class="descclassname">athena.api_library.geo_info_api.</code><code class="descname">update_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/athena/api_library/geo_info_api.html#update_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#athena.api_library.geo_info_api.update_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update the location data cache</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-athena.api_library.ifttt_api">
+<span id="athena-api-library-ifttt-api-module"></span><h2>athena.api_library.ifttt_api module<a class="headerlink" href="#module-athena.api_library.ifttt_api" title="Permalink to this headline">¶</a></h2>
+<p>A simple IFTTT trigger tool
+| API Documentation: <a class="reference external" href="https://ifttt.com/maker">https://ifttt.com/maker</a></p>
+<dl class="function">
+<dt id="athena.api_library.ifttt_api.trigger">
+<code class="descclassname">athena.api_library.ifttt_api.</code><code class="descname">trigger</code><span class="sig-paren">(</span><em>event</em>, <em>val1=None</em>, <em>val2=None</em>, <em>val3=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/athena/api_library/ifttt_api.html#trigger"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#athena.api_library.ifttt_api.trigger" title="Permalink to this definition">¶</a></dt>
+<dd><p>Triggers a custom IFTTT event (using &#8216;event&#8217; token and parameters)</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-athena.api_library.sms_text_api">
+<span id="athena-api-library-sms-text-api-module"></span><h2>athena.api_library.sms_text_api module<a class="headerlink" href="#module-athena.api_library.sms_text_api" title="Permalink to this headline">¶</a></h2>
+<p>A simple API to send SMS text messages to mobile devices</p>
+<dl class="class">
+<dt id="athena.api_library.sms_text_api.SmsTextApi">
+<em class="property">class </em><code class="descclassname">athena.api_library.sms_text_api.</code><code class="descname">SmsTextApi</code><a class="reference internal" href="../_modules/athena/api_library/sms_text_api.html#SmsTextApi"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#athena.api_library.sms_text_api.SmsTextApi" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="athena.classes.html#athena.classes.api.Api" title="athena.classes.api.Api"><code class="xref py py-class docutils literal"><span class="pre">athena.classes.api.Api</span></code></a></p>
+<dl class="method">
+<dt id="athena.api_library.sms_text_api.SmsTextApi.send_text">
+<code class="descname">send_text</code><span class="sig-paren">(</span><em>text</em>, <em>number=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/athena/api_library/sms_text_api.html#SmsTextApi.send_text"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#athena.api_library.sms_text_api.SmsTextApi.send_text" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sends the text message to the desired phone number</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-athena.api_library.user_api">
+<span id="athena-api-library-user-api-module"></span><h2>athena.api_library.user_api module<a class="headerlink" href="#module-athena.api_library.user_api" title="Permalink to this headline">¶</a></h2>
+<p>A simple API to retrieve user info</p>
+<dl class="class">
+<dt id="athena.api_library.user_api.UserApi">
+<em class="property">class </em><code class="descclassname">athena.api_library.user_api.</code><code class="descname">UserApi</code><a class="reference internal" href="../_modules/athena/api_library/user_api.html#UserApi"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#athena.api_library.user_api.UserApi" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="athena.classes.html#athena.classes.api.Api" title="athena.classes.api.Api"><code class="xref py py-class docutils literal"><span class="pre">athena.classes.api.Api</span></code></a></p>
+<dl class="method">
+<dt id="athena.api_library.user_api.UserApi.name">
+<code class="descname">name</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/athena/api_library/user_api.html#UserApi.name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#athena.api_library.user_api.UserApi.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-athena.api_library.voice_browse_api">
+<span id="athena-api-library-voice-browse-api-module"></span><h2>athena.api_library.voice_browse_api module<a class="headerlink" href="#module-athena.api_library.voice_browse_api" title="Permalink to this headline">¶</a></h2>
+<p>Tools to automate browsing (requires Firefox)</p>
+<dl class="class">
+<dt id="athena.api_library.voice_browse_api.VoiceBrowseApi">
+<em class="property">class </em><code class="descclassname">athena.api_library.voice_browse_api.</code><code class="descname">VoiceBrowseApi</code><a class="reference internal" href="../_modules/athena/api_library/voice_browse_api.html#VoiceBrowseApi"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#athena.api_library.voice_browse_api.VoiceBrowseApi" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="athena.classes.html#athena.classes.api.Api" title="athena.classes.api.Api"><code class="xref py py-class docutils literal"><span class="pre">athena.classes.api.Api</span></code></a></p>
+<dl class="method">
+<dt id="athena.api_library.voice_browse_api.VoiceBrowseApi.clear">
+<code class="descname">clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/athena/api_library/voice_browse_api.html#VoiceBrowseApi.clear"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#athena.api_library.voice_browse_api.VoiceBrowseApi.clear" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="athena.api_library.voice_browse_api.VoiceBrowseApi.click">
+<code class="descname">click</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/athena/api_library/voice_browse_api.html#VoiceBrowseApi.click"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#athena.api_library.voice_browse_api.VoiceBrowseApi.click" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="athena.api_library.voice_browse_api.VoiceBrowseApi.close">
+<code class="descname">close</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/athena/api_library/voice_browse_api.html#VoiceBrowseApi.close"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#athena.api_library.voice_browse_api.VoiceBrowseApi.close" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="athena.api_library.voice_browse_api.VoiceBrowseApi.close_tab">
+<code class="descname">close_tab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/athena/api_library/voice_browse_api.html#VoiceBrowseApi.close_tab"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#athena.api_library.voice_browse_api.VoiceBrowseApi.close_tab" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="athena.api_library.voice_browse_api.VoiceBrowseApi.maximize">
+<code class="descname">maximize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/athena/api_library/voice_browse_api.html#VoiceBrowseApi.maximize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#athena.api_library.voice_browse_api.VoiceBrowseApi.maximize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="athena.api_library.voice_browse_api.VoiceBrowseApi.open">
+<code class="descname">open</code><span class="sig-paren">(</span><em>url=None</em>, <em>new_tab=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/athena/api_library/voice_browse_api.html#VoiceBrowseApi.open"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#athena.api_library.voice_browse_api.VoiceBrowseApi.open" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="athena.api_library.voice_browse_api.VoiceBrowseApi.search">
+<code class="descname">search</code><span class="sig-paren">(</span><em>q</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/athena/api_library/voice_browse_api.html#VoiceBrowseApi.search"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#athena.api_library.voice_browse_api.VoiceBrowseApi.search" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="athena.api_library.voice_browse_api.VoiceBrowseApi.switch_tab">
+<code class="descname">switch_tab</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/athena/api_library/voice_browse_api.html#VoiceBrowseApi.switch_tab"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#athena.api_library.voice_browse_api.VoiceBrowseApi.switch_tab" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="athena.api_library.voice_browse_api.VoiceBrowseApi.type">
+<code class="descname">type</code><span class="sig-paren">(</span><em>text</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/athena/api_library/voice_browse_api.html#VoiceBrowseApi.type"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#athena.api_library.voice_browse_api.VoiceBrowseApi.type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="athena.classes.html" class="btn btn-neutral float-right" title="athena.classes package" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="athena.html" class="btn btn-neutral" title="Athena Package" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Connor Byron, Sahil Shah.
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.3.2',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

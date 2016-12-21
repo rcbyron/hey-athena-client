@@ -11,11 +11,12 @@ import os
 from requests.exceptions import HTTPError
 from gtts import gTTS
 
-from athena import settings
+from athena import settings, log
 
 
 @contextlib.contextmanager
 def ignore_stderr():
+    """ Ignore unwanted 'error' output from pyglet/pyaudio """
     devnull = os.open(os.devnull, os.O_WRONLY)
     old_stderr = os.dup(2)
     sys.stderr.flush()
@@ -35,8 +36,7 @@ def init():
 
 
 def play_mp3(file_name, file_path=settings.MEDIA_DIR):
-    """
-    Plays a local MP3 file
+    """Plays a local MP3 file
 
     :param file_name: top-level file name (e.g. hello.mp3)
     :param file_path: directory containing file ('media' folder by default)
@@ -57,18 +57,19 @@ def play_mp3(file_name, file_path=settings.MEDIA_DIR):
         pyglet.app.run()
 
 
-def speak(phrase, cache=False, filename='default', show_text=True):
-    """
-    Speaks a given text phrase
+def speak(phrase, cache=False, filename='default', show_text=True, log_text=True):
+    """Speaks a given text phrase
 
     :param phrase: text string to speak
     :param cache: if True, store .mp3 in 'media/responses'
-    :raises HTTPError: if Google TTS fails to respond
+    :param filename: filename if cached
+    :param show_text: if True, store .mp3 in 'media/responses'
+    :param cache: if True, store .mp3 in 'media/responses'
     """
     if show_text:
-        print('\n~ '+phrase+'\n')
+        log.info(phrase)
     if not settings.USE_TTS:
-        print('SPOKEN:', phrase)
+        log.info('SPOKEN: '+phrase)
         return
 
     try:
@@ -86,9 +87,11 @@ def speak(phrase, cache=False, filename='default', show_text=True):
         else:
             filename = os.path.join(settings.RESPONSES_DIR, filename+'.mp3')
             tts.save(filename)
-            print('\n~ Saved to:', filename)
+            log.info('Saved to: '+filename)
 
     except HTTPError as e:
-        print('Google TTS might not be updated:', e)
+        log.error('Google TTS might not be updated: '+str(e))
     except Exception as e:
-        print('Unknown Google TTS issue:', e)
+        log.error('Unknown Google TTS issue: '+str(e))
+
+

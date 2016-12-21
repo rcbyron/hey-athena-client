@@ -6,7 +6,7 @@ import pkgutil
 import inspect
 import traceback
 
-from athena import settings
+from athena import settings, log
 
 api_lib = None
 
@@ -15,7 +15,7 @@ def find_apis():
     """ Find APIs """
     global api_lib
     api_lib = {}
-    print('~ Looking for APIs in:', settings.API_DIRS)
+    log.debug('Looking for APIs in: '+str(settings.API_DIRS))
     for finder, name, _ in pkgutil.iter_modules(settings.API_DIRS):
         try:
             file = finder.find_module(name).load_module(name)
@@ -28,7 +28,7 @@ def find_apis():
                             api_lib[api.key] = api
         except Exception as e:
             print(traceback.format_exc())
-            print('\n~ Error loading \''+name+'\' '+str(e))
+            log.error('Error loading \''+name+'\' '+str(e))
 
 
 def verify_apis(user):
@@ -40,4 +40,4 @@ def verify_apis(user):
 def list_apis():
     """ List APIs """
     global api_lib
-    print('\n~ APIs:', str(list(api_lib.keys()))[1:-1]+'\n')
+    log.debug('APIs: '+str(list(api_lib.keys()))[1:-1])

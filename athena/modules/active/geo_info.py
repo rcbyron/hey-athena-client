@@ -1,9 +1,9 @@
 """
-    Uses the external IP to find geographical info
+Uses the external IP to find geographical info
 
-    Usage Examples:
-        - "What time is it?"
-        - "Where am I?"
+Usage Examples:
+    - "What time is it?"
+    - "Where am I?"
 """
 
 from athena.classes.module import Module
@@ -20,7 +20,7 @@ class GetIPInfoTask(ActiveTask):
                        'location']
         super(GetIPInfoTask, self).__init__(words=match_words)
 
-        geo_info_api.update_data()
+        # geo_info_api.update_data()
         self.groups = {1: 'query'}
 
     def match(self, text):
@@ -28,9 +28,10 @@ class GetIPInfoTask(ActiveTask):
 
     def action(self, text):
         if 'time' in self.query:
-            self.speak('The time is '+geo_info_api.time())
+            self.speak('It\'s currently'+geo_info_api.time())
             return
 
+        geo_info_api.update_data()
         self.speak(str(geo_info_api.get_data(self.query)))
 
 

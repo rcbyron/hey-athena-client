@@ -16,20 +16,20 @@ class Module(object):
                  greedy=DEFAULT_GREEDY,
                  enabled=DEFAULT_ENABLED):
 
-        """ Make a unique mod name """
+        # Make a unique mod name
         self.name = name
 
-        """ Tasks find input text patterns and perform an action """
+        # Tasks find input text patterns and perform an action
         self.tasks = mod_tasks
         self.tasks.sort(key=lambda task: task.priority, reverse=True)
 
-        """ Modules match and execute in prioritized order """
+        # Modules match and execute in prioritized order
         self.priority = priority
 
-        """ Greedy mods stop future mods from being matched """
+        # Greedy mods stop future mods from being matched
         self.greedy = greedy
 
-        """ True if the mod is enabled """
+        # True if the mod is enabled
         self.enabled = enabled
 
     def disable(self):

@@ -5,14 +5,10 @@ Basic Speech-To-Text tools are stored here
 import pyaudio
 import speech_recognition
 
-import settings
-import tts
-import brain
+from athena import settings, tts, log
 
 from sphinxbase.sphinxbase import Config, Config_swigregister
 from pocketsphinx.pocketsphinx import Decoder
-
-# from athena import settings, tts, brain
 
 
 def init():
@@ -36,9 +32,7 @@ def init():
 
 
 def listen_keyword():
-    """
-    Passively listens for the WAKE_UP_WORD string
-    """
+    """ Passively listens for the WAKE_UP_WORD string """
     with tts.ignore_stderr():
         global decoder, p
         stream = p.open(format=pyaudio.paInt16, channels=1, rate=16000,
@@ -46,7 +40,7 @@ def listen_keyword():
         stream.start_stream()
         p.get_default_input_device_info()
 
-    print("~ Waiting to be woken up... ")
+    log.info("Waiting to be woken up... ")
     decoder.start_utt()
     while True:
         buf = stream.read(1024)
@@ -68,7 +62,7 @@ def active_listen():
         with speech_recognition.Microphone() as src:
             # listen for 1 second to adjust energy threshold for ambient noise
             # r.adjust_for_ambient_noise(src)
-            print("\n~ Active listening... ")
+            log.info("Active listening... ")
             tts.play_mp3('double-beep.mp3')
 
             # listen for the first phrase and extract it into audio data
@@ -77,12 +71,11 @@ def active_listen():
     msg = ''
     try:
         msg = r.recognize_google(audio)  # recognize speech using Google STT
-        print('\n~ "'+msg+'"')
     except speech_recognition.UnknownValueError:
         print("Google Speech Recognition could not understand audio")
     except speech_recognition.RequestError as e:
         print("Could not request results from Google STT; {0}".format(e))
-    except:                              # speech is unintelligible
-        brain.inst.error()
+    except:
+        print("Unknown exception occurred!")
     finally:
         return msg
