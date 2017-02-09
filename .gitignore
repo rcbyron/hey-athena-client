@@ -1,6 +1,5 @@
 *.json
 *.yml
-*.txt
 .credentials
 .pydevproject
 .project
@@ -25,6 +24,7 @@ env/
 build/
 develop-eggs/
 dist/
+docs/*.txt
 downloads/
 eggs/
 .eggs/

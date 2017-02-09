@@ -1,0 +1,3 @@
+athena cancel /1e-30/
+athena stop /1e-30/
+athena /1e-30/
