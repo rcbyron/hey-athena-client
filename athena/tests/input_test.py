@@ -1,12 +1,17 @@
 """
 A simple test script to see if the brain is responding to input
 """
-import traceback
-
-from athena import brain
-brain.init()
-
 print('---- Running Input Test ----')
+
+import traceback
+import time
+
+from athena import settings
+from athena.brain import Brain
+
+settings.USE_STT = False
+settings.USE_TTS = False
+my_brain = Brain(greet_user=False)
 
 inputs = [
     "What's up?",
@@ -14,10 +19,15 @@ inputs = [
     "Lol!"
 ]
 
+passed = True
+
 try:
     for text in inputs:
-        brain.inst.match_mods(text)
-        brain.inst.execute_mods(text)
-    print('~ Input Test passed! :)')
+        my_brain.match_mods(text)
+        my_brain.execute_mods(text)
+    print('---- TEST PASSED ----\n')
 except:
+    passed = False
     print(traceback.format_exc())
+
+time.sleep(1)

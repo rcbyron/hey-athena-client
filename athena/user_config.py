@@ -8,6 +8,7 @@ import yaml
 from athena import settings
 from athena.apis import api_lib
 
+
 def block_print(title):
     """ Prints a pretty title block """
     if not title:

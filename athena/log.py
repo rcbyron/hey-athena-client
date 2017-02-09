@@ -5,7 +5,6 @@ import logging
 
 from athena import settings
 
-
 logger = logging.getLogger(settings.LOG_NAME)
 logger.setLevel(settings.LOG_LEVEL)
 fh = logging.FileHandler(settings.LOG_FILE)

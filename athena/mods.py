@@ -38,6 +38,7 @@ def list_mods():
 
 
 def disable_mod(name):
+    """ Attempts to disable the specified mod """
     global mod_lib
     for mod in mod_lib:
         if name in mod.name:
@@ -46,6 +47,7 @@ def disable_mod(name):
 
 
 def enable_mod(name):
+    """ Attempts to enable the specified mod """
     global mod_lib
     for mod in mod_lib:
         if name in mod.name:

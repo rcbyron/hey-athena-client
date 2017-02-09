@@ -24,8 +24,8 @@ def init():
     inst = Brain()
 
 
-class Brain():
-    def __init__(self):
+class Brain:
+    def __init__(self, greet_user=True):
         """
         First look for and initialize APIs in the "api_library" folder.
         Then prompt the user to log in.
@@ -48,8 +48,10 @@ class Brain():
         mods.find_mods()
         mods.list_mods()
 
-        self.greet()
+        if greet_user:
+            self.greet()
         stt.init()
+        tts.init()
 
         self.quit_flag = False
 
@@ -68,7 +70,7 @@ class Brain():
         self.find_users()
         if not self.users:
             print('~ No users found. Please create a new user.\n')
-            import athena.config as cfg
+            import athena.user_config as cfg
             cfg.generate()
             self.find_users()
 
@@ -79,6 +81,7 @@ class Brain():
             log.debug('Logged in as: '+self.user['user_api']['username'])
 
     def login(self):
+        """ Prompts a user to login (if more than one available) """
         self.verify_user_exists()
         if len(self.users) == 1:
             self.load_user(self.users[0])
@@ -182,24 +185,6 @@ class Brain():
             if len(mod.task_queue):
                 self.matched_mods.append(mod)
 
-    def list_mods(self):
-        print("~ Modules (highest priority first): ")
-        for mod in mods.mod_lib:
-            print("  - "+mod.name)
-
-    def enable_mod(self, name):
-        for mod in mods.mod_lib:
-            if mod.name == name:
-                mod.enabled = True
-                log.info(mod.name+" enabled.")
-
-
-    def disable_mod(self, name):
-        for mod in mods.mod_lib:
-            if mod.name == name:
-                mod.enabled = False
-                log.info(mod.name + " disabled.")
-
     def error(self):
         """ Inform the user that an error occurred """
         tts.speak(settings.ERROR)
@@ -225,6 +210,8 @@ class Brain():
                 if not text:
                     log.info('No text input received.')
                     continue
+                else:
+                    log.info("'"+text+"'")
 
                 self.match_mods(text)
                 self.execute_mods(text)

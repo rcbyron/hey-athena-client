@@ -2,59 +2,35 @@
 Basic Text-To-Speech tools are stored here
 """
 
-import contextlib
-import sys
-import pyglet
 import tempfile
 import os
+import pygame
 
 from requests.exceptions import HTTPError
 from gtts import gTTS
+from pygame import mixer
 
 from athena import settings, log
 
 
-@contextlib.contextmanager
-def ignore_stderr():
-    """ Ignore unwanted 'error' output from pyglet/pyaudio """
-    devnull = os.open(os.devnull, os.O_WRONLY)
-    old_stderr = os.dup(2)
-    sys.stderr.flush()
-    os.dup2(devnull, 2)
-    os.close(devnull)
-    try:
-        yield
-    finally:
-        os.dup2(old_stderr, 2)
-        os.close(old_stderr)
-
-
 def init():
-    # pyglet.options['audio'] = ('openal', 'directsound', 'silent')
-    pyglet.lib.load_library('avbin')
-    pyglet.have_avbin = True
+    """ Initialize the pygame mixer """
+    mixer.init()
 
 
-def play_mp3(file_name, file_path=settings.MEDIA_DIR):
+def play_mp3(file_name, file_path=settings.MEDIA_DIR, blocking=False):
     """Plays a local MP3 file
 
     :param file_name: top-level file name (e.g. hello.mp3)
     :param file_path: directory containing file ('media' folder by default)
+    :param blocking: if false, play mp3 in background
     """
-    # Clear path list
-    del pyglet.resource.path[:]
-    pyglet.resource.path.append(file_path)
-    pyglet.resource.reindex()
 
-    with ignore_stderr():
-        sound = pyglet.resource.media(file_name, streaming=False)
-        sound.play()
-
-        def exit_callback(dt):
-            pyglet.app.exit()
-
-        pyglet.clock.schedule_once(exit_callback, sound.duration)
-        pyglet.app.run()
+    mixer.music.load(os.path.join(file_path, file_name))
+    mixer.music.play()
+    if blocking:
+        while mixer.music.get_busy():
+            pygame.time.delay(100)
 
 
 def speak(phrase, cache=False, filename='default', show_text=True, log_text=True):
@@ -74,7 +50,7 @@ def speak(phrase, cache=False, filename='default', show_text=True, log_text=True
 
     try:
         phrase = phrase[:settings.MAX_CHAR]
-        tts = gTTS(text=phrase, lang=settings.LANG)
+        tts = gTTS(text=phrase, lang=settings.LANG_CODE)
 
         if not cache:
             with tempfile.NamedTemporaryFile(mode='wb', suffix='.mp3',

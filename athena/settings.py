@@ -17,8 +17,12 @@ from athena.modules import active as active_mods
 # Change to 'hey athena' if background noise triggering occurs
 WAKE_UP_WORD = "athena"
 
-# Try active listening until no input is received (useful for conversation)
+# (not implemented yet) active listen until no input is received (for conversation)
 FREQUENT_ACTIVE_LISTEN = True
+
+# Current choices: ["google", "sphinx"]
+# NOTE: only english is supported for sphinx by default at the time
+ACTIVE_ENGINE = "google"
 
 # Set these to False while debugging
 USE_STT = True
@@ -27,6 +31,7 @@ USE_TTS = True
 # Max gTTS (speaking) string length
 MAX_CHAR = 140
 
+
 """
 LANGS = ['af', 'sq', 'ar', 'hy', 'ca', 'zh-CN', 'zh-TW', 'hr', 'cs',
          'da', 'nl', 'en', 'eo', 'fi', 'fr', 'de', 'el', 'ht', 'hi',
@@ -34,8 +39,10 @@ LANGS = ['af', 'sq', 'ar', 'hy', 'ca', 'zh-CN', 'zh-TW', 'hr', 'cs',
          'pl', 'pt', 'ro', 'ru', 'sr', 'sk', 'es', 'sw', 'sv', 'ta',
          'th', 'tr', 'vi', 'cy']
 """
-LANG = 'en'
-LANG_4CODE = 'en-US'
+# Lang Code/LCID reference: http://www.science.co.il/language/Locale-codes.php
+# NOTE: Changing this only changes STT & TTS (not module pattern matching)
+LANG_CODE = 'en'
+LANG_4CODE = 'en-US'  # LCID String
 
 #####################
 #    DIRECTORIES    #
@@ -80,12 +87,12 @@ for d in DIRS:
     if not path.exists(d):
         mkdir(d)
 
-POCKETSPHINX_LOG = join(LOGS_DIR,  'passive-listen.log')
-ACOUSTIC_MODEL =   join(MODEL_DIR, 'en-US', 'acoustic-model')
-LANGUAGE_MODEL =   join(MODEL_DIR, 'en-US', 'language-model.lm.bin')
-POCKET_DICT =      join(MODEL_DIR, 'en-US', 'pronounciation-dictionary.dict')
-# For custom pronounciations, edit 'athena.dict' and use this line instead
-# POCKET_DICT =      join(DATA_DIR, 'athena.dict')
+POCKETSPHINX_LOG = join(LOGS_DIR,   'passive-listen.log')
+ACOUSTIC_MODEL =   join(MODEL_DIR,  'en-US', 'acoustic-model')
+LANGUAGE_MODEL =   join(MODEL_DIR,  'en-US', 'language-model.lm.bin')
+POCKET_DICT =      join(MODEL_DIR,  'en-US', 'pronounciation-dictionary.dict')
+KEYPHRASES =       join(CLIENT_DIR, 'keyphrases.txt')
+# For custom word pronounciations, edit the pocketsphinx dictionary above
 
 #####################
 #     RESPONSES     #
@@ -103,4 +110,7 @@ IFTTT_KEY =        ''
 
 CONTACTS = {}
 
+#####################
+#   BASIC REGEX     #
+#####################
 PHONE_REGEX = r"\b((\(\d{3}\)|\d{3})-?\d{3}-?\d{4})\s?(.*)"
