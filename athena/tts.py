@@ -17,7 +17,6 @@ def init():
     """ Initialize the pygame mixer """
     mixer.init()
 
-
 def play_mp3(file_name, file_path=settings.MEDIA_DIR, blocking=False):
     """Plays a local MP3 file
 
@@ -26,8 +25,11 @@ def play_mp3(file_name, file_path=settings.MEDIA_DIR, blocking=False):
     :param blocking: if false, play mp3 in background
     """
 
-    mixer.music.load(os.path.join(file_path, file_name))
-    mixer.music.play()
+    sound = pygame.mixer.Sound(os.path.join(file_path, file_name))
+    chan = pygame.mixer.find_channel()
+    chan.queue(sound)
+    #mixer.music.load(os.path.join(file_path, file_name))
+    #mixer.music.play()
     if blocking:
         while mixer.music.get_busy():
             pygame.time.delay(100)
@@ -53,7 +55,7 @@ def speak(phrase, cache=False, filename='default', show_text=True, log_text=True
         tts = gTTS(text=phrase, lang=settings.LANG_CODE)
 
         if not cache:
-            with tempfile.NamedTemporaryFile(mode='wb', suffix='.mp3',
+            with tempfile.NamedTemporaryFile(mode='wb', suffix='.wav',
                                              delete=False) as f:
                 (temp_path, temp_name) = os.path.split(f.name)
                 tts.write_to_fp(f)
@@ -61,7 +63,7 @@ def speak(phrase, cache=False, filename='default', show_text=True, log_text=True
             play_mp3(temp_name, temp_path)
             os.remove(os.path.join(temp_path, temp_name))
         else:
-            filename = os.path.join(settings.RESPONSES_DIR, filename+'.mp3')
+            filename = os.path.join(settings.RESPONSES_DIR, filename+'.wav')
             tts.save(filename)
             log.info('Saved to: '+filename)
 

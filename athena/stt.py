@@ -91,7 +91,7 @@ def active_listen():
             # listen for 1 second to adjust energy threshold for ambient noise
             # r.adjust_for_ambient_noise(src)
             log.info("Active listening... ")
-            tts.play_mp3('double-beep.mp3')
+            tts.play_mp3('double-beep.wav')
 
             # listen for the first phrase and extract it into audio data
             audio = r.listen(src)
@@ -112,3 +112,4 @@ def active_listen():
         log.info(traceback.format_exc())
     finally:
         return msg
+
