@@ -11,7 +11,7 @@ from athena.classes.task import ActiveTask
 from athena.tts import play_mp3
 
 # Checks 'media' folder by default
-TURN_UP_SONG = 'godj.mp3'
+TURN_UP_SONG = 'godj.wav'
 
 
 class PlaySongTask(ActiveTask):
