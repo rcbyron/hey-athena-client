@@ -28,8 +28,7 @@ def play_mp3(file_name, file_path=settings.MEDIA_DIR, blocking=False):
     sound = pygame.mixer.Sound(os.path.join(file_path, file_name))
     chan = pygame.mixer.find_channel()
     chan.queue(sound)
-    #mixer.music.load(os.path.join(file_path, file_name))
-    #mixer.music.play()
+
     if blocking:
         while mixer.music.get_busy():
             pygame.time.delay(100)
