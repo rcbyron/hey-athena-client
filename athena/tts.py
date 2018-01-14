@@ -9,7 +9,6 @@ import pygame
 from requests.exceptions import HTTPError
 from gtts import gTTS
 from pygame import mixer
-
 from athena import settings, log
 
 
@@ -24,10 +23,13 @@ def play_mp3(file_name, file_path=settings.MEDIA_DIR, blocking=False):
     :param file_path: directory containing file ('media' folder by default)
     :param blocking: if false, play mp3 in background
     """
-
-    sound = pygame.mixer.Sound(os.path.join(file_path, file_name))
-    chan = pygame.mixer.find_channel()
-    chan.queue(sound)
+    if ".mp3" in file_name:
+        mixer.music.load(os.path.join(file_path, file_name))
+        mixer.music.play()
+    else:
+        sound = pygame.mixer.Sound(os.path.join(file_path, file_name))
+        chan = pygame.mixer.find_channel()
+        chan.queue(sound)
 
     if blocking:
         while mixer.music.get_busy():
@@ -54,7 +56,7 @@ def speak(phrase, cache=False, filename='default', show_text=True, log_text=True
         tts = gTTS(text=phrase, lang=settings.LANG_CODE)
 
         if not cache:
-            with tempfile.NamedTemporaryFile(mode='wb', suffix='.wav',
+            with tempfile.NamedTemporaryFile(mode='wb', suffix='.mp3',
                                              delete=False) as f:
                 (temp_path, temp_name) = os.path.split(f.name)
                 tts.write_to_fp(f)
